@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   cub3d_input_conversion.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 10:36:20 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 13:50:43 by mchardin         ###   ########.fr       */
+/*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
+/*   Updated: 2019/11/17 14:09:33 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "cub3d.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include "libft_structs.h"
-
-# define B BUFFER_SIZE
-
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin_gnl(char *s1, char *s2);
-
-#endif
+void	ft_init_mapstruct(t_map map)
+{
+	map.grid = 0;
+	map.x_max = 0;
+	map.y_max = 0;
+	map.NO = 0;
+	map.SO = 0;
+	map.WE = 0;
+	map.EA = 0;
+	map.S = 0;
+	map.F = 0;
+	map.C = 0;
+}

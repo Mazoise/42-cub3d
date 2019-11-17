@@ -6,11 +6,11 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:30:20 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/16 10:03:44 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:07:08 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 #include <stdlib.h>
 
 int		ft_analyse_nb(int nb, char chr, t_flags *conv)

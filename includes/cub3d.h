@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 10:36:20 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 13:50:43 by mchardin         ###   ########.fr       */
+/*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
+/*   Updated: 2019/11/17 13:41:43 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
+# include "mlx.h"
+# include "libft.h"
+# include <stdlib.h> 
+# include <math.h> 
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include "libft_structs.h"
-
-# define B BUFFER_SIZE
-
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin_gnl(char *s1, char *s2);
+typedef struct	s_map
+{
+	char	**grid;
+	int		x_max;
+	int		y_max;
+	void	*NO;
+	void	*SO;
+	void	*WE;
+	void	*EA;
+	void	*S;
+	void	*F;
+	void	*C;
+}					t_map;
 
 #endif

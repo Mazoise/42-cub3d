@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 09:53:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/13 17:40:55 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 13:47:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,7 @@
 
 # include <stdarg.h>
 # include <stdint.h>
-# include "libft.h"
-
-typedef	struct	s_flags
-{
-	char	flaglist[3];
-	int		size;
-	int		precision;
-}				t_flags;
-
-typedef	struct	s_cont
-{
-	char	*str;
-	char	czero;
-}				t_cont;
+# include "libft_structs.h"
 
 int				ft_printf(const char *str, ...);
 char			*ft_strjoin_f(char *s1, char *s2);

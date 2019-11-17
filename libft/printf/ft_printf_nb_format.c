@@ -6,12 +6,12 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 11:16:17 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/13 10:39:40 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:07:18 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "ft_printf.h"
+#include "libft.h"
 
 static void		ft_conv_h(uintptr_t nb, int lg_nb, char *base_to, char *new)
 {

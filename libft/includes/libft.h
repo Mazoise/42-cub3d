@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 14:45:08 by mchardin          #+#    #+#             */
-/*   Updated: 2019/10/20 17:55:02 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 13:50:59 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 # define LIBFT_H
 
 # include <string.h>
-
-typedef struct	s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "libft_structs.h"
 
 int				ft_atoi(const char *str);
 void			ft_bzero(void *b, size_t n);
@@ -36,8 +33,7 @@ void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstlast(t_list *lst);
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
-				void (*del)(void *));
+t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
@@ -65,4 +61,5 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+
 #endif

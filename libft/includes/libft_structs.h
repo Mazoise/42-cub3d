@@ -1,32 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   libft_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 10:36:20 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 13:50:43 by mchardin         ###   ########.fr       */
+/*   Created: 2019/11/17 13:44:07 by mchardin          #+#    #+#             */
+/*   Updated: 2019/11/17 13:50:54 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef LIBFT_STRUCTS_H
+# define LIBFT_STRUCTS_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
+typedef struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include "libft_structs.h"
+typedef	struct	s_flags
+{
+	char	flaglist[3];
+	int		size;
+	int		precision;
+}				t_flags;
 
-# define B BUFFER_SIZE
+typedef	struct	s_cont
+{
+	char	*str;
+	char	czero;
+}				t_cont;
 
-int				get_next_line(int fd, char **line);
-char			*ft_strjoin_gnl(char *s1, char *s2);
+typedef struct	s_buf
+{
+	int		r;
+	char	buf[1][BUFFER_SIZE + 1];
+}				t_buf;
 
 #endif

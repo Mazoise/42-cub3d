@@ -6,13 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 09:52:28 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/13 17:58:12 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:07:42 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdlib.h>
-#include "ft_printf.h"
+#include "libft.h"
 
 t_cont		*ft_strct(char *str, char czero)
 {

@@ -1,6 +1,8 @@
 PREFIX		=	./srcs/
 
-INCLUDES	=	.
+INCLUDES	=	./includes/
+
+INCLUDES_L	=	./libft/includes/
 
 SRCS 		=	$(addprefix $(PREFIX), cub3d.c)
 
@@ -8,7 +10,7 @@ OBJS		=	$(SRCS:.c=.o)
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Werror -Wextra -I $(INCLUDES)
+CFLAGS		=	-Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L)
 
 RM 			=	rm -f
 

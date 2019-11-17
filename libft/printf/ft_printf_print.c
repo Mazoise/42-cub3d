@@ -6,12 +6,12 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:25:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/13 19:38:56 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 11:07:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_delcontent(void *cont)
 {
