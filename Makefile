@@ -4,7 +4,7 @@ INCLUDES	=	./includes/
 
 INCLUDES_L	=	./libft/includes/
 
-SRCS 		=	$(addprefix $(PREFIX), cub3d.c)
+SRCS 		=	$(addprefix $(PREFIX), cub3d.c cub3d_init.c cub3d_input.c)
 
 OBJS		=	$(SRCS:.c=.o)
 

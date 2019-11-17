@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 13:41:43 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 22:16:41 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h> 
 # include <math.h> 
 
-typedef struct	s_map
+typedef struct		s_map
 {
 	char	**grid;
 	int		x_max;
@@ -28,8 +28,25 @@ typedef struct	s_map
 	void	*WE;
 	void	*EA;
 	void	*S;
-	void	*F;
-	void	*C;
+	int		F;
+	int		C;
 }					t_map;
+
+void	free_grid(char **grid);
+int		is_valid_grid_element(char c);
+int		grid_width(char *str);
+int		is_save_request(char *str);
+int		check_format(char *str);
+int		init_mapstruct(t_map *map);
+int		check_all_params(t_map *map);
+int		fill_grid(char *str, t_map *map);
+int		first_fill_grid(char *str, t_map *map);
+int		conv_grid(char *str, t_map *map);
+int		conv_params(char *str, t_map *map);
+int		convert_line(char *str, t_map *map);
+t_map	*read_map(char *mapcub);
+int		conv_resolution(char *str, t_map *map);
+int		conv_texture(char *str, t_map *map);
+int		conv_color(char *str, t_map *map);
 
 #endif
