@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 10:36:20 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 13:50:43 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 14:58:54 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include "libft_structs.h"
+
+typedef struct	s_buf
+{
+	int		r;
+	char	buf[1][BUFFER_SIZE + 1];
+}				t_buf;
 
 # define B BUFFER_SIZE
 

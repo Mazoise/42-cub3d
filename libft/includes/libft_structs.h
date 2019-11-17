@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 13:44:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 13:50:54 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 14:58:34 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,5 @@ typedef	struct	s_cont
 	char	*str;
 	char	czero;
 }				t_cont;
-
-typedef struct	s_buf
-{
-	int		r;
-	char	buf[1][BUFFER_SIZE + 1];
-}				t_buf;
 
 #endif

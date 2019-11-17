@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 12:20:37 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:03:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,14 @@ int		y_size;
 void	*test;
 void	*test2;
 
-int	draw(int keycode,void *param)
+int	draw()
 {
 	int x;
 	int y;
 
 	x = 50;
 	y = 50;
-	(void)param;
-	printf("hey %d\n", keycode); //w
-	if (keycode == 53)
-	{
-		mlx_destroy_window(test, test2);
-		exit(0);
-	}
+//	printf("hey %d\n", keycode); //w
 	int c = (random() % 0xFFFFFF);
 	// int c2 = c * 0.5;
 	int c2 = (random() % 0xFFFFFF);
@@ -69,16 +63,25 @@ int	draw(int keycode,void *param)
 	return (1);
 }
 
-int		main(int argc, char **argv)
+int		stop(int keycode)
+{
+	if (keycode == 53)
+	{
+		mlx_destroy_window(test, test2);
+		exit(0);
+	}
+	return (1);
+}
+
+int		main()
 {
 	x_size = 1000;
 	y_size = 1000;
 	if (!(test = mlx_init()))
-		printf("ERROR\n"); // ERROR //w
+		ft_printf("ERROR\n"); // ERROR //w
 	if(!(test2 = mlx_new_window(test, x_size, y_size, "This is a test")))
-		printf("ERROR WINDOW\n"); // ERROR //w
-
-	mlx_key_hook(test2, NULL, NULL);
+		ft_printf("ERROR WINDOW\n"); // ERROR //w
+	mlx_key_hook(test2, stop, NULL);
 	mlx_loop_hook(test, draw, NULL);
 	mlx_loop(test);
 }

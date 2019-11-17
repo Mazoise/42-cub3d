@@ -16,9 +16,13 @@ RM 			=	rm -f
 
 MAKE_MLX	=	$(MAKE) -C./minilibx/
 
+MAKE_MLX_B	=	$(MAKE) -C./minilibx_beta/
+
 MAKE_LIBFT	=	$(MAKE) -C./libft/
 
-MLX			=	-L./minilibx -lmlx
+MLX			=	-L./minilibx/ -lmlx -framework OpenGL -framework AppKit
+
+MLX_B		= 	-L./minilibx_beta/ -lmlx -framework OpenGL -framework AppKit
 
 LIBFT		=	-L./libft/ -lft
 
@@ -32,6 +36,13 @@ makelib :
 
 makemlx :	
 				$(MAKE_MLX)
+
+makemlxb :		
+				$(MAKE_MLX_B)
+
+beta :			$(OBJS) makelib makemlxb
+				$(CC) $(OBJS) $(MLX_B) $(LIBFT) -lm -o $(NAME)
+				export DYLD_LIBRARY_PATH=~/42cursus/Cub3D/minilibx_beta
 
 all :
 				$(NAME)
