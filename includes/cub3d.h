@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 22:16:41 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 13:01:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		is_valid_grid_element(char c);
 int		grid_width(char *str);
 int		is_save_request(char *str);
 int		check_format(char *str);
-int		init_mapstruct(t_map *map);
+t_map	*init_mapstruct(void);
 int		check_all_params(t_map *map);
 int		fill_grid(char *str, t_map *map);
 int		first_fill_grid(char *str, t_map *map);

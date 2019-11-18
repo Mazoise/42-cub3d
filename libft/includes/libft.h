@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 14:45:08 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 14:59:00 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 13:13:11 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft_structs.h"
+# include "new_lib.h"
 
 int				ft_atoi(const char *str);
 void			ft_bzero(void *b, size_t n);

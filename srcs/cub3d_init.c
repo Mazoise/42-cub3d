@@ -6,11 +6,12 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 22:16:48 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 13:00:46 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 int		conv_resolution(char *str, t_map *map)
 {
@@ -33,47 +34,12 @@ int		conv_color(char *str, t_map *map)
 		return (1);
 }
 
-void	free_grid(char **grid)
-{
-	int	i;
-
-	i = 0;
-	while (grid[i])
-	{
-		free(grid[i]);
-	}
-	free(grid);
-}
-
 int		is_valid_grid_element(char c)
 {
 	if (c == '0' || c == '1' || c == '2' || c == 'N'
 		|| c == 'S' || c == 'E' || c == 'W')
 		return (1);
 	return (0);
-}
-
-int		grid_width(char *str)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		while (str[i] == ' ')
-			i++;
-		if (is_valid_grid_element(str[i]))
-			j++;
-		else if (str[i])
-		{
-			ft_printf("Error\nWrong grid element\n");
-			return (0);
-		}
-		i++;
-	}
-	return (j);
 }
 
 int		is_save_request(char *str)
@@ -106,8 +72,10 @@ int		check_format(char *str)
 	return (1);
 }
 
-int		init_mapstruct(t_map *map)
+t_map		*init_mapstruct(void)
 {
+	t_map *map;
+	
 	if (!(map = malloc(sizeof(t_map) * 1)))
 		return (0);
 	map->grid = 0;
@@ -120,7 +88,7 @@ int		init_mapstruct(t_map *map)
 	map->S = 0;
 	map->F = -1;
 	map->C = -1;
-	return (1);
+	return (map);
 }
 
 int		check_all_params(t_map *map)

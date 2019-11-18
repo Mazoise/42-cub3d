@@ -22,13 +22,13 @@ SRCS_IS		= $(addprefix ${PREF_IS}, ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isp
 
 SRCS_LST	= $(addprefix ${PREF_LST}, ft_lstadd_back.c ft_lstnew.c ft_lstsize.c ft_lstdelone.c ft_lstlast.c ft_lstmap.c ft_lstiter.c ft_lstclear.c ft_lstadd_front.c)
 
-SRCS_MEM	= $(addprefix ${PREF_MEM}, ft_memccpy.c ft_bzero.c ft_memchr.c ft_calloc.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c)
+SRCS_MEM	= $(addprefix ${PREF_MEM}, ft_free_strs.c ft_strs_plus_one.c ft_memccpy.c ft_bzero.c ft_memchr.c ft_calloc.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c)
 
 SRCS_PRINTF	= $(addprefix ${PREF_PRINTF}, ft_printf.c ft_printf_addflags.c ft_printf_utils.c ft_printf_nb_format.c ft_printf_conversion.c ft_printf_print.c)
 
 SRCS_PUT	= $(addprefix ${PREF_PUT}, ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c)
 
-SRCS_STR	= $(addprefix ${PREF_STR}, ft_strncmp.c ft_split.c ft_strnstr.c ft_strchr.c ft_strrchr.c ft_strdup.c ft_strtrim.c ft_strjoin.c ft_substr.c ft_strlcat.c ft_strlcpy.c ft_strmapi.c ft_strlen.c)
+SRCS_STR	= $(addprefix ${PREF_STR}, ft_strdup_nosp.c ft_strncmp.c ft_split.c ft_strnstr.c ft_strchr.c ft_strrchr.c ft_strdup.c ft_strtrim.c ft_strjoin.c ft_substr.c ft_strlcat.c ft_strlcpy.c ft_strmapi.c ft_strlen.c)
 
 ALL_SRCS	= $(SRCS_CONV) $(SRCS_GNL) $(SRCS_IS) $(SRCS_LST) $(SRCS_MEM) $(SRCS_PRINTF) $(SRCS_PUT) $(SRCS_STR)
 
