@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 10:41:20 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/18 13:20:41 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:17:27 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@
 
 int		fill_grid(char *str, t_map *map)
 {
-	char		add;
+	char		*add;
 
-	if (!(add = ft_strdup_no_sp(str) || !(map->grid = ft_strs_plus_one(map->grid, &add))))
+	if (!(add = ft_strdup_no_sp(str)))
+	{
+		ft_printf("Error\nAllocation fail\n");
+		return (0);
+	}
+	if (!(map->grid = ft_strs_plus_one(map->grid, add)))
 	{
 		ft_printf("Error\nAllocation fail\n");
 		return (0);
@@ -68,13 +73,15 @@ int		conv_params(char *str, t_map *map)
 	while (str[i] == ' ')
 			i++;
 	if (str[i] == 'R')
-		ret = conv_resolution(str, map);
+		ret = conv_resolution(&str[i + 1], map);
 	else if (str[i] == 'S' || str[i] == 'N' || str[i] == 'W' || str[i] == 'E')
-		ret = conv_texture(str, map);
+		ret = conv_texture(&str[i + 1], map, str[i]);
 	else if (str[i] == 'F' || str[i] == 'C')
-		ret = conv_color(str, map);
-	else
+		ret = conv_color(&str[i + 1], map, str[i]);
+	else if (str[i])
 		ft_printf("Error\nWrong information syntax\n");
+	else
+		ret = 1;
 	return (ret);
 }
 
@@ -85,10 +92,13 @@ int		convert_line(char *str, t_map *map)
 	i = 0;
 	while(str[i] == ' ')
 		i++;
-	if (!(ft_isdigit(str[i])) && !(conv_params(str, map)))
+	if (!(ft_isdigit(str[i])))
 	{
+		if (!(conv_params(str, map)))
+		{
 		free(str);
 		return (0);
+		}
 	}
 	else
 		if(!(conv_grid(str, map)))
@@ -139,5 +149,3 @@ t_map	*read_map(char *mapcub)
 	}
 	return (map);
 }
-
-		// ft_printf("Refer to README.txt for more information\n");

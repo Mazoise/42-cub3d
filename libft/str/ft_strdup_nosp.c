@@ -6,11 +6,12 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 11:58:02 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/18 12:54:30 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:12:29 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 static int		count_malloc(char *src)
 {

@@ -6,31 +6,81 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/18 13:00:46 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:34:02 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void		ft_RGB_to_int(t_RGB color, t_map *map, char c)
+{
+	int		nb;
+
+	nb = color.Blue + 256 * color.Green + 65536 * color.Red;
+	if (c = 'F')
+		map->F = nb;
+	else
+		map->C = nb;
+}
 
 int		conv_resolution(char *str, t_map *map)
 {
-		(void)str;
-		(void)map;
+	int i;
+		i = 0;
+	map->x_max = ft_atoi(&str[i]);
+	while (str[i] == ' ')
+		i++;
+	while (ft_isdigit(str[i]))
+		i++;
+	map->y_max = ft_atoi(&str[i]);
+	while (str[i] == ' ')
+		i++;
+	while (ft_isdigit(str[i]))
+		i++;
+	while (str[i] == ' ')
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
+}
+
+int		conv_texture(char *str, t_map *map, char c)
+{
+		map->NO = str;
+		map->SO = str;
+		map->EA = str;
+		map->WE = str;
+		map->S = str;
 		return (1);
 }
 
-int		conv_texture(char *str, t_map *map)
+int		conv_color(char *str, t_map *map, char c)
 {
-		(void)str;
-		(void)map;
-		return (1);
-}
+		t_RGB	color;
+		int		i;
+		char	c;
 
-int		conv_color(char *str, t_map *map)
-{
-		(void)str;
-		(void)map;
+		i = 0;
+		while (str[i] == ' ');
+			i++;
+		color.Red = (unsigned char)ft_atoi(&str[i]);
+		while(ft_isdigit(str[i]))
+			i++;
+		if (str[i] == ',')
+			i++;
+		color.Green = (unsigned char)ft_atoi(&str[i]);
+		while(ft_isdigit(str[i]))
+			i++;
+		if (str[i] == ',')
+			i++;
+		color.Blue = (unsigned char)ft_atoi(&str[i]);
+		while(ft_isdigit(str[i]))
+			i++;
+		while(str[i] == ' ')
+			i++;
+		if (str[i])
+			return (0);
+		ft_RGB_to_int(map, color, c);
 		return (1);
 }
 

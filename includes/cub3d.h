@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/18 13:01:44 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:22:04 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ typedef struct		s_map
 	int		C;
 }					t_map;
 
+typedef struct		s_RGB
+{
+	unsigned char	Red;
+	unsigned char	Green;
+	unsigned char	Blue;	
+}					t_RGB;
+
+
 void	free_grid(char **grid);
 int		is_valid_grid_element(char c);
 int		grid_width(char *str);
@@ -46,7 +54,8 @@ int		conv_params(char *str, t_map *map);
 int		convert_line(char *str, t_map *map);
 t_map	*read_map(char *mapcub);
 int		conv_resolution(char *str, t_map *map);
-int		conv_texture(char *str, t_map *map);
-int		conv_color(char *str, t_map *map);
+int		conv_texture(char *str, t_map *map, char c);
+int		conv_color(char *str, t_map *map, char c);
+void	ft_RGB_to_int(t_RGB color, t_map map, c);
 
 #endif
