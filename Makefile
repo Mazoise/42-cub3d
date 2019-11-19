@@ -4,7 +4,7 @@ INCLUDES	=	./includes/
 
 INCLUDES_L	=	./libft/includes/
 
-SRCS 		=	$(addprefix $(PREFIX), cub3d.c cub3d_init.c cub3d_input.c)
+SRCS 		=	$(addprefix $(PREFIX), cub3d.c read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c)
 
 OBJS		=	$(SRCS:.c=.o)
 
@@ -23,6 +23,8 @@ MAKE_LIBFT	=	$(MAKE) -C./libft/
 MLX			=	-L./minilibx/ -lmlx -framework OpenGL -framework AppKit
 
 MLX_B		= 	-L./minilibx_beta/ -lmlx -framework OpenGL -framework AppKit
+
+MLX_SYS		=	-lmlx -framework OpenGL -framework AppKit
 
 LIBFT		=	-L./libft/ -lft
 
@@ -43,6 +45,9 @@ makemlxb :
 beta :			$(OBJS) makelib makemlxb
 				$(CC) $(OBJS) $(MLX_B) $(LIBFT) -lm -o $(NAME)
 				export DYLD_LIBRARY_PATH=~/42cursus/Cub3D/minilibx_beta
+
+sys :			$(OBJS) makelib
+				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
 
 all :
 				$(NAME)
