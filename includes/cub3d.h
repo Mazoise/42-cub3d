@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/19 20:21:27 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/19 21:50:43 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef struct		s_pos
 {
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 }					t_pos;
 
 typedef struct		s_texture
@@ -68,24 +68,14 @@ typedef struct		s_RGB
 	unsigned char	Blue;
 }					t_RGB;
 
-static const GLfloat pixel_vertexes[8] =
-  {
-    -1.0 , -1.0,
-    1.0, -1.0,
-    1.0, 1.0,
-    -1.0, 1.0
-  };
-
 typedef struct	mlx_img_list_s
 {
-  int			width;
-  int			height;
-  char			*buffer;
-  GLfloat		vertexes[8];
+  int					width;
+  int					height;
+  char					*buffer;
+  GLfloat				vertexes[8];
   struct mlx_img_list_s	*next;
 } mlx_img_list_t;
-
-
 
 void		init_struct(t_params *params);
 int			check_format(char *str);
