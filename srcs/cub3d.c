@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/20 13:36:19 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/21 15:41:51 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ int		press_key(int keycode, void *param)
 	y_dir = 0;
 
 	params = param;
+	if (keycode == 12)
+		params->player.compas--;
+	else if (keycode == 14)
+		params->player.compas++;
+	if (params->player.compas >= 360)
+		params->player.compas = params->player.compas - 360;
+	else if (params->player.compas < 0)
+		params->player.compas = params->player.compas + 360;
 	if (keycode == 13)
 		x_dir -= 0.1;
 	if (keycode == 1)
@@ -37,9 +45,10 @@ int		press_key(int keycode, void *param)
 	{
 		params->player.pos.x += x_dir;
 		params->player.pos.y += y_dir;
-		return (1);
 	}
-	return (0);
+	else
+		return (0);
+	return (1);
 }
 
 int		ft_exit(int	i)
@@ -50,23 +59,8 @@ int		ft_exit(int	i)
 
 // int		draw(void *param)
 // {
-// 	t_params	*params;
-// 	double		y_check;
-// 	double		x_check;
-// 	int			i;
-// 	double		angle;
 
-// 	angle = -0.3;
-// 	i = 0;
-// 	while (angle <= 0.3)
-// 	{
-// 		if (params->player.bousole = 'N')
-// 			y_check = rounded_down(params->player.pos.y/64) * (64) - 1;
-// 		else
-// 			y_check = rounded_down(params->player.pos.y/64) * (64) + 64;
-
-// 		x_check = params->player.pos.x + (params->player.pos.y-y_check)/tan(angle);
-// 	}
+// 	return (1);
 // }
 
 int		draw_mini_map(void *param)
@@ -102,7 +96,49 @@ int		draw_mini_map(void *param)
 		width += params->graph.EA.w;
 		i++;
 	}
-	mlx_put_image_to_window(params->ptr, params->wdw, params->graph.S.img, params->player.pos.y * params->graph.EA.h - 3, params->player.pos.x * params->graph.EA.h - 3);
+	mlx_put_image_to_window(params->ptr, params->wdw, params->graph.S.img, params->player.pos.y * params->graph.EA.h - 4, params->player.pos.x * params->graph.EA.h - 4);
+	
+	double		y_check_h;
+	double		x_check_h;
+	double		y_check_v;
+	double		x_check_v;
+	double		y_add;
+	double		x_add;
+	double		y_wall;
+	double		x_wall;
+	int			angle;
+	// int			end;
+
+	angle = 0;
+	if (angle < 0)
+		angle = 360 + angle;
+	x_add = -1;
+	y_add = -1 / tan(90 - angle);
+	x_check_h = floor(params->player.pos.x) - 0.01;
+	y_check_h = params->player.pos.y - (params->player.pos.x - floor(params->player.pos.x)) / tan(90 - angle);
+	if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14)
+		mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+	while (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && params->grid[(int)(x_check_h)][(int)(y_check_h)] == '0')
+	{
+		y_check_h += y_add;
+		x_check_h += x_add;
+		mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+	}
+	y_add = 1;
+	x_add = 1 * tan(90 - angle);
+	y_check_v = ceil(params->player.pos.y);
+	x_check_v = params->player.pos.x + (ceil(params->player.pos.y) - params->player.pos.y) * tan(90 - angle);
+	if (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14)
+		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+	while (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+	{
+		y_check_v += y_add;
+		x_check_v += x_add;
+		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+	}
+	y_wall = (y_check_h > y_check_v || x_check_h < x_check_v ? y_check_v : y_check_h);
+	x_wall = (y_wall == y_check_v ? x_check_v : x_check_h);
+	mlx_pixel_put(params->ptr, params->wdw, y_wall * params->graph.EA.h, x_wall * params->graph.EA.h, 0xff0000);
 	return (1);
 }
 
@@ -150,3 +186,54 @@ int		main(int argc, char **argv)
 	mlx_hook (params.wdw, 2, 1L << 0, press_key, &params);
 	mlx_loop(params.ptr);
 }
+
+
+// angle = 90 - params->player.compas - 30;
+// 	if (90 - params->player.compas + 30 > 360)
+// 		end = 90 - params->player.compas + 30 - 360;
+// 	else
+// 		end = 90 - params->player.compas + 30;
+// 	while (angle != end)
+// 	{
+// 		x_check_h = floor(params->player.pos.x);
+// 			x_add = 1;
+// 		y_check_h = params->player.pos.y + (params->player.pos.x-x_check_h)/tan(angle);
+// 		y_add = 1/tan(angle);
+// 		mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x0000ff);
+// 		if (angle >= 720 && angle <= 90)
+// 		{
+// 			y_check_v = floor(params->player.pos.y) - 0.001;
+// 			y_add = 1;
+// 		}
+// 		else
+// 		{
+// 			y_check_v = floor(params->player.pos.y);
+// 			y_add = -1;
+// 		}
+// 		x_check_v = params->player.pos.x + (params->player.pos.y-y_check_v)/tan(angle);
+// 		x_add = 1/tan(angle);
+// 		// while (params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+// 		// {
+// 		// 	y_check_v += y_add;
+// 		// 	x_check_v += x_add;
+// 		// }
+// 		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0x00ff00);
+// 		angle++;
+// 		if (angle >= 360)
+// 			angle = angle - 360;
+// 	}
+
+
+
+// y_add = -1;
+// 	x_add = -1 / tan(90 - angle);
+// 	y_check_v = floor(params->player.pos.y) - 0.01;
+// 	x_check_v = params->player.pos.x + ((floor(params->player.pos.y) - params->player.pos.y) / tan(90 - angle));
+// //	if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14)
+// 		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0x00ff00);
+// 	while (params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+// 	{
+// 		y_check_v += y_add;
+// 		x_check_v += x_add;
+// 		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0x00ff00);
+// 	}

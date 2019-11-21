@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/19 21:52:25 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/21 11:06:28 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,14 @@ int			check_n_pos(t_player *player, char **grid)
 			{
 				player->pos.x = (double)i + 0.5;
 				player->pos.y = (double)j + 0.5;
-				player->bousole = grid[i][j];
+				if (grid[i][j] == 'N')
+					player->compas = 90;
+				else if (grid[i][j] == 'S')
+					player->compas = 270;
+				else if (grid[i][j] == 'E')
+					player->compas = 0;
+				else if (grid[i][j] == 'W')
+					player->compas = 180;
 				grid[i][j] = '0';
 				return (1);
 			}

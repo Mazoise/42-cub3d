@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/19 21:50:43 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/21 11:06:28 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ typedef struct		s_player
 {
 	t_pos		pos;
 	t_pos		dir;
-	char		bousole;
+	int			compas;
 	int			hit;
 }					t_player;
+
+typedef struct		s_view
+{
+	t_pos		wall;
+}					t_view;
 
 typedef struct		s_params
 {
@@ -59,6 +64,7 @@ typedef struct		s_params
 	char			**grid;
 	t_graph			graph;
 	t_player		player;
+	t_view			view;
 }					t_params;
 
 typedef struct		s_RGB
