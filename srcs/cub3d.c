@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/21 15:41:51 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:44:13 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int		press_key(int keycode, void *param)
 
 	params = param;
 	if (keycode == 12)
-		params->player.compas--;
+		params->player.compas -= M_PI/12;
 	else if (keycode == 14)
-		params->player.compas++;
-	if (params->player.compas >= 360)
-		params->player.compas = params->player.compas - 360;
+		params->player.compas += M_PI/12;
+	if (params->player.compas >= 2 * M_PI)
+		params->player.compas = params->player.compas - 2 * M_PI;
 	else if (params->player.compas < 0)
-		params->player.compas = params->player.compas + 360;
+		params->player.compas = params->player.compas + 2 * M_PI;
 	if (keycode == 13)
 		x_dir -= 0.1;
 	if (keycode == 1)
@@ -106,39 +106,134 @@ int		draw_mini_map(void *param)
 	double		x_add;
 	double		y_wall;
 	double		x_wall;
-	int			angle;
-	// int			end;
+	double		angle;
+	// int		end;
 
-	angle = 0;
+	angle = params->player.compas - M_PI / 6;
 	if (angle < 0)
-		angle = 360 + angle;
-	x_add = -1;
-	y_add = -1 / tan(90 - angle);
-	x_check_h = floor(params->player.pos.x) - 0.01;
-	y_check_h = params->player.pos.y - (params->player.pos.x - floor(params->player.pos.x)) / tan(90 - angle);
-	if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14)
-		mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
-	while (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && params->grid[(int)(x_check_h)][(int)(y_check_h)] == '0')
+		angle = 2 * M_PI + angle;
+	ft_printf("Angle : %d\n", (int)(angle * (180 / M_PI)));
+	if (angle >= M_PI / 2 && angle < M_PI)
 	{
-		y_check_h += y_add;
-		x_check_h += x_add;
-		mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		x_add = -1;
+		y_add = -1 / tan(M_PI / 2 - angle);
+		x_check_h = floor(params->player.pos.x) - 0.01;
+		y_check_h = params->player.pos.y - (params->player.pos.x - floor(params->player.pos.x)) / tan(M_PI / 2 - angle);
+		if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		while (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0 && params->grid[(int)(x_check_h)][(int)(y_check_h)] == '0')
+		{
+			y_check_h += y_add;
+			x_check_h += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		}
+		y_add = 1;
+		x_add = 1 * tan(M_PI / 2 - angle);
+		y_check_v = ceil(params->player.pos.y);
+		x_check_v = params->player.pos.x + (ceil(params->player.pos.y) - params->player.pos.y) * tan(M_PI / 2 - angle);
+		if (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		while (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0 && params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+		{
+			y_check_v += y_add;
+			x_check_v += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		}
+		y_wall = (y_check_h > y_check_v || x_check_h < x_check_v ? y_check_v : y_check_h);
+		x_wall = (y_wall == y_check_v ? x_check_v : x_check_h);
+		mlx_pixel_put(params->ptr, params->wdw, y_wall * params->graph.EA.h, x_wall * params->graph.EA.h, 0xff0000);
 	}
-	y_add = 1;
-	x_add = 1 * tan(90 - angle);
-	y_check_v = ceil(params->player.pos.y);
-	x_check_v = params->player.pos.x + (ceil(params->player.pos.y) - params->player.pos.y) * tan(90 - angle);
-	if (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14)
-		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
-	while (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+	else if (angle > (3 * M_PI) / 2)
 	{
-		y_check_v += y_add;
-		x_check_v += x_add;
-		mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		x_add = 1;
+		y_add = 1 / tan(M_PI / 2 - angle);
+		x_check_h = ceil(params->player.pos.x);
+		y_check_h = params->player.pos.y - (params->player.pos.x - ceil(params->player.pos.x)) / tan(M_PI / 2 - angle);
+		if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		while (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0 && params->grid[(int)(x_check_h)][(int)(y_check_h)] == '0')
+		{
+			y_check_h += y_add;
+			x_check_h += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		}
+		y_add = -1;
+		x_add = -1 * tan(M_PI / 2 - angle);
+		y_check_v = floor(params->player.pos.y) - 0.01;
+		x_check_v = params->player.pos.x + (floor(params->player.pos.y) - params->player.pos.y) * tan(M_PI / 2 - angle);
+		if (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		while (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0 && params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+		{
+			y_check_v += y_add;
+			x_check_v += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		}
+		y_wall = (y_check_h < y_check_v || x_check_h > x_check_v ? y_check_v : y_check_h);
+		x_wall = (y_wall == y_check_v ? x_check_v : x_check_h);
+		mlx_pixel_put(params->ptr, params->wdw, y_wall * params->graph.EA.h, x_wall * params->graph.EA.h, 0xff0000);
 	}
-	y_wall = (y_check_h > y_check_v || x_check_h < x_check_v ? y_check_v : y_check_h);
-	x_wall = (y_wall == y_check_v ? x_check_v : x_check_h);
-	mlx_pixel_put(params->ptr, params->wdw, y_wall * params->graph.EA.h, x_wall * params->graph.EA.h, 0xff0000);
+	else if (angle < M_PI / 2)
+	{
+		x_add = 1;
+		y_add = 1 / tan(M_PI / 2 - angle);
+		x_check_h = ceil(params->player.pos.x);
+		y_check_h = params->player.pos.y - (params->player.pos.x - ceil(params->player.pos.x)) / tan(M_PI / 2 - angle);
+		if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		while (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0 && params->grid[(int)(x_check_h)][(int)(y_check_h)] == '0')
+		{
+			y_check_h += y_add;
+			x_check_h += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		}
+		y_add = 1;
+		x_add = 1 * tan(M_PI / 2 - angle);
+		y_check_v = ceil(params->player.pos.y);
+		x_check_v = params->player.pos.x + (ceil(params->player.pos.y) - params->player.pos.y) * tan(M_PI / 2 - angle);
+		if (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		while (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0 && params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+		{
+			y_check_v += y_add;
+			x_check_v += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		}
+		y_wall = (y_check_h > y_check_v || x_check_h > x_check_v ? y_check_v : y_check_h);
+		x_wall = (y_wall == y_check_v ? x_check_v : x_check_h);
+		mlx_pixel_put(params->ptr, params->wdw, y_wall * params->graph.EA.h, x_wall * params->graph.EA.h, 0xff0000);
+	}
+	else
+	{
+		x_add = -1;
+		y_add = -1 / tan(M_PI / 2 - angle);
+		x_check_h = floor(params->player.pos.x) - 0.01;
+		y_check_h = params->player.pos.y - (params->player.pos.x - floor(params->player.pos.x)) / tan(M_PI / 2 - angle);
+		if (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		while (y_check_h < ft_strlen(params->grid[0]) && x_check_h < 14 && y_check_h > 0 && x_check_h > 0 && params->grid[(int)(x_check_h)][(int)(y_check_h)] == '0')
+		{
+			y_check_h += y_add;
+			x_check_h += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_h * params->graph.EA.h, x_check_h * params->graph.EA.h, 0x00ff00);
+		}
+		y_add = -1;
+		x_add = -1 * tan(M_PI / 2 - angle);
+		y_check_v = floor(params->player.pos.y) - 0.01;
+		x_check_v = params->player.pos.x + (floor(params->player.pos.y) - params->player.pos.y) * tan(M_PI / 2 - angle);
+		if (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0)
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		while (y_check_v < ft_strlen(params->grid[0]) && x_check_v < 14 && y_check_v > 0 && x_check_v > 0 && params->grid[(int)(x_check_v)][(int)(y_check_v)] == '0')
+		{
+			y_check_v += y_add;
+			x_check_v += x_add;
+			mlx_pixel_put(params->ptr, params->wdw, y_check_v * params->graph.EA.h, x_check_v * params->graph.EA.h, 0xffffff);
+		}
+		y_wall = (y_check_h < y_check_v || x_check_h < x_check_v ? y_check_v : y_check_h);
+		x_wall = (y_wall == y_check_v ? x_check_v : x_check_h);
+		mlx_pixel_put(params->ptr, params->wdw, y_wall * params->graph.EA.h, x_wall * params->graph.EA.h, 0xff0000);
+	}
+	
 	return (1);
 }
 
