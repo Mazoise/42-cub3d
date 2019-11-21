@@ -4,7 +4,7 @@ INCLUDES	=	./includes/
 
 INCLUDES_L	=	./libft/includes/
 
-SRCS 		=	$(addprefix $(PREFIX), cub3d.c read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c)
+SRCS 		=	$(addprefix $(PREFIX), cub3d.c read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c quarter_scan.c dir_scan.c)
 
 OBJS		=	$(SRCS:.c=.o)
 

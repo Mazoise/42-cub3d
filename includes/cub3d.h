@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/21 11:06:28 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/21 20:31:34 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,16 @@ typedef struct		s_graph
 	int				C;
 }					t_graph;
 
+typedef struct 		s_scan
+{
+	t_pos			wall;
+	t_texture		*face;
+}					t_scan;
+
 typedef struct		s_player
 {
 	t_pos		pos;
-	t_pos		dir;
-	int			compas;
-	int			hit;
+	double		compas;
 }					t_player;
 
 typedef struct		s_view
@@ -65,6 +69,7 @@ typedef struct		s_params
 	t_graph			graph;
 	t_player		player;
 	t_view			view;
+	t_scan			scan;
 }					t_params;
 
 typedef struct		s_RGB
@@ -104,5 +109,14 @@ int			convert_read(int fd, t_params *params);
 int			init_player(t_params *params);
 int			check_n_pos(t_player *player, char **grid);
 int			closed_grid(char **grid);
+void	scan_ne(t_params *params, double angle);
+void	scan_sw(t_params *params, double angle);
+void	scan_se(t_params *params, double angle);
+void	scan_nw(t_params *params, double angle);
+t_pos	floor_scan_horz(t_pos *player, char **grid, double angle);
+t_pos	floor_scan_vert(t_pos *player, char **grid, double angle);
+t_pos	ceil_scan_vert(t_pos *player, char **grid, double angle);
+t_pos	ceil_scan_horz(t_pos *player, char **grid, double angle);
+
 
 #endif
