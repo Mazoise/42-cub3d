@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/23 18:24:25 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 22:00:11 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,44 @@ void	img_to_int(t_mlx_img tmp, t_texture *txtr)
 	int		i;
 	int		j;
 
+	tmp.bpp /= 8;
 	i = 0;
+//	ft_printf("BPP :%d\n", tmp.bpp);
 	while (i < txtr->h * txtr->w)
 	{
 		j = 0;
 		while (j < tmp.bpp)
 		{
-			txtr->txtr[i] += (tmp.bpp - j) * (int)tmp.img[i * j + j];
+			txtr->txtr[i] += pow(256, j) * tmp.img[i * tmp.bpp + j];
 			j++;
 		}
+		// ft_printf("%X,", txtr->txtr[i]);
 		i++;
 	}
 }
 
-void	texture_put(t_params *params, int height, double pct, int i)
+void	texture_put(t_params *params, int height, double pct, int i, int j)
 {
-	int			j;
-
-	j = 0;	
-	while (j < height)
+	int		k;
+	double tmp;
+	k = 0;
+	while (k < height)
 	{
-		mlx_pixel_put(params->ptr, params->wdw, i, height, params->scan.face->txtr[(int)(j / height) * (int)(pct * params->scan.face->w) + (int)(j / height)]);
+		tmp = floor((double)k * (double)params->scan.face->h / * (double)params->scan.face->w / (double)height) + floor(pct * (double)params->scan.face->w);
+		mlx_pixel_put(params->ptr, params->wdw, i, j, params->scan.face->txtr[(int)floor(tmp)]);
+		// ft_printf("tmp : %d", (int)tmp);
 		j++;
+		k++;
 	}
 }
 
-void	line_put(t_params *params, int color, double inc, int i)
+void	line_put(t_params *params, double inc, int i)
 {
 	double	dist;
 	double	proj;
 	int		height;
 	int	j;
-	(void)color;
+
 	dist = cos(inc) * params->max.y * sqrt((params->scan.wall.x - params->player.pos.x) * (params->scan.wall.x - params->player.pos.x) + (params->scan.wall.y - params->player.pos.y) * (params->scan.wall.y - params->player.pos.y));
 	//dist = dist * dist_front;
 	j = -1;
@@ -59,9 +65,9 @@ void	line_put(t_params *params, int color, double inc, int i)
 	while (++j < (params->max.y - height) / 2)
 		mlx_pixel_put(params->ptr, params->wdw, i, j, params->graph.C);
 	if (params->scan.face == &params->graph.SO || params->scan.face == &params->graph.NO)
-		texture_put(params, height, fabs(floor(params->scan.wall.x) - params->scan.wall.x), i);
+		texture_put(params, height, params->scan.wall.x - floor(params->scan.wall.x), i, j - 1);
 	else
-		texture_put(params, height, fabs(floor(params->scan.wall.y) - params->scan.wall.y), i);
+		texture_put(params, height, params->scan.wall.y - floor(params->scan.wall.y), i, j - 1);
 	j = (params->max.y - (params->max.y - height) / 2) - 1;
 	while (++j < params->max.y)
 		mlx_pixel_put(params->ptr, params->wdw, i, j, params->graph.F);

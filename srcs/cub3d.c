@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/23 18:10:32 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:42:34 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,33 @@ int		draw_three_d(void *param)
 		{
 			scan_ne(params, angle); // 90 - 180
 			if (params->scan.face == &params->graph.NO)
-				line_put(params, 0xff0000, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				line_put(params, 0x00ff00, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		else if (angle >= (3 * M_PI) / 2)
 		{
 			scan_sw(params, angle); //0 - 275
 			if (params->scan.face == &params->graph.SO)
-				line_put(params, 0x0000ff, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				line_put(params, 0xffff00, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		else if (angle <= M_PI / 2)
 		{
 			scan_se(params, angle); //0 - 90
 			if (params->scan.face == &params->graph.SO)
-				line_put(params, 0x0000ff, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				line_put(params, 0x00ff00, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		else
 		{
 			scan_nw(params, angle); //180-275
 			if (params->scan.face == &params->graph.NO)
-				line_put(params, 0xff0000, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				line_put(params, 0xffff00, fabs(params->player.compas - angle), i);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		angle += inc;
 		i++;

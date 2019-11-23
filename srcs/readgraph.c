@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/23 18:27:27 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:33:42 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			get_texture(char *path, t_texture *txtr, void *ptr)
 		ft_printf("Error\nMLX2 error\n");
 		return (0);
 	}
-	if (!(txtr->txtr = malloc(sizeof(int) * txtr->w * txtr->h)))
+	if (!(txtr->txtr = ft_calloc(sizeof(int), txtr->w * txtr->h)))
 	{
 		ft_printf("Error\nAllocation error\n");
 		return (0);
