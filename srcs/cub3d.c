@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/21 20:42:47 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:10:32 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int		press_key(int keycode, void *param)
 	y_dir = 0;
 
 	params = param;
-	if (keycode == 12)
-		params->player.compas -= M_PI/12;
-	else if (keycode == 14)
-		params->player.compas += M_PI/12;
-	if (params->player.compas >= 2 * M_PI)
+	if (keycode == 14)
+		params->player.compas -= M_PI/36;
+	else if (keycode == 12)
+		params->player.compas += M_PI/36;
+	if (params->player.compas > 2 * M_PI)
 		params->player.compas = params->player.compas - 2 * M_PI;
 	else if (params->player.compas < 0)
 		params->player.compas = params->player.compas + 2 * M_PI;
@@ -57,11 +57,64 @@ int		ft_exit(int	i)
 	return (0);
 }
 
-// int		draw(void *param)
-// {
+int		draw_three_d(void *param)
+{
+	t_params	*params;
 
-// 	return (1);
-// }
+	params = (t_params*)param;
+	double		angle = params->player.compas - M_PI / 6;
+	double		inc = (M_PI / 3) / params->max.x;
+	double		angle_end = params->player.compas + M_PI / 6;
+	t_pos		dist;
+
+	dist.y = params->max.y * fabs(params->scan.wall.y - params->player.pos.y);
+	dist.x = params->max.y * fabs(params->scan.wall.x - params->player.pos.x);
+	int i = 0;
+	if (angle < 0)
+		angle = 2 * M_PI + angle;
+	if (angle_end > 2 * M_PI)
+		angle_end = angle_end - 2 * M_PI;
+	while (i < params->max.x)
+	{
+		if (angle >= M_PI / 2 && angle <= M_PI)
+		{
+			scan_ne(params, angle); // 90 - 180
+			if (params->scan.face == &params->graph.NO)
+				line_put(params, 0xff0000, fabs(params->player.compas - angle), i);
+			else
+				line_put(params, 0x00ff00, fabs(params->player.compas - angle), i);
+		}
+		else if (angle >= (3 * M_PI) / 2)
+		{
+			scan_sw(params, angle); //0 - 275
+			if (params->scan.face == &params->graph.SO)
+				line_put(params, 0x0000ff, fabs(params->player.compas - angle), i);
+			else
+				line_put(params, 0xffff00, fabs(params->player.compas - angle), i);
+		}
+		else if (angle <= M_PI / 2)
+		{
+			scan_se(params, angle); //0 - 90
+			if (params->scan.face == &params->graph.SO)
+				line_put(params, 0x0000ff, fabs(params->player.compas - angle), i);
+			else
+				line_put(params, 0x00ff00, fabs(params->player.compas - angle), i);
+		}
+		else
+		{
+			scan_nw(params, angle); //180-275
+			if (params->scan.face == &params->graph.NO)
+				line_put(params, 0xff0000, fabs(params->player.compas - angle), i);
+			else
+				line_put(params, 0xffff00, fabs(params->player.compas - angle), i);
+		}
+		angle += inc;
+		i++;
+		if (angle > 2 * M_PI)
+			angle = angle - 2 * M_PI;
+	}
+	return (1);
+}
 
 int		draw_mini_map(void *param)
 {
@@ -97,43 +150,53 @@ int		draw_mini_map(void *param)
 		i++;
 	}
 	mlx_put_image_to_window(params->ptr, params->wdw, params->graph.S.img, params->player.pos.y * params->graph.EA.h - 4, params->player.pos.x * params->graph.EA.h - 4);
-	double		angle;
+	double		angle = params->player.compas - M_PI / 6;
 
-	angle = params->player.compas;
+	double		inc = (M_PI / 3) / params->max.x;
+	double		angle_end = params->player.compas + M_PI / 6;
 	if (angle < 0)
 		angle = 2 * M_PI + angle;
-	ft_printf("Angle : %d\n", (int)(angle * (180 / M_PI)));
-	if (angle >= M_PI / 2 && angle < M_PI)
+	if (angle_end > 2 * M_PI)
+		angle_end = angle_end - 2 * M_PI;
+	while (i < params->max.x)
 	{
-		scan_ne(params, angle); // 90 - 180
-		if (params->scan.face == &params->graph.NO)
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xff0000);
+		ft_printf("Angle : %d\n", (int)(angle * (180 / M_PI)));
+		if (angle >= M_PI / 2 && angle <= M_PI)
+		{
+			scan_ne(params, angle); // 90 - 180
+			if (params->scan.face == &params->graph.NO)
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xff0000);
+			else
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x00ff00);
+		}
+		else if (angle >= (3 * M_PI) / 2)
+		{
+			scan_sw(params, angle); //0 - 275
+			if (params->scan.face == &params->graph.SO)
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x0000ff);
+			else
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xffff00);
+		}
+		else if (angle <= M_PI / 2)
+		{
+			scan_se(params, angle); //0 - 90
+			if (params->scan.face == &params->graph.SO)
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x0000ff);
+			else
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x00ff00);
+		}
 		else
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x00ff00);
-	}
-	else if (angle > (3 * M_PI) / 2)
-	{
-		scan_sw(params, angle); //0 - 275
-		if (params->scan.face == &params->graph.SO)
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x0000ff);
-		else
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xffff00);
-	}
-	else if (angle < M_PI / 2)
-	{
-		scan_se(params, angle); //0 - 90
-		if (params->scan.face == &params->graph.SO)
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x0000ff);
-		else
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x00ff00);
-	}
-	else
-	{
-		scan_nw(params, angle); //180-275
-		if (params->scan.face == &params->graph.NO)
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xff0000);
-		else
-			mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xffff00);
+		{
+			scan_nw(params, angle); //180-275
+			if (params->scan.face == &params->graph.NO)
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xff0000);
+			else
+				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xffff00);
+		}
+		angle += inc;
+		i++;
+		if (angle > 2 * M_PI)
+			angle = angle - 2 * M_PI;
 	}
 	return (1);
 }
@@ -178,7 +241,8 @@ int		main(int argc, char **argv)
 	mlx_hook(params.wdw, 17, 0, ft_exit, 0);
 	mlx_key_hook(params.wdw, stop, &params);
 //	mlx_hook (params.wdw, 3, 1L << 1, release_key, &params);
-	mlx_loop_hook(params.ptr, draw_mini_map, &params);
+	mlx_loop_hook(params.ptr, draw_three_d, &params);
+	// mlx_loop_hook(params.ptr, draw_mini_map, &params);
 	mlx_hook (params.wdw, 2, 1L << 0, press_key, &params);
 	mlx_loop(params.ptr);
 }

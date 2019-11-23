@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/20 11:10:38 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:27:27 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 int			get_texture(char *path, t_texture *txtr, void *ptr)
 {
+	t_mlx_img	tmp;
+
 	if (!(txtr->img = mlx_xpm_file_to_image(ptr, path, &txtr->w, &txtr->h)))
 	{
 		ft_printf("Error\nMLX2 error\n");
 		return (0);
 	}
+	if (!(txtr->txtr = malloc(sizeof(int) * txtr->w * txtr->h)))
+	{
+		ft_printf("Error\nAllocation error\n");
+		return (0);
+	}
+	tmp.img = mlx_get_data_addr(txtr->img, &tmp.bpp, &tmp.len, &tmp.endian);
+	img_to_int(tmp, txtr);
 	return (1);
 }
 

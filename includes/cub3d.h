@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/21 20:31:34 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:23:52 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,16 @@ typedef struct		s_texture
 	int				h;
 	int				w;
 	void			*img;
+	int				*txtr;
 }					t_texture;
+
+typedef struct		s_mlx_img
+{
+	char			*img;
+	int				endian;
+	int				bpp;
+	int				len;
+}					t_mlx_img;
 
 typedef struct		s_graph
 {
@@ -109,14 +118,11 @@ int			convert_read(int fd, t_params *params);
 int			init_player(t_params *params);
 int			check_n_pos(t_player *player, char **grid);
 int			closed_grid(char **grid);
-void	scan_ne(t_params *params, double angle);
-void	scan_sw(t_params *params, double angle);
-void	scan_se(t_params *params, double angle);
-void	scan_nw(t_params *params, double angle);
-t_pos	floor_scan_horz(t_pos *player, char **grid, double angle);
-t_pos	floor_scan_vert(t_pos *player, char **grid, double angle);
-t_pos	ceil_scan_vert(t_pos *player, char **grid, double angle);
-t_pos	ceil_scan_horz(t_pos *player, char **grid, double angle);
-
+void		scan_ne(t_params *params, double angle);
+void		scan_sw(t_params *params, double angle);
+void		scan_se(t_params *params, double angle);
+void		scan_nw(t_params *params, double angle);
+void		line_put(t_params *params, int color, double inc, int i);
+void		img_to_int(t_mlx_img tmp, t_texture *txtr);
 
 #endif

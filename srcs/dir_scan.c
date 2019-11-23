@@ -6,81 +6,63 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/21 19:19:30 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:24:25 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-t_pos	floor_scan_horz(t_pos *player, char **grid, double angle)
+void	img_to_int(t_mlx_img tmp, t_texture *txtr)
 {
-	t_pos	add;
-	t_pos	dir;
+	int		i;
+	int		j;
 
-	add.x = -1;
-	add.y = -1 / tan(M_PI / 2 - angle);
-	dir.x = floor(player->x) - 0.01;
-	dir.y = player->y - (player->x - floor(player->x)) / tan(M_PI / 2 - angle);
-	while (dir.y < ft_strlen(grid[0]) && dir.x < 14 && dir.y > 0 && dir.x > 0 // w : 14 not modulable
-		&& grid[(int)(dir.x)][(int)(dir.y)] == '0')
+	i = 0;
+	while (i < txtr->h * txtr->w)
 	{
-		dir.y += add.y;
-		dir.x += add.x;
+		j = 0;
+		while (j < tmp.bpp)
+		{
+			txtr->txtr[i] += (tmp.bpp - j) * (int)tmp.img[i * j + j];
+			j++;
+		}
+		i++;
 	}
-	return (dir);
 }
 
-t_pos	floor_scan_vert(t_pos *player, char **grid, double angle)
+void	texture_put(t_params *params, int height, double pct, int i)
 {
-	t_pos	add;
-	t_pos	dir;
+	int			j;
 
-	add.y = -1;
-	add.x = -1 * tan(M_PI / 2 - angle);
-	dir.y = floor(player->y) - 0.01;
-	dir.x = player->x + (floor(player->y) - player->y) * tan(M_PI / 2 - angle);
-	while (dir.y < ft_strlen(grid[0]) && dir.x < 14 && dir.y > 0 && dir.x > 0 // w : 14 not modulable
-		&& grid[(int)(dir.x)][(int)(dir.y)] == '0')
+	j = 0;	
+	while (j < height)
 	{
-		dir.y += add.y;
-		dir.x += add.x;
+		mlx_pixel_put(params->ptr, params->wdw, i, height, params->scan.face->txtr[(int)(j / height) * (int)(pct * params->scan.face->w) + (int)(j / height)]);
+		j++;
 	}
-	return (dir);
 }
 
-t_pos	ceil_scan_horz(t_pos *player, char **grid, double angle)
+void	line_put(t_params *params, int color, double inc, int i)
 {
-	t_pos	add;
-	t_pos	dir;
-
-	add.x = 1;
-	add.y = 1 / tan(M_PI / 2 - angle);
-	dir.x = ceil(player->x);
-	dir.y = player->y - (player->x - ceil(player->x)) / tan(M_PI / 2 - angle);
-	while (dir.y < ft_strlen(grid[0]) && dir.x < 14 && dir.y > 0 && dir.x > 0 // w : 14 not modulable
-		&& grid[(int)(dir.x)][(int)(dir.y)] == '0')
-	{
-		dir.y += add.y;
-		dir.x += add.x;
-	}
-	return (dir);
-}
-
-t_pos	ceil_scan_vert(t_pos *player, char **grid, double angle)
-{
-	t_pos	add;
-	t_pos	dir;
-
-	add.y = 1;
-	add.x = 1 * tan(M_PI / 2 - angle);
-	dir.y = ceil(player->y);
-	dir.x = player->x + (ceil(player->y) - player->y) * tan(M_PI / 2 - angle);
-	while (dir.y < ft_strlen(grid[0]) && dir.x < 14 && dir.y > 0 && dir.x > 0 // w : 14 not modulable
-		&& grid[(int)(dir.x)][(int)(dir.y)] == '0')
-	{
-		dir.y += add.y;
-		dir.x += add.x;
-	}
-	return (dir);
+	double	dist;
+	double	proj;
+	int		height;
+	int	j;
+	(void)color;
+	dist = cos(inc) * params->max.y * sqrt((params->scan.wall.x - params->player.pos.x) * (params->scan.wall.x - params->player.pos.x) + (params->scan.wall.y - params->player.pos.y) * (params->scan.wall.y - params->player.pos.y));
+	//dist = dist * dist_front;
+	j = -1;
+//	dist = (fabs(params->scan.wall.x - params->player.pos.x) / cos(M_PI / 2 - angle) * cos(angle));
+	proj = (params->max.y / 2) / tan(M_PI / 6); //constant -> ajouter a la struct
+	height = params->max.x / dist * proj;
+	while (++j < (params->max.y - height) / 2)
+		mlx_pixel_put(params->ptr, params->wdw, i, j, params->graph.C);
+	if (params->scan.face == &params->graph.SO || params->scan.face == &params->graph.NO)
+		texture_put(params, height, fabs(floor(params->scan.wall.x) - params->scan.wall.x), i);
+	else
+		texture_put(params, height, fabs(floor(params->scan.wall.y) - params->scan.wall.y), i);
+	j = (params->max.y - (params->max.y - height) / 2) - 1;
+	while (++j < params->max.y)
+		mlx_pixel_put(params->ptr, params->wdw, i, j, params->graph.F);
 }
