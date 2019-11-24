@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/23 18:33:42 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:06:33 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void		ft_rgb_to_int(t_params *params, t_RGB color, char c)
 
 	nb = (int)color.Blue + 256 * (int)color.Green + 65536 * (int)color.Red;
 	if (c == 'F')
-		params->graph.F = nb;
+		params->graph.F = mlx_get_color_value(params->ptr, nb);
 	else
-		params->graph.C = nb;
+		params->graph.C = mlx_get_color_value(params->ptr, nb);
 }
 
 int			conv_color(char *str, t_params *params, char c)

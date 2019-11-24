@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/23 18:42:34 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 14:32:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		draw_three_d(void *param)
 		if (angle > 2 * M_PI)
 			angle = angle - 2 * M_PI;
 	}
+	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
 	return (1);
 }
 
@@ -238,6 +239,12 @@ int		main(int argc, char **argv)
 		ft_printf("ERROR WINDOW\n"); //w
 		return (0);
 	}
+	if (!(params.fullscreen = mlx_new_image(params.ptr, params.max.x, params.max.y)))
+	{
+		ft_printf("ERROR IMG\n"); //w
+		return (0);
+	}
+	params.img.img = mlx_get_data_addr(params.fullscreen, &params.img.bpp, &params.img.len, &params.img.endian);
 	mlx_hook(params.wdw, 17, 0, ft_exit, 0);
 	mlx_key_hook(params.wdw, stop, &params);
 //	mlx_hook (params.wdw, 3, 1L << 1, release_key, &params);
