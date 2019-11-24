@@ -6,13 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 14:06:33 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:46:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			get_texture(char *path, t_texture *txtr, void *ptr)
+int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
 {
 	t_mlx_img	tmp;
 
@@ -27,7 +27,10 @@ int			get_texture(char *path, t_texture *txtr, void *ptr)
 		return (0);
 	}
 	tmp.img = mlx_get_data_addr(txtr->img, &tmp.bpp, &tmp.len, &tmp.endian);
-	img_to_int(tmp, txtr);
+	if (c == 'N' || c == 'E')
+		img_to_intNE(tmp, txtr);
+	else 
+		img_to_intSW(tmp, txtr);
 	return (1);
 }
 
@@ -38,15 +41,15 @@ int			conv_texture(char *str, t_params *params, char c)
 
 	path = ft_strdup_no_sp(str);
 	if (c == 'N')
-		ret = get_texture(path, &params->graph.NO, params->ptr);
+		ret = get_texture(path, &params->graph.NO, params->ptr, c);
 	else if (c == 'S')
-		ret = get_texture(path, &params->graph.SO, params->ptr);
+		ret = get_texture(path, &params->graph.SO, params->ptr, c);
 	else if (c == 'E')
-		ret = get_texture(path, &params->graph.EA, params->ptr);
+		ret = get_texture(path, &params->graph.EA, params->ptr, c);
 	else if (c == 'W')
-		ret = get_texture(path, &params->graph.WE, params->ptr);
+		ret = get_texture(path, &params->graph.WE, params->ptr, c);
 	else
-		ret = get_texture(path, &params->graph.S, params->ptr);
+		ret = get_texture(path, &params->graph.S, params->ptr, c);
 	free(path);
 	if (ret == 0)
 		ft_printf("Error ret texture\n");

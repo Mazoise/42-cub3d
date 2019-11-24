@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/19 17:09:15 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:32:42 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		init_struct(t_params *params)
 	params->graph.S.img = 0;
 	params->graph.F = -1;
 	params->graph.C = -1;
+	ft_memset(params->event, 0, 7);
 }
 
 int			check_all_params(t_params *params)

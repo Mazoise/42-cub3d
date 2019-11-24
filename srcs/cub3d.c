@@ -6,120 +6,30 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 14:32:44 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:39:45 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-int		press_key(int keycode, void *param)
+void	correct_compas(double *compas)
 {
-	t_params	*params;
-	double		x_dir;
-	double		y_dir;
-
-	x_dir = 0;
-	y_dir = 0;
-
-	params = param;
-	if (keycode == 14)
-		params->player.compas -= M_PI/36;
-	else if (keycode == 12)
-		params->player.compas += M_PI/36;
-	if (params->player.compas > 2 * M_PI)
-		params->player.compas = params->player.compas - 2 * M_PI;
-	else if (params->player.compas < 0)
-		params->player.compas = params->player.compas + 2 * M_PI;
-	if (keycode == 13)
-		x_dir -= 0.1;
-	if (keycode == 1)
-		x_dir += 0.1;
-	if (keycode == 0)
-		y_dir -= 0.1;
-	if (keycode == 2)
-		y_dir += 0.1;
-	if (x_dir + params->player.pos.x > 0.5 && x_dir + params->player.pos.x < params->max.x - 0.5
-		&& y_dir + params->player.pos.y > 0.5 && y_dir + params->player.pos.y < params->max.y - 0.5
-		&& params->grid[(int)(x_dir + params->player.pos.x)][(int)(y_dir + params->player.pos.y)] == '0')
-	{
-		params->player.pos.x += x_dir;
-		params->player.pos.y += y_dir;
-	}
-	else
-		return (0);
-	return (1);
+	if (*compas > 2 * M_PI)
+		*compas = *compas - 2 * M_PI;
+	else if (*compas < 0)
+		*compas = *compas + 2 * M_PI;
 }
 
-int		ft_exit(int	i)
+void	dir_vect(t_pos *dir, double compas)
 {
-	exit(i);
-	return (0);
+	correct_compas(&compas);
+	dir->y += 0.1 * sin(compas);
+	dir->x += 0.1 * cos(compas);
 }
 
-int		draw_three_d(void *param)
+int		draw_mini_map(t_params *params)
 {
-	t_params	*params;
-
-	params = (t_params*)param;
-	double		angle = params->player.compas - M_PI / 6;
-	double		inc = (M_PI / 3) / params->max.x;
-	double		angle_end = params->player.compas + M_PI / 6;
-	t_pos		dist;
-
-	dist.y = params->max.y * fabs(params->scan.wall.y - params->player.pos.y);
-	dist.x = params->max.y * fabs(params->scan.wall.x - params->player.pos.x);
-	int i = 0;
-	if (angle < 0)
-		angle = 2 * M_PI + angle;
-	if (angle_end > 2 * M_PI)
-		angle_end = angle_end - 2 * M_PI;
-	while (i < params->max.x)
-	{
-		if (angle >= M_PI / 2 && angle <= M_PI)
-		{
-			scan_ne(params, angle); // 90 - 180
-			if (params->scan.face == &params->graph.NO)
-				line_put(params, fabs(params->player.compas - angle), i);
-			else
-				line_put(params, fabs(params->player.compas - angle), i);
-		}
-		else if (angle >= (3 * M_PI) / 2)
-		{
-			scan_sw(params, angle); //0 - 275
-			if (params->scan.face == &params->graph.SO)
-				line_put(params, fabs(params->player.compas - angle), i);
-			else
-				line_put(params, fabs(params->player.compas - angle), i);
-		}
-		else if (angle <= M_PI / 2)
-		{
-			scan_se(params, angle); //0 - 90
-			if (params->scan.face == &params->graph.SO)
-				line_put(params, fabs(params->player.compas - angle), i);
-			else
-				line_put(params, fabs(params->player.compas - angle), i);
-		}
-		else
-		{
-			scan_nw(params, angle); //180-275
-			if (params->scan.face == &params->graph.NO)
-				line_put(params, fabs(params->player.compas - angle), i);
-			else
-				line_put(params, fabs(params->player.compas - angle), i);
-		}
-		angle += inc;
-		i++;
-		if (angle > 2 * M_PI)
-			angle = angle - 2 * M_PI;
-	}
-	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
-	return (1);
-}
-
-int		draw_mini_map(void *param)
-{
-	t_params	*params;
 	int			height;
 	int			width;
 	int			i;
@@ -129,7 +39,6 @@ int		draw_mini_map(void *param)
 	width = 0;
 	i = 0;
 	j = 0;
-	params = (t_params*)param;
 	while (params->grid[i])
 	{
 		height = 0;
@@ -151,69 +60,157 @@ int		draw_mini_map(void *param)
 		i++;
 	}
 	mlx_put_image_to_window(params->ptr, params->wdw, params->graph.S.img, params->player.pos.y * params->graph.EA.h - 4, params->player.pos.x * params->graph.EA.h - 4);
-	double		angle = params->player.compas - M_PI / 6;
+	return (1);
+}
 
+int			can_walk_here(t_pos dir, char **grid, t_pos max)
+{
+	if (dir.x > 0.5 && dir.x < max.x - 0.5
+		&& dir.y > 0.5 && dir.y < max.y - 0.5
+		&& grid[(int)(dir.x)][(int)(dir.y)] == '0')
+		return (1);
+	else
+		return (0);
+}
+
+void		stop(t_params *params)
+{
+	//add free here
+	mlx_destroy_window(params->ptr, params->wdw);
+	exit(0);
+}
+
+void		key_events(t_params *params)
+{
+	t_pos		dir;
+
+	dir.x = params->player.pos.x;
+	dir.y = params->player.pos.y;
+
+	if (params->event[CAM_R] == 1)
+		params->player.compas += M_PI/36;
+	if (params->event[CAM_L] == 1)
+		params->player.compas -= M_PI/36;
+	correct_compas(&params->player.compas);
+	if (params->event[MAP] == 1)
+		draw_mini_map(params);
+	if (params->event[FORW] == 1)
+		dir_vect(&dir, params->player.compas);
+	if (params->event[BCKW] == 1)
+		dir_vect(&dir, params->player.compas + M_PI);
+	if (params->event[LEFT] == 1)
+		dir_vect(&dir, params->player.compas + (3 * M_PI) / 2);
+	if (params->event[RGHT] == 1)
+		dir_vect(&dir, params->player.compas + M_PI / 2);
+	if (can_walk_here(dir, params->grid, params->max))
+	{
+		params->player.pos.x = dir.x;
+		params->player.pos.y = dir.y;
+	}
+}
+
+int			press_key(int keycode, t_params *params)
+{
+	ft_printf("Keycode pressed: %d\n", keycode);
+	if (keycode == 14 || keycode == 124)
+		params->event[CAM_R] = 1;
+	else if (keycode == 12 || keycode == 123)
+		params->event[CAM_L] = 1;
+	else if (keycode == 48)
+		params->event[MAP] = 1;
+	else if (keycode == 13)
+		params->event[FORW] = 1;
+	else if (keycode == 1)
+		params->event[BCKW] = 1;
+	else if (keycode == 0)
+		params->event[LEFT] = 1;
+	else if (keycode == 2)
+		params->event[RGHT] = 1;
+	return (1);
+}
+
+int		release_key(int keycode, t_params *params)
+{
+	ft_printf("Keycode released: %d\n", keycode);
+	if (keycode == 53)
+		stop(params);
+	else if (keycode == 14 || keycode == 124)
+		params->event[CAM_R] = 0;
+	else if (keycode == 12 || keycode == 123)
+		params->event[CAM_L] = 0;
+	else if (keycode == 48)
+		params->event[MAP] = 0;
+	else if (keycode == 13)
+		params->event[FORW] = 0;
+	else if (keycode == 1)
+		params->event[BCKW] = 0;
+	else if (keycode == 0)
+		params->event[LEFT] = 0;
+	else if (keycode == 2)
+		params->event[RGHT] = 0;
+	return (1);
+}
+
+int		ft_exit(int	i)
+{
+	exit(i);
+	return (0);
+}
+
+int		draw_three_d(t_params *params)
+{
+	double		angle = params->player.compas - M_PI / 6;
 	double		inc = (M_PI / 3) / params->max.x;
-	double		angle_end = params->player.compas + M_PI / 6;
-	if (angle < 0)
-		angle = 2 * M_PI + angle;
-	if (angle_end > 2 * M_PI)
-		angle_end = angle_end - 2 * M_PI;
+	t_pos		dist;
+
+	key_events(params);
+	dist.y = params->max.y * fabs(params->scan.wall.y - params->player.pos.y);
+	dist.x = params->max.y * fabs(params->scan.wall.x - params->player.pos.x);
+	int i = 0;
+	correct_compas(&angle);
 	while (i < params->max.x)
 	{
-		ft_printf("Angle : %d\n", (int)(angle * (180 / M_PI)));
 		if (angle >= M_PI / 2 && angle <= M_PI)
 		{
 			scan_ne(params, angle); // 90 - 180
 			if (params->scan.face == &params->graph.NO)
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xff0000);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x00ff00);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		else if (angle >= (3 * M_PI) / 2)
 		{
 			scan_sw(params, angle); //0 - 275
 			if (params->scan.face == &params->graph.SO)
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x0000ff);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xffff00);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		else if (angle <= M_PI / 2)
 		{
 			scan_se(params, angle); //0 - 90
 			if (params->scan.face == &params->graph.SO)
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x0000ff);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0x00ff00);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		else
 		{
 			scan_nw(params, angle); //180-275
 			if (params->scan.face == &params->graph.NO)
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xff0000);
+				line_put(params, fabs(params->player.compas - angle), i);
 			else
-				mlx_pixel_put(params->ptr, params->wdw, params->scan.wall.y * params->graph.EA.h, params->scan.wall.x * params->graph.EA.h, 0xffff00);
+				line_put(params, fabs(params->player.compas - angle), i);
 		}
 		angle += inc;
 		i++;
-		if (angle > 2 * M_PI)
-			angle = angle - 2 * M_PI;
+		correct_compas(&angle);
 	}
+	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
 	return (1);
 }
 
-int		stop(int keycode, void *param)
-{
-	t_params	*params;
 
-	params = (t_params*)param;
-	if (keycode == 53)
-	{
-		mlx_destroy_window(params->ptr, params->wdw);
-		exit(0);
-	}
-	return (1);
-}
 
 int		main(int argc, char **argv)
 {
@@ -246,11 +243,10 @@ int		main(int argc, char **argv)
 	}
 	params.img.img = mlx_get_data_addr(params.fullscreen, &params.img.bpp, &params.img.len, &params.img.endian);
 	mlx_hook(params.wdw, 17, 0, ft_exit, 0);
-	mlx_key_hook(params.wdw, stop, &params);
-//	mlx_hook (params.wdw, 3, 1L << 1, release_key, &params);
+	mlx_do_key_autorepeatoff(params.ptr);
 	mlx_loop_hook(params.ptr, draw_three_d, &params);
-	// mlx_loop_hook(params.ptr, draw_mini_map, &params);
-	mlx_hook (params.wdw, 2, 1L << 0, press_key, &params);
+	mlx_hook(params.wdw, 2, 1L << 0, press_key, &params);
+	mlx_hook(params.wdw, 3, 1L << 1, release_key, &params);
 	mlx_loop(params.ptr);
 }
 

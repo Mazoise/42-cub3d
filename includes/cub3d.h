@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 14:05:04 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:44:14 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <math.h>
+# define CAM_L 0
+# define CAM_R 1
+# define FORW 2
+# define BCKW 3
+# define LEFT 4
+# define RGHT 5
+# define MAP 6
 
 typedef struct		s_pos
 {
@@ -55,6 +62,7 @@ typedef struct		s_graph
 typedef struct 		s_scan
 {
 	t_pos			wall;
+	t_pos 			sprite;
 	t_texture		*face;
 }					t_scan;
 
@@ -75,6 +83,7 @@ typedef struct		s_params
 	t_player		player;
 	t_scan			scan;
 	t_mlx_img		img;
+	char			event[7];
 }					t_params;
 
 typedef struct		s_RGB
@@ -84,20 +93,11 @@ typedef struct		s_RGB
 	unsigned char	Blue;
 }					t_RGB;
 
-typedef struct	mlx_img_list_s
-{
-  int					width;
-  int					height;
-  char					*buffer;
-  GLfloat				vertexes[8];
-  struct mlx_img_list_s	*next;
-} mlx_img_list_t;
-
 void		init_struct(t_params *params);
 int			check_format(char *str);
 int			is_valid_grid_element(char c);
 int			is_save_request(char *str);
-int			get_texture(char *path, t_texture *txtr, void *ptr);
+int			get_texture(char *path, t_texture *txtr, void *ptr, char c);
 int			conv_texture(char *str, t_params *params, char c);
 void		ft_RGB_to_int(t_params *params, t_RGB color, char c);
 int			conv_color(char *str, t_params *params, char c);
@@ -119,6 +119,7 @@ void		scan_sw(t_params *params, double angle);
 void		scan_se(t_params *params, double angle);
 void		scan_nw(t_params *params, double angle);
 void		line_put(t_params *params, double inc, int i);
-void		img_to_int(t_mlx_img tmp, t_texture *txtr);
+void		img_to_intNE(t_mlx_img tmp, t_texture *txtr);
+void		img_to_intSW(t_mlx_img tmp, t_texture *txtr);
 
 #endif

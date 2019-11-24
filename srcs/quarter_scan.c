@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:57:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 13:15:49 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:49:26 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	scan_sw(t_params *params, double angle)
 	t_pos	add;
 	t_pos	player;
 
-	angle = angle - M_PI;
 	player = params->player.pos;
 	add.x = 1;
 	add.y = 1 / tan(M_PI / 2 - angle);
@@ -83,7 +82,6 @@ void	scan_se(t_params *params, double angle)
 	t_pos	add;
 	t_pos	player;
 
-	angle = angle + M_PI;
 	player = params->player.pos;
 	add.x = 1;
 	add.y = 1 / tan(M_PI / 2 - angle);
@@ -110,7 +108,6 @@ void	scan_nw(t_params *params, double angle)
 	t_pos	add;
 	t_pos	player;
 
-	angle = angle - M_PI;
 	player = params->player.pos;
 	add.x = -1;
 	add.y = -1 / tan(M_PI / 2 - angle);

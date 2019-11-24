@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 14:34:19 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/24 20:33:25 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,38 @@
 #include <math.h>
 #include <stdio.h> //
 
+// void	txtr_to_image(t_mlx_img *dst, t_mlx_img src, t_pos dst_pos, t_pos src_pos)
+// {
+// 	int		i;
+// 	int		j;
+
+// 	src.bpp /= 8;
+// 	i = 0;
+// 	while (i < txtr->h * txtr->w)
+// 	{
+// 		j = 0;
+// 		while (j < tmp.bpp)
+// 		{
+// 			txtr->txtr[i] += pow(256, j) * (unsigned char)tmp.img[i * tmp.bpp + j];
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
 void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j)
 {
 	int		k;
 
 	k = 0;
-	char	*cursor = img->img;
-	cursor += j * img->len + i * (img->bpp / 8);
 	while (k < img->bpp / 8)
 	{
-		cursor[k] = color / pow(256, k);
-		// img->img[((img->len * j) + i * (img->bpp / 8)) + k] = color / pow(256, k);
+		img->img[((img->len * j) + i * (img->bpp / 8)) + k] = color / pow(256, k);
 		k++;
 	}
-	// ft_printf("%d\n", img->len);
 }
 
-void	img_to_int(t_mlx_img tmp, t_texture *txtr)
+void	img_to_intSW(t_mlx_img tmp, t_texture *txtr)
 {
 	int		i;
 	int		j;
@@ -49,14 +64,52 @@ void	img_to_int(t_mlx_img tmp, t_texture *txtr)
 	}
 }
 
+void	img_to_intNE(t_mlx_img tmp, t_texture *txtr)
+{
+	int		i;
+	int		j;
+	int		k;
+
+	tmp.bpp /= 8;
+	i = 1;
+	k = 0;
+	while (k <= txtr->h)
+	{
+		j = 0;
+		while (j < tmp.bpp)
+		{
+			txtr->txtr[txtr->w * k + txtr->w - i] += pow(256, j) * (unsigned char)tmp.img[i * tmp.bpp + j];
+			j++;
+		}
+		i++;
+		if (i == txtr->w + 1)
+		{
+			if (k == txtr->h)
+				break;
+			i = 1;
+			k++;
+		}
+	}
+}
+
 void	texture_put(t_params *params, double height, double pct, int i, int j)
 {
 	int			k;
+	int			end;
 	double		tmp;
 	double		tmp2;
 
-	k = 0;
-	while (k < height)
+	if (height > params->max.y)
+	{
+		k = (height - params->max.y) / 2;
+		end = params->max.y + (height - params->max.y) / 2;
+	}
+	else
+	{
+		k = 0;
+		end = height;
+	}
+	while (k < end)
 	{
 		tmp = k / height;
 		tmp2 = floor(tmp * params->scan.face->h) * params->scan.face->w + pct * params->scan.face->w;
