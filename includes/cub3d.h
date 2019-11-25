@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 19:44:14 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/25 10:38:31 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ typedef struct		s_params
 	void			*ptr;
 	void			*wdw;
 	void			*fullscreen;
+	void			*minimap;
 	t_pos			max;
 	char			**grid;
 	t_graph			graph;
 	t_player		player;
 	t_scan			scan;
 	t_mlx_img		img;
+	t_mlx_img		mini_m;
 	char			event[7];
 }					t_params;
 
@@ -121,5 +123,6 @@ void		scan_nw(t_params *params, double angle);
 void		line_put(t_params *params, double inc, int i);
 void		img_to_intNE(t_mlx_img tmp, t_texture *txtr);
 void		img_to_intSW(t_mlx_img tmp, t_texture *txtr);
+void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j);
 
 #endif

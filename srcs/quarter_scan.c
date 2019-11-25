@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:57:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 16:49:26 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/25 10:06:55 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	next_scan(t_pos *dir, t_pos add, char **grid)
 	}
 }
 
-void	scan_ne(t_params *params, double angle)
+void	scan_se(t_params *params, double angle)
 {
 	t_pos	horz;
 	t_pos	vert;
@@ -46,10 +46,10 @@ void	scan_ne(t_params *params, double angle)
 	if (params->scan.wall.y == vert.y)
 		params->scan.face = &params->graph.EA;
 	else
-		params->scan.face = &params->graph.NO;
+		params->scan.face = &params->graph.SO;
 }
 
-void	scan_sw(t_params *params, double angle)
+void	scan_nw(t_params *params, double angle)
 {
 	t_pos	horz;
 	t_pos	vert;
@@ -72,10 +72,10 @@ void	scan_sw(t_params *params, double angle)
 		if (params->scan.wall.y == vert.y)
 			params->scan.face = &params->graph.WE;
 		else
-			params->scan.face = &params->graph.SO;
+			params->scan.face = &params->graph.NO;
 }
 
-void	scan_se(t_params *params, double angle)
+void	scan_ne(t_params *params, double angle)
 {
 	t_pos	horz;
 	t_pos	vert;
@@ -98,10 +98,10 @@ void	scan_se(t_params *params, double angle)
 	if (params->scan.wall.y == vert.y)
 		params->scan.face = &params->graph.EA;
 	else
-		params->scan.face = &params->graph.SO;
+		params->scan.face = &params->graph.NO;
 }
 
-void	scan_nw(t_params *params, double angle)
+void	scan_sw(t_params *params, double angle)
 {
 	t_pos	horz;
 	t_pos	vert;
@@ -124,5 +124,5 @@ void	scan_nw(t_params *params, double angle)
 	if (params->scan.wall.y == vert.y)
 		params->scan.face = &params->graph.WE;
 	else
-		params->scan.face = &params->graph.NO;
+		params->scan.face = &params->graph.SO;
 }

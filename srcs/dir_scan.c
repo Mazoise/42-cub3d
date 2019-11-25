@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 20:33:25 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/25 10:02:38 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	img_to_intNE(t_mlx_img tmp, t_texture *txtr)
 		j = 0;
 		while (j < tmp.bpp)
 		{
-			txtr->txtr[txtr->w * k + txtr->w - i] += pow(256, j) * (unsigned char)tmp.img[i * tmp.bpp + j];
+			txtr->txtr[txtr->w * k + txtr->w - i] += pow(256, j) * (unsigned char)tmp.img[(txtr->w * k + i - 1) * tmp.bpp + j];
 			j++;
 		}
 		i++;
