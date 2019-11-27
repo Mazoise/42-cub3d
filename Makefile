@@ -1,12 +1,18 @@
-PREFIX		=	./srcs/
+PREFIX_INIT	=	./srcs/init/
+
+PREFIX_SCAN =	./srcs/scan/
 
 INCLUDES	=	./includes/
 
 INCLUDES_L	=	./libft/includes/
 
-SRCS 		=	$(addprefix $(PREFIX), cub3d.c read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c quarter_scan.c dir_scan.c)
+SRCS_INIT	=	$(addprefix $(PREFIX_INIT), read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c)
 
-OBJS		=	$(SRCS:.c=.o)
+SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), cub3d.c quarter_scan.c dir_scan.c utils.c)
+
+ALL_SRCS	=	$(SRCS_INIT) $(SRCS_SCAN)
+
+OBJS		=	${ALL_SRCS:.c=.o}
 
 CC			=	gcc
 

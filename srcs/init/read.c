@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:42:05 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/19 17:14:03 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 11:25:40 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,7 @@
 #include <limits.h>
 #include <fcntl.h>
 
-int			conv_grid(char *str, t_params *params)
-{
-	if (!(check_all_params(params)))
-		return (0);
-	if (!params->grid)
-	{
-		if (!(params->grid = malloc(sizeof(char*) * 2)))
-		{
-			ft_printf("Error\nAllocation fail\n");
-			return (0);
-		}
-		if (!(first_fill_grid(str, params)))
-			return (0);
-		params->grid[1] = 0;
-	}
-	else if (!(fill_grid(str, params)))
-		return (0);
-	return (1);
-}
-
-int			conv_params(char *str, t_params *params)
+static int			conv_params(char *str, t_params *params)
 {
 	int		i;
 	int		ret;
@@ -58,7 +38,7 @@ int			conv_params(char *str, t_params *params)
 	return (ret);
 }
 
-int			convert_line(char *str, t_params *params)
+static int			convert_line(char *str, t_params *params)
 {
 	int		i;
 
@@ -82,11 +62,11 @@ int			convert_line(char *str, t_params *params)
 	return (1);
 }
 
-int			convert_read(int fd, t_params *params)
+static int			convert_read(int fd, t_params *params)
 {
 	int		ret;
 	char	*str;
-	
+
 	while ((ret = get_next_line(fd, &str)))
 	{
 		if (!(convert_line(str, params)))
@@ -103,10 +83,9 @@ int			convert_read(int fd, t_params *params)
 	return (1);
 }
 
-int			read_map(char *mapcub, t_params *params)
+int					read_map(char *mapcub, t_params *params)
 {
 	int		fd;
-
 
 	if (!(check_format(mapcub)))
 		return (0);

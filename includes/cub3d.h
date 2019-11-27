@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/25 10:38:31 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 12:19:52 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,34 +95,27 @@ typedef struct		s_RGB
 	unsigned char	Blue;
 }					t_RGB;
 
+int			initialisation(char *mapcub, t_params *params);
+int			read_map(char *mapcub, t_params *params);
+int			init_player(t_player *player, char **grid);
 void		init_struct(t_params *params);
+int			check_all_params(t_params *params);
 int			check_format(char *str);
 int			is_valid_grid_element(char c);
 int			is_save_request(char *str);
-int			get_texture(char *path, t_texture *txtr, void *ptr, char c);
 int			conv_texture(char *str, t_params *params, char c);
-void		ft_RGB_to_int(t_params *params, t_RGB color, char c);
 int			conv_color(char *str, t_params *params, char c);
 int			conv_resolution(char *str, t_params *params);
-int			fill_grid(char *str, t_params *params);
-int			first_fill_grid(char *str, t_params *params);
-int			check_all_params(t_params *params);
 int			conv_grid(char *str, t_params *params);
-int			conv_params(char *str, t_params *params);
-int			convert_line(char *str, t_params *params);
-int			read_map(char *mapcub, t_params *params);
-int			initialisation(char *mapcub, t_params *params);
-int			convert_read(int fd, t_params *params);
-int			init_player(t_params *params);
-int			check_n_pos(t_player *player, char **grid);
-int			closed_grid(char **grid);
-void		scan_ne(t_params *params, double angle);
-void		scan_sw(t_params *params, double angle);
-void		scan_se(t_params *params, double angle);
-void		scan_nw(t_params *params, double angle);
+void		scan_ne(t_params *params, double angle, t_pos *wall);
+void		scan_sw(t_params *params, double angle, t_pos *wall);
+void		scan_se(t_params *params, double angle, t_pos *wall);
+void		scan_nw(t_params *params, double angle, t_pos *wall);
 void		line_put(t_params *params, double inc, int i);
 void		img_to_intNE(t_mlx_img tmp, t_texture *txtr);
 void		img_to_intSW(t_mlx_img tmp, t_texture *txtr);
-void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j);
+void		int_to_img(t_mlx_img *img, unsigned int color, int i, int j);
+int			is_grid_pos(double x, double y, char **grid, char c);
+void		correct_compas(double *compas);
 
 #endif

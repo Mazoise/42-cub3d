@@ -6,13 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/25 09:54:53 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 11:17:08 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
+static int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
 {
 	t_mlx_img	tmp;
 
@@ -29,12 +29,12 @@ int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
 	tmp.img = mlx_get_data_addr(txtr->img, &tmp.bpp, &tmp.len, &tmp.endian);
 	if (c == 'N' || c == 'E')
 		img_to_intNE(tmp, txtr);
-	else 
+	else
 		img_to_intSW(tmp, txtr);
 	return (1);
 }
 
-int			conv_texture(char *str, t_params *params, char c)
+int					conv_texture(char *str, t_params *params, char c)
 {
 	char	*path;
 	int		ret;
@@ -56,7 +56,7 @@ int			conv_texture(char *str, t_params *params, char c)
 	return (ret);
 }
 
-void		ft_rgb_to_int(t_params *params, t_RGB color, char c)
+static void			ft_rgb_to_int(t_params *params, t_RGB color, char c)
 {
 	int		nb;
 
@@ -67,7 +67,7 @@ void		ft_rgb_to_int(t_params *params, t_RGB color, char c)
 		params->graph.C = mlx_get_color_value(params->ptr, nb);
 }
 
-int			conv_color(char *str, t_params *params, char c)
+int					conv_color(char *str, t_params *params, char c)
 {
 	t_RGB	color;
 	int		i;
@@ -96,7 +96,7 @@ int			conv_color(char *str, t_params *params, char c)
 	return (1);
 }
 
-int			conv_resolution(char *str, t_params *params)
+int					conv_resolution(char *str, t_params *params)
 {
 	int		i;
 
