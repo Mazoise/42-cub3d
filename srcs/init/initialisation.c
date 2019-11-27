@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:41:19 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 12:30:17 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:58:22 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int			initialisation(char *mapcub, t_params *params)
 		ft_printf("INITPLAYER ERROR\n");
 		return (0);
 	}
+	pre_calc(params);
 	return (1);
 }

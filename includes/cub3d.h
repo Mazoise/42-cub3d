@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 12:19:52 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:04:16 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ typedef struct		s_pos
 	double			y;
 }					t_pos;
 
+typedef struct		s_idx
+{
+	int				i;
+	int				j;
+}					t_idx;
 typedef struct		s_texture
 {
 	int				h;
@@ -71,6 +76,10 @@ typedef struct		s_player
 	t_pos			pos;
 	double			compas;
 }					t_player;
+typedef struct 		s_calc
+{
+	double			proj;
+}					t_calc;
 
 typedef struct		s_params
 {
@@ -86,6 +95,7 @@ typedef struct		s_params
 	t_mlx_img		img;
 	t_mlx_img		mini_m;
 	char			event[7];
+	t_calc			calc;
 }					t_params;
 
 typedef struct		s_RGB
@@ -112,10 +122,19 @@ void		scan_sw(t_params *params, double angle, t_pos *wall);
 void		scan_se(t_params *params, double angle, t_pos *wall);
 void		scan_nw(t_params *params, double angle, t_pos *wall);
 void		line_put(t_params *params, double inc, int i);
-void		img_to_intNE(t_mlx_img tmp, t_texture *txtr);
-void		img_to_intSW(t_mlx_img tmp, t_texture *txtr);
+void		img_to_intne(t_mlx_img tmp, t_texture *txtr);
+void		img_to_intsw(t_mlx_img tmp, t_texture *txtr);
 void		int_to_img(t_mlx_img *img, unsigned int color, int i, int j);
 int			is_grid_pos(double x, double y, char **grid, char c);
 void		correct_compas(double *compas);
+int			init_mlx(t_params *params, char *name);
+void		key_events(t_params *params);
+int			press_key(int keycode, t_params *params);
+int			release_key(int keycode, t_params *params);
+int			exit_wdw(t_params *params);
+int			window_mlx(t_params *params, char *name);
+void		loop_mlx(t_params *params);
+int			draw_three_d(t_params *params);
+int			draw_mini_map(t_params *params);
 
 #endif

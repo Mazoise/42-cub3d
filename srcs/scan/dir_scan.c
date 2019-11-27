@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 12:48:06 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:24:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j)
 	}
 }
 
-void	img_to_intSW(t_mlx_img tmp, t_texture *txtr)
+void	img_to_intsw(t_mlx_img tmp, t_texture *txtr)
 {
 	int				i;
 	int				j;
@@ -67,7 +67,7 @@ void	img_to_intSW(t_mlx_img tmp, t_texture *txtr)
 	}
 }
 
-void	img_to_intNE(t_mlx_img tmp, t_texture *txtr)
+void	img_to_intne(t_mlx_img tmp, t_texture *txtr)
 {
 	int		i;
 	int		j;
@@ -76,25 +76,22 @@ void	img_to_intNE(t_mlx_img tmp, t_texture *txtr)
 	int		idx2;
 
 	tmp.bpp /= 8;
-	i = 1;
+	i = 0;
 	k = 0;
-	while (k <= txtr->h)
+	while (1)
 	{
-		j = 0;
-		idx1 = txtr->w * k + txtr->w - i;
-		idx2 = txtr->w * k + i - 1;
-		while (j < tmp.bpp)
+		j = -1;
+		idx1 = txtr->w * k + txtr->w - (++i);
+		while (++j < tmp.bpp)
 		{
-			txtr->txtr[idx1] += pow(256, j) * (unsigned char)tmp.img[idx2 * tmp.bpp + j];
-			j++;
+			idx2 = (txtr->w * k + i - 1) * tmp.bpp + j;
+			txtr->txtr[idx1] += pow(256, j) * (unsigned char)tmp.img[idx2];
 		}
-		i++;
-		if (i == txtr->w + 1)
+		if (i == txtr->w)
 		{
-			if (k == txtr->h)
-				break;
-			i = 1;
-			k++;
+			if (k++ == txtr->h)
+				break ;
+			i = 0;
 		}
 	}
 }
@@ -120,8 +117,8 @@ void	texture_put(t_params *params, double height, double pct, t_idx idx)
 	}
 	while (k < end)
 	{
-		tmp = k / height;
-		tmp2 = floor(tmp * params->scan.face->h) * params->scan.face->w + pct * params->scan.face->w;
+		tmp = k / height * params->scan.face->h;
+		tmp2 = floor(tmp) * params->scan.face->w + pct * params->scan.face->w;
 		int_to_img(&params->img, params->scan.face->txtr[(int)tmp2], idx.i, j);
 		j++;
 		k++;
@@ -131,24 +128,25 @@ void	texture_put(t_params *params, double height, double pct, t_idx idx)
 void	line_put(t_params *params, double inc, int i)
 {
 	double	dist;
-	double	proj;
 	int		height;
-	int		powx;
-	int		powy;
+	t_pos	power;
 	t_idx	idx;
+	double	pct;
 
 	idx.i = i;
 	idx.j = -1;
-	powx = pow(params->scan.wall.x - params->player.pos.x, 2);
-	powy = pow(params->scan.wall.y - params->player.pos.y, 2);
-	dist = cos(inc) * params->max.y * sqrt( powx + powy);
+	power.x = pow(params->scan.wall.x - params->player.pos.x, 2);
+	power.y = pow(params->scan.wall.y - params->player.pos.y, 2);
+	dist = cos(inc) * params->max.y * sqrt(power.x + power.y);
 	height = params->max.x / dist * params->calc.proj;
 	while (++idx.j < (params->max.y - height) / 2)
 		int_to_img(&params->img, params->graph.C, idx.i, idx.j);
-	if (params->scan.face == &params->graph.SO || params->scan.face == &params->graph.NO)
-		texture_put(params, height, params->scan.wall.y - floor(params->scan.wall.y), idx);
+	if (params->scan.face == &params->graph.SO
+		|| params->scan.face == &params->graph.NO)
+		pct = params->scan.wall.y - floor(params->scan.wall.y);
 	else
-		texture_put(params, height, params->scan.wall.x - floor(params->scan.wall.x), idx);
+		pct = params->scan.wall.x - floor(params->scan.wall.x);
+	texture_put(params, height, pct, idx);
 	idx.j = (params->max.y - (params->max.y - height) / 2) - 1;
 	while (++idx.j < params->max.y)
 		int_to_img(&params->img, params->graph.F, idx.i, idx.j);

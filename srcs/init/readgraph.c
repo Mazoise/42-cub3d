@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 11:17:08 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:48:27 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
 	}
 	tmp.img = mlx_get_data_addr(txtr->img, &tmp.bpp, &tmp.len, &tmp.endian);
 	if (c == 'N' || c == 'E')
-		img_to_intNE(tmp, txtr);
+		img_to_intne(tmp, txtr);
 	else
-		img_to_intSW(tmp, txtr);
+		img_to_intsw(tmp, txtr);
 	return (1);
 }
 
