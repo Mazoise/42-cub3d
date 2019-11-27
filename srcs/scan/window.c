@@ -6,12 +6,11 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:27:33 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 15:15:20 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 21:15:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int			exit_wdw(t_params *params)
 {

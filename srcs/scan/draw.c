@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 14:24:44 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:40:14 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j)
 	int		tmp;
 
 	k = 0;
-	tmp = ((img->len * j) + i * (img->bpp / 8));
-	while (k < img->bpp / 8)
+	tmp = ((img->len * j) + i * (img->bpp >> 3));
+	while (k < img->bpp >> 3)
 	{
 		img->img[tmp + k] = color / pow(256, k);
 		k++;
@@ -52,7 +52,7 @@ void	img_to_intsw(t_mlx_img tmp, t_texture *txtr)
 	int				j;
 	unsigned char	argb;
 
-	tmp.bpp /= 8;
+	tmp.bpp >>= 3;
 	i = 0;
 	while (i < txtr->h * txtr->w)
 	{

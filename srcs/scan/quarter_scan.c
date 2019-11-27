@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:57:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 12:22:09 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:47:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void			scan_ne(t_params *params, double angle, t_pos *wall)
 
 	player = params->player.pos;
 	add.x = -1;
-	add.y = -1 / tan(M_PI / 2 - angle);
+	add.y = -1 / tan(M_PI_2 - angle);
 	hrz.x = floor(player.x) - 0.01;
-	hrz.y = player.y - (player.x - floor(player.x)) / tan(M_PI / 2 - angle);
+	hrz.y = player.y - (player.x - floor(player.x)) / tan(M_PI_2 - angle);
 	next_scan(&hrz, add, params->grid);
 	add.y = 1;
-	add.x = 1 * tan(M_PI / 2 - angle);
+	add.x = 1 * tan(M_PI_2 - angle);
 	vrt.y = ceil(player.y);
-	vrt.x = player.x + (ceil(player.y) - player.y) * tan(M_PI / 2 - angle);
+	vrt.x = player.x + (ceil(player.y) - player.y) * tan(M_PI_2 - angle);
 	next_scan(&vrt, add, params->grid);
 	wall->y = (hrz.y >= vrt.y && hrz.x <= vrt.x ? vrt.y : hrz.y);
 	wall->x = (wall->y == vrt.y ? vrt.x : hrz.x);
@@ -57,14 +57,14 @@ void			scan_sw(t_params *params, double angle, t_pos *wall)
 
 	player = params->player.pos;
 	add.x = 1;
-	add.y = 1 / tan(M_PI / 2 - angle);
+	add.y = 1 / tan(M_PI_2 - angle);
 	hrz.x = ceil(player.x);
-	hrz.y = player.y - (player.x - ceil(player.x)) / tan(M_PI / 2 - angle);
+	hrz.y = player.y - (player.x - ceil(player.x)) / tan(M_PI_2 - angle);
 	next_scan(&hrz, add, params->grid);
 	add.y = -1;
-	add.x = -1 * tan(M_PI / 2 - angle);
+	add.x = -1 * tan(M_PI_2 - angle);
 	vrt.y = floor(player.y) - 0.01;
-	vrt.x = player.x + (floor(player.y) - player.y) * tan(M_PI / 2 - angle);
+	vrt.x = player.x + (floor(player.y) - player.y) * tan(M_PI_2 - angle);
 	next_scan(&vrt, add, params->grid);
 	wall->y = (hrz.y < vrt.y || hrz.x > vrt.x ? vrt.y : hrz.y);
 	wall->x = (wall->y == vrt.y ? vrt.x : hrz.x);
@@ -83,14 +83,14 @@ void			scan_se(t_params *params, double angle, t_pos *wall)
 
 	player = params->player.pos;
 	add.x = 1;
-	add.y = 1 / tan(M_PI / 2 - angle);
+	add.y = 1 / tan(M_PI_2 - angle);
 	hrz.x = ceil(player.x);
-	hrz.y = player.y - (player.x - ceil(player.x)) / tan(M_PI / 2 - angle);
+	hrz.y = player.y - (player.x - ceil(player.x)) / tan(M_PI_2 - angle);
 	next_scan(&hrz, add, params->grid);
 	add.y = 1;
-	add.x = 1 * tan(M_PI / 2 - angle);
+	add.x = 1 * tan(M_PI_2 - angle);
 	vrt.y = ceil(player.y);
-	vrt.x = player.x + (ceil(player.y) - player.y) * tan(M_PI / 2 - angle);
+	vrt.x = player.x + (ceil(player.y) - player.y) * tan(M_PI_2 - angle);
 	next_scan(&vrt, add, params->grid);
 	wall->y = (hrz.y > vrt.y || hrz.x > vrt.x ? vrt.y : hrz.y);
 	wall->x = (wall->y == vrt.y ? vrt.x : hrz.x);
@@ -109,14 +109,14 @@ void			scan_nw(t_params *params, double angle, t_pos *wall)
 
 	player = params->player.pos;
 	add.x = -1;
-	add.y = -1 / tan(M_PI / 2 - angle);
+	add.y = -1 / tan(M_PI_2 - angle);
 	hrz.x = floor(player.x) - 0.01;
-	hrz.y = player.y - (player.x - floor(player.x)) / tan(M_PI / 2 - angle);
+	hrz.y = player.y - (player.x - floor(player.x)) / tan(M_PI_2 - angle);
 	next_scan(&hrz, add, params->grid);
 	add.y = -1;
-	add.x = -1 * tan(M_PI / 2 - angle);
+	add.x = -1 * tan(M_PI_2 - angle);
 	vrt.y = floor(player.y) - 0.01;
-	vrt.x = player.x + (floor(player.y) - player.y) * tan(M_PI / 2 - angle);
+	vrt.x = player.x + (floor(player.y) - player.y) * tan(M_PI_2 - angle);
 	next_scan(&vrt, add, params->grid);
 	wall->y = (hrz.y >= vrt.y - 0.01 && hrz.x >= vrt.x - 0.01 ? hrz.y : vrt.y);
 	wall->x = (wall->y == hrz.y ? hrz.x : vrt.x);

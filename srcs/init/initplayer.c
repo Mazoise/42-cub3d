@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 12:13:29 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:47:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int		player_start(char *c, t_player *player, int i, int j)
 		else if (*c == 'S')
 			player->compas = 0;
 		else if (*c == 'E')
-			player->compas = M_PI / 2;
+			player->compas = M_PI_2;
 		else if (*c == 'W')
 			player->compas = (3 * M_PI) / 2;
 		*c = '0';

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 15:04:16 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 21:29:38 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ int			window_mlx(t_params *params, char *name);
 void		loop_mlx(t_params *params);
 int			draw_three_d(t_params *params);
 int			draw_mini_map(t_params *params);
+int			draw_three_d(t_params *params);
 
 #endif

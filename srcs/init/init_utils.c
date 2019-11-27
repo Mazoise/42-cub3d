@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/24 18:32:42 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 21:09:47 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int			is_save_request(char *str)
 	int	i;
 
 	i = ft_len_c(str, 0);
-	if (i == 6 && str[0] == '-' && str[1] == '-' && str[2] == 's'
-		&& str[3] == 'a' && str[4] == 'v' && str[5] == 'e')
+	if (i == 5 && str[0] == '-' &&  str[1] == 's'
+		&& str[2] == 'a' && str[3] == 'v' && str[4] == 'e')
 		return (1);
 	return (0);
 }

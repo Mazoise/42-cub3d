@@ -8,7 +8,7 @@ INCLUDES_L	=	./libft/includes/
 
 SRCS_INIT	=	$(addprefix $(PREFIX_INIT), read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c)
 
-SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), cub3d.c quarter_scan.c dir_scan.c utils.c window.c keys.c)
+SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), cub3d.c quarter_scan.c draw.c utils.c window.c keys.c)
 
 ALL_SRCS	=	$(SRCS_INIT) $(SRCS_SCAN)
 
@@ -16,7 +16,7 @@ OBJS		=	${ALL_SRCS:.c=.o}
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L)
+CFLAGS		=	-g -Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L)
 
 RM 			=	rm -f
 

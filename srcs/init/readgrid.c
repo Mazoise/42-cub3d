@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:20:44 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 11:27:06 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:33:12 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int			fill_grid(char *str, t_params *params)
 	if (!(add = ft_strdup_no_sp(str)))
 	{
 		ft_printf("Error\nAllocation fail\n");
+		ft_free_strs(params->grid);
 		return (0);
 	}
 	if (!(params->grid = ft_strs_plus_one(params->grid, add)))
