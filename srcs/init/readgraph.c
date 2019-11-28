@@ -6,38 +6,11 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 20:29:51 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 22:28:33 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// 	#include <stdio.h>
-// 	#include <sys/types.h>
-// 	#include <sys/uio.h>
-// 	#include <fcntl.h>
-// 	#include <unistd.h>
-// 	#include "mlx.h"
-// void	changestring(char **str)
-// {
-
-
-// 	int fd;
-// 	char str2[4166];
-// 	int	end;
-// 	int i = 0;
-// 	fd = open("brick3.bmp", O_RDONLY);
-// 	end = read(fd, str2, 4166);
-// 	close(fd);
-
-// 	int j = 70;
-// 	while(j < end)
-// 	{
-// 		str[0][i] = str2[j];
-// 		i++;
-// 		j++;
-// 	}
-// }
 
 static int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
 {
@@ -54,9 +27,6 @@ static int			get_texture(char *path, t_texture *txtr, void *ptr, char c)
 		return (0);
 	}
 	tmp.img = mlx_get_data_addr(txtr->img, &tmp.bpp, &tmp.len, &tmp.endian);
-//
-	// changestring(&tmp.img);
-//
 	if (c == 'N' || c == 'E')
 		img_to_intne(tmp, txtr);
 	else

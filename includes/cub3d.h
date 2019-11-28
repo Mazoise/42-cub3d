@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 20:28:10 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 22:45:08 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct		s_params
 	t_mlx_img		mini_m;
 	char			event[7];
 	t_calc			calc;
+	int				screenshot;
 }					t_params;
 
 typedef struct		s_RGB
@@ -138,5 +139,6 @@ int			draw_three_d(t_params *params);
 int			draw_mini_map(t_params *params);
 int			draw_three_d(t_params *params);
 int			screenshot_bmp(t_params *params);
+int			check_args(int argc, char **argv, t_params *params);
 
 #endif

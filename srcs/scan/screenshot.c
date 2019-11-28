@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:37:30 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 21:25:36 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 22:44:43 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ int			screenshot_bmp(t_params *params)
 	i = 0;
 	if((fd = open("screenshot.bmp", O_WRONLY)) < 0)
 	{
-		ft_printf("\nfd : %d\n", fd);
-			return (0);
+		return (0);
 	}
 	size = params->max.i * params->max.j; 
 	fill_info(fd, params, size);

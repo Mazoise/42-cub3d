@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 20:43:02 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 23:05:20 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int				draw_three_d(t_params *params)
 	double		inc;
 	t_pos		dist;
 	int			i;
-	static int		stat = 0;
 
 	inc = (M_PI / 3) / params->max.i;
 	angle = params->player.compas + M_PI_2 / 3;
@@ -46,10 +45,10 @@ int				draw_three_d(t_params *params)
 		i++;
 		correct_compas(&angle);
 	}
-	if (stat == 0)
+	if (params->screenshot == 1)
 	{
 		screenshot_bmp(params);
-		stat++;
+		params->screenshot = 0;
 	}
 	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
 	key_events(params);
