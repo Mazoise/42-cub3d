@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 21:09:47 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:29:51 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void		init_struct(t_params *params)
 {
 	params->grid = 0;
-	params->max.x = -1;
-	params->max.y = -1;
+	params->max.i = -1;
+	params->max.j = -1;
 	params->graph.NO.img = 0;
 	params->graph.SO.img = 0;
 	params->graph.WE.img = 0;
@@ -29,11 +29,11 @@ void		init_struct(t_params *params)
 
 int			check_all_params(t_params *params)
 {
-	if (params->max.x < 0 || params->max.y < 0 || !params->graph.NO.img
+	if (params->max.i < 0 || params->max.j < 0 || !params->graph.NO.img
 		|| !params->graph.SO.img || !params->graph.WE.img || params->graph.C < 0
 		|| !params->graph.S.img || params->graph.F < 0 || !params->graph.EA.img)
 	{
-		if (params->max.x < 0 || params->max.y < 0)
+		if (params->max.i < 0 || params->max.j < 0)
 			ft_printf("Error\nMissing resolution format\n");
 		if (!params->graph.NO.img)
 			ft_printf("Error\nMissing north texture path\n");

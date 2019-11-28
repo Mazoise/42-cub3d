@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:41:19 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 13:58:22 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:29:18 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		pre_calc(t_params *params)
 {
-	params->calc.proj = (params->max.y / 2) / tan(M_PI / 6);
+	params->calc.proj = (params->max.j / 2) / tan(M_PI / 6);
 }
 
 int			initialisation(char *mapcub, t_params *params)

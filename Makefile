@@ -8,7 +8,7 @@ INCLUDES_L	=	./libft/includes/
 
 SRCS_INIT	=	$(addprefix $(PREFIX_INIT), read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c)
 
-SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), cub3d.c quarter_scan.c draw.c utils.c window.c keys.c)
+SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), cub3d.c quarter_scan.c draw.c utils.c window.c keys.c screenshot.c scan.c)
 
 ALL_SRCS	=	$(SRCS_INIT) $(SRCS_SCAN)
 
@@ -54,6 +54,7 @@ beta :			$(OBJS) makelib makemlxb
 
 sys :			$(OBJS) makelib
 				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
+				rm -rf screenshot.bmp && touch screenshot.bmp
 
 all :
 				$(NAME)

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:27:33 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 21:15:09 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/28 20:31:51 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int			exit_wdw(t_params *params)
 int			window_mlx(t_params *params, char *name)
 {
 	t_mlx_img	*img;
-	t_pos		max;
+	t_idx		max;
 	void		*fs;
 
 	img = &params->img;
 	max = params->max;
-	if (!(params->wdw = mlx_new_window(params->ptr, max.x, max.y, name)))
+	if (!(params->wdw = mlx_new_window(params->ptr, max.i, max.j, name)))
 	{
 		ft_printf("Error\nInitialisation of mlx window failed\n");
 		return (0);
 	}
-	if (!(params->fullscreen = mlx_new_image(params->ptr, max.x, max.y)))
+	if (!(params->fullscreen = mlx_new_image(params->ptr, max.i, max.j)))
 	{
 		ft_printf("Error\nInitialisation of mlx img failed\n");
 		return (0);
