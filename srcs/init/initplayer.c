@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 20:47:35 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 12:44:40 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ static int		closed_line(char *line, int *pos, int last)
 		return (0);
 	}
 	j = -1;
-	while (is_valid_grid_element(line[++j]))
-		if (line[j] == 'N' || line[j] == 'S'
-			|| line[j] == 'E' || line[j] == 'W')
+	while (is_grid(line[++j]) || is_compas(line[j]))
+		if (is_compas(line[j]))
 			(*pos)++;
 	if (j != last)
 	{
@@ -66,7 +65,7 @@ static int		closed_grid(char **grid, int *pos)
 	int		last;
 
 	i = -1;
-	if ((last = first_line(grid[0])) < 0)
+	if (!(last = first_line(grid[0])))
 		return (0);
 	while (grid[++i])
 		if (!(closed_line(grid[i], pos, last)))
@@ -96,8 +95,8 @@ static int		player_start(char *c, t_player *player, int i, int j)
 			player->compas = 0;
 		else if (*c == 'E')
 			player->compas = M_PI_2;
-		else if (*c == 'W')
-			player->compas = (3 * M_PI) / 2;
+		else
+			player->compas = M_PI + M_PI_2;
 		*c = '0';
 		return (1);
 	}

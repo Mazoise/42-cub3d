@@ -6,14 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 22:45:08 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:01:45 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <OpenGL/gl3.h>
 # include "mlx.h"
 # include "libft.h"
 # include <stdlib.h>
@@ -37,14 +36,6 @@ typedef struct		s_idx
 	int				i;
 	int				j;
 }					t_idx;
-typedef struct		s_texture
-{
-	int				h;
-	int				w;
-	void			*img;
-	unsigned int	*txtr;
-}					t_texture;
-
 typedef struct		s_mlx_img
 {
 	char			*img;
@@ -53,6 +44,21 @@ typedef struct		s_mlx_img
 	int				len;
 }					t_mlx_img;
 
+typedef struct		s_rgb
+{
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+}					t_rgb;
+
+typedef struct		s_texture
+{
+	int				h;
+	int				w;
+	void			*img;
+	t_mlx_img		txtr;
+}					t_texture;
+
 typedef struct		s_graph
 {
 	t_texture		NO;
@@ -60,8 +66,8 @@ typedef struct		s_graph
 	t_texture		WE;
 	t_texture		EA;
 	t_texture		S;
-	unsigned int				F;
-	unsigned int				C;
+	t_rgb			F;
+	t_rgb			C;
 }					t_graph;
 
  typedef struct 		s_scan
@@ -99,21 +105,14 @@ typedef struct		s_params
 	int				screenshot;
 }					t_params;
 
-typedef struct		s_RGB
-{
-	unsigned char	Red;
-	unsigned char	Green;
-	unsigned char	Blue;
-}					t_RGB;
-
 int			initialisation(char *mapcub, t_params *params);
 int			read_map(char *mapcub, t_params *params);
 int			init_player(t_player *player, char **grid);
 void		init_struct(t_params *params);
 int			check_all_params(t_params *params);
-int			check_format(char *str);
-int			is_valid_grid_element(char c);
-int			is_save_request(char *str);
+void		check_format(char *str);
+int			is_compas(char c);
+int			is_grid(char c);
 int			conv_texture(char *str, t_params *params, char c);
 int			conv_color(char *str, t_params *params, char c);
 int			conv_resolution(char *str, t_params *params);
@@ -125,7 +124,7 @@ void		scan_nw(t_params *params, double angle, t_pos *wall);
 void		line_put(t_params *params, double inc, int i);
 void		img_to_intne(t_mlx_img tmp, t_texture *txtr);
 void		img_to_intsw(t_mlx_img tmp, t_texture *txtr);
-void		int_to_img(t_mlx_img *img, unsigned int color, int i, int j);
+void		rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j);
 int			is_grid_pos(double x, double y, char **grid, char c);
 void		correct_compas(double *compas);
 int			init_mlx(t_params *params, char *name);
@@ -139,6 +138,7 @@ int			draw_three_d(t_params *params);
 int			draw_mini_map(t_params *params);
 int			draw_three_d(t_params *params);
 int			screenshot_bmp(t_params *params);
-int			check_args(int argc, char **argv, t_params *params);
+void		check_args(int argc, char **argv, t_params *params);
+void		pre_calc(t_params *params);
 
 #endif

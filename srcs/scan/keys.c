@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/27 20:52:58 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:04:30 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void		dir_vect(t_pos *dir, double compas)
 {
 	correct_compas(&compas);
-	dir->y += 0.3 * sin(compas);
-	dir->x += 0.3 * cos(compas);
+	dir->y += 0.1 * sin(compas);
+	dir->x += 0.1 * cos(compas);
 }
 
 void		walk_here(t_pos dir, t_pos *pos, char **grid)

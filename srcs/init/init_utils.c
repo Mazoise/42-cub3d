@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 22:46:29 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 10:23:51 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,40 +54,38 @@ int			check_all_params(t_params *params)
 	return (1);
 }
 
-int			check_format(char *str)
+void		check_format(char *str)
 {
 	int	i;
 
-	i = ft_len_c(str, 0);
-	if (is_save_request(str))
+	i = ft_strlen(str);
+	if (!ft_strncmp(str, "-save", 6))
 	{
-		ft_printf("Error\nMissing file format\n");
-		return (0);
+		ft_printf("Error\nMissing map reference before save request\n");
+		exit (0);
 	}
-	else if (i < 5 || str[i - 1] != 'b' || str[i - 2] != 'u'
-		|| str[i - 3] != 'c' || str[i - 4] != '.')
+	else if (i < 5 || ft_strncmp(&str[i - 4], ".cub", 5))
 	{
-		ft_printf("Error\nInvalid file format\n");
-		return (0);
+		ft_printf("Error\nMap file should end in \".cub\"\n");
+		exit (0);
 	}
-	return (1);
 }
 
-int			is_valid_grid_element(char c)
+int			is_grid(char c)
 {
-	if (c == '0' || c == '1' || c == '2' || c == 'N'
-		|| c == 'S' || c == 'E' || c == 'W')
+	if (c == '0' || c == '1' || c == '2')
 		return (1);
 	return (0);
 }
 
-int			is_save_request(char *str)
+int			is_compas(char c)
 {
-	int	i;
-
-	i = ft_len_c(str, 0);
-	if (i == 5 && str[0] == '-' &&  str[1] == 's'
-		&& str[2] == 'a' && str[3] == 'v' && str[4] == 'e')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
 	return (0);
+}
+
+void		pre_calc(t_params *params)
+{
+	params->calc.proj = (params->max.j / 2) / tan(M_PI / 6);
 }

@@ -6,94 +6,37 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 20:37:39 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:02:02 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-// void	txtr_to_image(t_mlx_img *dst, t_mlx_img src, t_pos dst_pos, t_pos src_pos)
-// {
-// 	int		i;
-// 	int		j;
-
-// 	src.bpp /= 8;
-// 	i = 0;
-// 	while (i < txtr->h * txtr->w)
-// 	{
-// 		j = 0;
-// 		while (j < tmp.bpp)
-// 		{
-// 			txtr->txtr[i] += pow(256, j) * (unsigned char)tmp.img[i * tmp.bpp + j];
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
-void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j)
+void	put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 {
-	int		k;
-	int		tmp;
+	int		i;
+	int		opp_img;
+	int		opp_txtr;
 
-	k = 0;
-	tmp = ((img->len * j) + i * (img->bpp >> 3));
-	while (k < img->bpp >> 3)
-	{
-		img->img[tmp + k] = color / pow(256, k);
-		k++;
-	}
-}
-
-void	img_to_intsw(t_mlx_img tmp, t_texture *txtr)
-{
-	int				i;
-	int				j;
-	unsigned char	argb;
-
-	tmp.bpp >>= 3;
 	i = 0;
-	while (i < txtr->h * txtr->w)
+	opp_txtr = txtr.bpp >> 3;
+	opp_img = img->bpp >> 3;
+	while (i < opp_txtr && i < opp_img)
 	{
-		j = 0;
-		while (j < tmp.bpp)
-		{
-			argb = (unsigned char)tmp.img[i * tmp.bpp + j];
-			txtr->txtr[i] += pow(256, j) * argb;
-			j++;
-		}
+		img->img[dst + i] = txtr.img[src * opp_txtr + i];
 		i++;
 	}
 }
 
-void	img_to_intne(t_mlx_img tmp, t_texture *txtr)
+void	rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		idx1;
-	int		idx2;
+	int		tmp;
 
-	tmp.bpp /= 8;
-	i = 0;
-	k = 0;
-	while (1)
-	{
-		j = -1;
-		idx1 = txtr->w * k + txtr->w - (++i);
-		while (++j < tmp.bpp)
-		{
-			idx2 = (txtr->w * k + i - 1) * tmp.bpp + j;
-			txtr->txtr[idx1] += pow(256, j) * (unsigned char)tmp.img[idx2];
-		}
-		if (i == txtr->w)
-		{
-			if (k++ == txtr->h)
-				break ;
-			i = 0;
-		}
-	}
+	tmp = ((img->len * j) + i * (img->bpp >> 3));
+	img->img[tmp + 0] = color.blue;
+	img->img[tmp + 1] = color.green;
+	img->img[tmp + 2] = color.red;
 }
 
 void	texture_put(t_params *params, double height, double pct, t_idx *idx)
@@ -115,9 +58,10 @@ void	texture_put(t_params *params, double height, double pct, t_idx *idx)
 	}
 	while (k < end)
 	{
-		tmp = k * params->scan.face->h / height;
-		tmp2 = (floor(tmp) + pct) * params->scan.face->w;
-		int_to_img(&params->img, params->scan.face->txtr[(int)tmp2], idx->i, idx->j);
+		tmp = floor(k * params->scan.face->h / height) + pct;
+		tmp = tmp * params->scan.face->w;
+		tmp2 = (params->img.len * idx->j + idx->i * (params->img.bpp >> 3));
+		put_pix(&params->img, params->scan.face->txtr, tmp2 ,tmp);
 		idx->j++;
 		k++;
 	}
@@ -138,7 +82,7 @@ void	line_put(t_params *params, double inc, int i)
 	dist = cos(inc) * params->max.j * sqrt(power.x + power.y);
 	height = params->max.i / dist * params->calc.proj;
 	while (++idx.j < (params->max.j - height) / 2)
-		int_to_img(&params->img, params->graph.C, idx.i, idx.j);
+		rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);
 	if (params->scan.face == &params->graph.SO
 		|| params->scan.face == &params->graph.NO)
 		pct = params->scan.wall.y - floor(params->scan.wall.y);
@@ -146,5 +90,5 @@ void	line_put(t_params *params, double inc, int i)
 		pct = params->scan.wall.x - floor(params->scan.wall.x);
 	texture_put(params, height, pct, &idx);
 	while (idx.j < params->max.j - 1)
-		int_to_img(&params->img, params->graph.F, idx.i, idx.j++);
+		rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
 }
