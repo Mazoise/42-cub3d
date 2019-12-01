@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/01 12:59:40 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:32:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ typedef struct		s_graph
 {
 	t_pos			wall;
 	t_texture		*face;
+	t_pos			vrt;
+	t_pos			hrz;
 	t_pos			add_vert;
 	t_pos			add_horz;
-	t_idx 			nb;
+	int 			nb;
 }					t_scan;
 
 typedef struct		s_player
@@ -146,5 +148,10 @@ void		screenshot_bmp(t_params *params);
 void		check_args(int argc, char **argv, t_params *params);
 void		pre_calc(t_params *params);
 void		free_all(t_params *params);
+void		sprite_put(t_params *params, double angle, int i);
+void		texture_put(t_params *params, double height, double pct, t_idx *idx);
+void		which_start(t_pos *scan, t_pos pos, double angle, int idx);
+void		which_add(t_pos *add, double angle, int idx);
+int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
 
 #endif

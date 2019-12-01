@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/01 12:38:26 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:01:14 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void		dir_scan(t_params *params, double angle)
 {
+	params->scan.nb = 0;
 	if (angle >= M_PI_2 && angle <= M_PI)
 		scan_ne(params, angle, &params->scan.wall);
 	else if (angle >= M_PI + M_PI_2)
