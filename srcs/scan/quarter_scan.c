@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:57:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/01 22:49:17 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:54:46 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			scan_sw(t_params *params, double angle, t_pos *wall)
 	close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid);
 	while ((close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid)))
 		;
-	if (wall->y == fabs(params->scan.vrt.y))
+	if (wall->y == params->scan.vrt.y)
 		params->scan.face = &params->graph.WE;
 	else
 		params->scan.face = &params->graph.SO;
@@ -72,7 +72,7 @@ void			scan_se(t_params *params, double angle, t_pos *wall)
 	close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid);
 	while ((close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid)))
 		;
-	if (wall->y == fabs(params->scan.vrt.y))
+	if (wall->y == params->scan.vrt.y)
 		params->scan.face = &params->graph.EA;
 	else
 		params->scan.face = &params->graph.SO;
@@ -90,7 +90,7 @@ void			scan_nw(t_params *params, double angle, t_pos *wall)
 	close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid);
 	while ((close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid)))
 		;
-	if (wall->y == fabs(params->scan.vrt.y))
+	if (wall->y == params->scan.vrt.y)
 		params->scan.face = &params->graph.WE;
 	else
 		params->scan.face = &params->graph.NO;
