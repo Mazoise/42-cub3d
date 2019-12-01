@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 15:01:45 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/01 12:59:40 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_rgb
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
+	int				true;
 }					t_rgb;
 
 typedef struct		s_texture
@@ -73,8 +74,10 @@ typedef struct		s_graph
  typedef struct 		s_scan
 {
 	t_pos			wall;
-	t_pos 			sprite;
 	t_texture		*face;
+	t_pos			add_vert;
+	t_pos			add_horz;
+	t_idx 			nb;
 }					t_scan;
 
 typedef struct		s_player
@@ -85,6 +88,8 @@ typedef struct		s_player
 typedef struct 		s_calc
 {
 	double			proj;
+	double			step;
+	double			turn;
 }					t_calc;
 
 typedef struct		s_params
@@ -134,11 +139,12 @@ int			release_key(int keycode, t_params *params);
 int			exit_wdw(t_params *params);
 int			window_mlx(t_params *params, char *name);
 void		loop_mlx(t_params *params);
-int			draw_three_d(t_params *params);
+int			draw_in_wdw(t_params *params);
+void		draw_three_d(t_params *params);
 int			draw_mini_map(t_params *params);
-int			draw_three_d(t_params *params);
-int			screenshot_bmp(t_params *params);
+void		screenshot_bmp(t_params *params);
 void		check_args(int argc, char **argv, t_params *params);
 void		pre_calc(t_params *params);
+void		free_all(t_params *params);
 
 #endif

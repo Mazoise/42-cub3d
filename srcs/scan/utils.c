@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:59:17 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 20:31:30 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 20:00:57 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,21 @@ int		is_grid_pos(double x, double y, char **grid, char c)
 		&& grid[(int)x][(int)y] == c)
 		return (1);
 	return (0);
+}
+
+void		free_all(t_params *params)
+{
+	if (params->graph.EA.img)
+		mlx_destroy_image(params->ptr, params->graph.EA.img);
+	if (params->graph.SO.img)
+		mlx_destroy_image(params->ptr, params->graph.SO.img);
+	if (params->graph.NO.img)
+		mlx_destroy_image(params->ptr, params->graph.NO.img);
+	if (params->graph.WE.img)
+		mlx_destroy_image(params->ptr, params->graph.WE.img);
+	if (params->graph.S.img)
+		mlx_destroy_image(params->ptr, params->graph.S.img);
+	if (params->fullscreen)
+		mlx_destroy_image(params->ptr, params->fullscreen);
+	ft_free_strs(params->grid);
 }

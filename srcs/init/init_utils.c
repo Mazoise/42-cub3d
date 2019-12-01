@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 10:23:51 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 18:13:22 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ void		init_struct(t_params *params)
 	params->graph.WE.img = 0;
 	params->graph.EA.img = 0;
 	params->graph.S.img = 0;
-	params->graph.F = -1;
-	params->graph.C = -1;
+	params->graph.F.true = 0;
+	params->graph.C.true = 0;
 	ft_memset(params->event, 0, 7);
 }
 
 int			check_all_params(t_params *params)
 {
 	if (params->max.i < 0 || params->max.j < 0 || !params->graph.NO.img
-		|| !params->graph.SO.img || !params->graph.WE.img || params->graph.C < 0
-		|| !params->graph.S.img || params->graph.F < 0 || !params->graph.EA.img)
+		|| !params->graph.SO.img || !params->graph.WE.img || !params->graph.C.true
+		|| !params->graph.S.img || !params->graph.F.true || !params->graph.EA.img)
 	{
 		if (params->max.i < 0 || params->max.j < 0)
 			ft_printf("Error\nMissing resolution format\n");
@@ -45,9 +45,9 @@ int			check_all_params(t_params *params)
 			ft_printf("Error\nMissing east texture path\n");
 		if (!params->graph.S.img)
 			ft_printf("Error\nMissing sprite texture path\n");
-		if (params->graph.F < 0)
+		if (!params->graph.F.true)
 			ft_printf("Error\nMissing floor color format\n");
-		if (params->graph.C < 0)
+		if (!params->graph.C.true)
 			ft_printf("Error\nMissing ceiling color format\n");
 		return (0);
 	}
@@ -88,4 +88,6 @@ int			is_compas(char c)
 void		pre_calc(t_params *params)
 {
 	params->calc.proj = (params->max.j / 2) / tan(M_PI / 6);
+	params->calc.step = 0.1;
+	params->calc.turn = 0.05;
 }

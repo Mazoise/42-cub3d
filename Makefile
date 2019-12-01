@@ -16,7 +16,7 @@ OBJS		=	${ALL_SRCS:.c=.o}
 
 CC			=	gcc
 
-CFLAGS		=	-g -Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L)
+CFLAGS		=	-g -Ofast -Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L)
 
 RM 			=	rm -f
 

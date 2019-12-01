@@ -6,17 +6,17 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 15:04:30 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 16:43:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		dir_vect(t_pos *dir, double compas)
+void		dir_vect(t_pos *dir, double compas, double step)
 {
 	correct_compas(&compas);
-	dir->y += 0.1 * sin(compas);
-	dir->x += 0.1 * cos(compas);
+	dir->y += step * sin(compas);
+	dir->x += step * cos(compas);
 }
 
 void		walk_here(t_pos dir, t_pos *pos, char **grid)
@@ -41,18 +41,18 @@ void		key_events(t_params *params)
 	dir.y = params->player.pos.y;
 
 	if (params->event[CAM_L] == 1)
-		params->player.compas += 0.07;
+		params->player.compas += params->calc.turn;
 	if (params->event[CAM_R] == 1)
-		params->player.compas -= 0.07;
+		params->player.compas -= params->calc.turn;
 	correct_compas(&params->player.compas);
 	if (params->event[FORW] == 1)
-		dir_vect(&dir, params->player.compas);
+		dir_vect(&dir, params->player.compas, params->calc.step);
 	if (params->event[BCKW] == 1)
-		dir_vect(&dir, params->player.compas + M_PI);
+		dir_vect(&dir, params->player.compas + M_PI, params->calc.step);
 	if (params->event[LEFT] == 1)
-		dir_vect(&dir, params->player.compas + (M_PI_2));
+		dir_vect(&dir, params->player.compas + M_PI_2, params->calc.step);
 	if (params->event[RGHT] == 1)
-		dir_vect(&dir, params->player.compas + ((M_PI +  M_PI_2)));
+		dir_vect(&dir, params->player.compas + M_PI +  M_PI_2, params->calc.step);
 	walk_here(dir, &params->player.pos, params->grid);
 	if (params->event[MAP] == 1)
 		draw_mini_map(params);

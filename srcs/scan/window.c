@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:27:33 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/28 20:31:51 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 20:26:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 int			exit_wdw(t_params *params)
 {
 	mlx_destroy_window(params->ptr, params->wdw);
-	mlx_destroy_image(params->ptr, params->fullscreen);
-	ft_free_strs(params->grid);
+	free_all(params);
 	exit(0);
 	return (0);
 }
@@ -48,7 +47,7 @@ void		loop_mlx(t_params *params)
 {
 	mlx_hook(params->wdw, 17, 0, exit_wdw, params);
 	mlx_do_key_autorepeatoff(params->ptr);
-	mlx_loop_hook(params->ptr, draw_three_d, params);
+	mlx_loop_hook(params->ptr, draw_in_wdw, params);
 	mlx_hook(params->wdw, 2, 1L << 0, press_key, params);
 	mlx_hook(params->wdw, 3, 1L << 1, release_key, params);
 	mlx_loop(params->ptr);

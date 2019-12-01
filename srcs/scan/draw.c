@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 15:02:02 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 16:44:36 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,15 @@ void	line_put(t_params *params, double inc, int i)
 	height = params->max.i / dist * params->calc.proj;
 	while (++idx.j < (params->max.j - height) / 2)
 		rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);
-	if (params->scan.face == &params->graph.SO
-		|| params->scan.face == &params->graph.NO)
+	if (params->scan.face == &params->graph.SO)
+		pct = ceil(params->scan.wall.y) - params->scan.wall.y;
+	else if (params->scan.face == &params->graph.NO)
 		pct = params->scan.wall.y - floor(params->scan.wall.y);
-	else
+	else if (params->scan.face == &params->graph.EA)
 		pct = params->scan.wall.x - floor(params->scan.wall.x);
+	else
+		pct = ceil(params->scan.wall.x) - params->scan.wall.x;
 	texture_put(params, height, pct, &idx);
-	while (idx.j < params->max.j - 1)
+	while (idx.j < params->max.j)
 		rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
 }

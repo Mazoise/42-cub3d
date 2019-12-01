@@ -6,10 +6,11 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:14:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/10/21 19:42:02 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/11/30 17:46:50 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <unistd.h>
 
 void	ft_putstr_fd(char *s, int fd)
@@ -19,9 +20,5 @@ void	ft_putstr_fd(char *s, int fd)
 	i = 0;
 	if (!s)
 		return ;
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+	write(fd, s, ft_strlen(s));
 }
