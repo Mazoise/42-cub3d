@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/02 18:29:47 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 22:23:51 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,24 @@ void		dir_vect(t_pos *dir, double compas, double step)
 	dir->x += step * cos(compas);
 }
 
-void		walk_here(t_pos dir, t_pos *pos, char **grid)
+void		walk_here(t_pos dir, t_pos *pos, char **grid, int obj)
 {
-	if (is_grid_pos(dir.x, dir.y, grid, '0'))
+	if (obj == 1)
 	{
-		(void)grid;
+		if (is_grid_pos(dir.x, pos->y, grid, '0')
+			|| is_grid_pos(dir.x, pos->y, grid, '2'))
 		pos->x = dir.x;
+		if (is_grid_pos(pos->x, dir.y, grid, '0')
+			|| is_grid_pos(pos->x, dir.y, grid, '2'))
 		pos->y = dir.y;
 	}
-	else if (is_grid_pos(dir.x, pos->y, grid, '0'))
-		pos->x = dir.x;
-	else if (is_grid_pos(pos->x, dir.y, grid, '0'))
-		pos->y = dir.y;
+	else
+	{
+		if (is_grid_pos(dir.x, pos->y, grid, '0'))
+			pos->x = dir.x;
+		if (is_grid_pos(pos->x, dir.y, grid, '0'))
+			pos->y = dir.y;
+	}
 }
 
 void		key_events(t_params *params)
@@ -53,7 +59,7 @@ void		key_events(t_params *params)
 		dir_vect(&dir, params->player.compas + M_PI_2, params->calc.step);
 	if (params->event[RGHT] == 1)
 		dir_vect(&dir, params->player.compas + M_PI +  M_PI_2, params->calc.step);
-	walk_here(dir, &params->player.pos, params->grid);
+	walk_here(dir, &params->player.pos, params->grid, params->event[OBJ]);
 	if (params->event[MAP] == 1)
 		draw_mini_map(params);
 }
@@ -74,6 +80,10 @@ int			press_key(int keycode, t_params *params)
 		params->event[LEFT] = 1;
 	else if (keycode == 2)
 		params->event[RGHT] = 1;
+	else if (keycode == 8 && params->event[OBJ] == 1)
+		params->event[OBJ] = 0;
+	else if (keycode == 8 && params->event[OBJ] == 0)
+		params->event[OBJ] = 1;
 	return (1);
 }
 

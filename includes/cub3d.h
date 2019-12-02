@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/02 18:32:45 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 22:21:28 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define LEFT 4
 # define RGHT 5
 # define MAP 6
+# define OBJ 7
+# define EVENTS 8
 
 typedef struct		s_pos
 {
@@ -107,7 +109,7 @@ typedef struct		s_params
 	t_scan			scan;
 	t_mlx_img		img;
 	t_mlx_img		mini_m;
-	char			event[7];
+	char			event[EVENTS];
 	t_calc			calc;
 	int				screenshot;
 }					t_params;
