@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/01 22:32:58 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:45:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,11 @@ void		screenshot_bmp(t_params *params);
 void		check_args(int argc, char **argv, t_params *params);
 void		pre_calc(t_params *params);
 void		free_all(t_params *params);
-void		sprite_put(t_params *params, double angle, int i);
+void		sprite_put(t_params *params, double angle, int i, double inc);
 void		texture_put(t_params *params, double height, double pct, t_idx *idx);
 void		which_start(t_pos *scan, t_pos pos, double angle, int idx);
 void		which_add(t_pos *add, double angle, int idx);
 int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
+void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
 
 #endif

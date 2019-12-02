@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:57:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/01 22:54:46 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 11:59:53 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			scan_ne(t_params *params, double angle, t_pos *wall)
 	which_start(&params->scan.hrz, params->player.pos, angle, 1);
 	which_add(&params->scan.add_vert, angle, 3);
 	which_start(&params->scan.vrt, params->player.pos, angle, 3);
-	close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid);
+	  close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid);
 	while ((close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid)))
 		;
 	if (wall->x == params->scan.hrz.x)
