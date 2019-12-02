@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/02 17:29:06 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 18:32:52 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			draw_three_d(t_params *params)
 	{
 		dir_scan(params, angle);
 		line_put(params, fabs(params->player.compas - angle), i);
-		sprite_put(params, angle, i, fabs(params->player.compas - angle));
+		sprite(params, angle, i);
 		angle -= inc;
 		i++;
 		correct_compas(&angle);

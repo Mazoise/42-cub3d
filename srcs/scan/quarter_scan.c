@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:57:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/02 11:59:53 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 18:26:12 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void			scan_ne(t_params *params, double angle, t_pos *wall)
 		params->scan.face = &params->graph.NO;
 	else
 		params->scan.face = &params->graph.EA;
-	ft_printf("%d\n", params->scan.nb);
 }
 
 void			scan_sw(t_params *params, double angle, t_pos *wall)

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 16:43:58 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/02 18:29:47 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void		key_events(t_params *params)
 
 int			press_key(int keycode, t_params *params)
 {
-	ft_printf("Keycode pressed: %d\n", keycode);
 	if (keycode == 14 || keycode == 124)
 		params->event[CAM_R] = 1;
 	else if (keycode == 12 || keycode == 123)
@@ -80,7 +79,6 @@ int			press_key(int keycode, t_params *params)
 
 int		release_key(int keycode, t_params *params)
 {
-	ft_printf("Keycode released: %d\n", keycode);
 	if (keycode == 53)
 		exit_wdw(params);
 	else if (keycode == 14 || keycode == 124)
