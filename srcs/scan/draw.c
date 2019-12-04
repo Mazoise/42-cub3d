@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/02 17:39:22 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:30:06 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,26 @@ void	texture_put(t_params *params, double height, double pct, t_idx *idx)
 		tmp = floor(k * params->scan.face->h / height) + pct;
 		tmp = tmp * params->scan.face->w;
 		tmp2 = (params->img.len * idx->j + idx->i * (params->img.bpp >> 3));
-		put_pix(&params->img, params->scan.face->txtr, tmp2 ,tmp);
+		if (idx->j >= 0 && idx->j < params->max.j)
+			put_pix(&params->img, params->scan.face->txtr, tmp2 ,tmp);
 		idx->j++;
 		k++;
 	}
+}
+
+double		pct_calc(t_params *params)
+{
+	double pct;
+	
+	if (params->scan.face == &params->graph.SO)
+		pct = ceil(params->scan.wall.y) - params->scan.wall.y;
+	else if (params->scan.face == &params->graph.NO)
+		pct = params->scan.wall.y - floor(params->scan.wall.y);
+	else if (params->scan.face == &params->graph.EA)
+		pct = params->scan.wall.x - floor(params->scan.wall.x);
+	else
+		pct = ceil(params->scan.wall.x) - params->scan.wall.x;
+	return (pct);
 }
 
 void	line_put(t_params *params, double inc, int i)
@@ -79,19 +95,16 @@ void	line_put(t_params *params, double inc, int i)
 	idx.j = -1;
 	power.x = pow(params->scan.wall.x - params->player.pos.x, 2);
 	power.y = pow(params->scan.wall.y - params->player.pos.y, 2);
-	dist = cos(inc) * params->max.j * sqrt(power.x + power.y);
-	height = params->max.i / dist * params->calc.proj;
+	dist = cos(inc) * sqrt(power.x + power.y);
+	height = params->max.i / (dist * params->max.j) * params->calc.proj;
 	while (++idx.j < (params->max.j - height) / 2)
-		rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);
-	if (params->scan.face == &params->graph.SO)
-		pct = ceil(params->scan.wall.y) - params->scan.wall.y;
-	else if (params->scan.face == &params->graph.NO)
-		pct = params->scan.wall.y - floor(params->scan.wall.y);
-	else if (params->scan.face == &params->graph.EA)
-		pct = params->scan.wall.x - floor(params->scan.wall.x);
-	else
-		pct = ceil(params->scan.wall.x) - params->scan.wall.x;
+		if (BONUS == 0)
+			rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);
+	pct = pct_calc(params);
 	texture_put(params, height, pct, &idx);
-	while (idx.j < params->max.j)
-		rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
+	if (BONUS == 0)
+		while (idx.j < params->max.j)
+			rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
+	else
+		cf_put(params, &idx, dist);
 }

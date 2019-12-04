@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3dbonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 13:28:42 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:19:08 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,6 @@ void		which_start(t_pos *scan, t_pos pos, double angle, int idx);
 void		which_add(t_pos *add, double angle, int idx);
 int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
 void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
-void	cf_put(t_params *params, t_idx *idx, double dist);
+void		cf_put(t_params *params, double height, t_texture txtr, t_idx *idx, double angle, double dist);
 
 #endif

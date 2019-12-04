@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:42:05 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 16:44:46 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/03 12:01:29 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static int			conv_params(char *str, t_params *params)
 		ret = conv_texture(&str[i + 1], params, 's');
 	else if (is_compas(str[i]))
 		ret = conv_texture(&str[i + 2], params, str[i]);
-	else if (str[i] == 'F' || str[i] == 'C')
+	else if (BONUS == 0 && (str[i] == 'F' || str[i] == 'C'))
 		ret = conv_color(&str[i + 1], params, str[i]);
+	else if (BONUS == 1 && (str[i] == 'F' || str[i] == 'C'))
+		ret = conv_texture(&str[i + 1], params, str[i]);
 	else if (str[i])
 	{
 		ft_printf("Error\nWrong information syntax\n");

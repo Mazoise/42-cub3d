@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 16:44:55 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/03 12:02:14 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ int					conv_texture(char *str, t_params *params, char c)
 		ret = get_texture(path, &params->graph.EA, params->ptr);
 	else if (c == 'W')
 		ret = get_texture(path, &params->graph.WE, params->ptr);
+	else if (c == 'F')
+		ret = get_texture(path, &params->bonus.F, params->ptr);
+	else if (c == 'C')
+		ret = get_texture(path, &params->bonus.C, params->ptr);
 	else
 		ret = get_texture(path, &params->graph.S, params->ptr);
 	free(path);

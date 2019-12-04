@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 18:13:22 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/03 12:17:27 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,19 @@ void		init_struct(t_params *params)
 	params->graph.WE.img = 0;
 	params->graph.EA.img = 0;
 	params->graph.S.img = 0;
+	params->bonus.C.img = 0;
+	params->bonus.F.img = 0;
 	params->graph.F.true = 0;
 	params->graph.C.true = 0;
-	ft_memset(params->event, 0, 7);
+	ft_memset(params->event, 0, EVENTS);
 }
 
 int			check_all_params(t_params *params)
 {
 	if (params->max.i < 0 || params->max.j < 0 || !params->graph.NO.img
-		|| !params->graph.SO.img || !params->graph.WE.img || !params->graph.C.true
-		|| !params->graph.S.img || !params->graph.F.true || !params->graph.EA.img)
+		|| !params->graph.SO.img || !params->graph.WE.img || !params->graph.EA.img
+		|| !params->graph.S.img || (BONUS == 0 && !params->graph.F.true) || (BONUS == 0 && !params->graph.C.true)
+		|| (BONUS == 1 && !params->bonus.F.img) || (BONUS == 1 && !params->bonus.C.img))
 	{
 		if (params->max.i < 0 || params->max.j < 0)
 			ft_printf("Error\nMissing resolution format\n");
@@ -45,9 +48,9 @@ int			check_all_params(t_params *params)
 			ft_printf("Error\nMissing east texture path\n");
 		if (!params->graph.S.img)
 			ft_printf("Error\nMissing sprite texture path\n");
-		if (!params->graph.F.true)
+		if ((BONUS == 0 && !params->graph.F.true) || (BONUS == 1 && !params->bonus.F.img))
 			ft_printf("Error\nMissing floor color format\n");
-		if (!params->graph.C.true)
+		if ((BONUS == 0 && !params->graph.C.true) || (BONUS == 1 && !params->bonus.C.img))
 			ft_printf("Error\nMissing ceiling color format\n");
 		return (0);
 	}
