@@ -1,0 +1,12 @@
+retour erreur
+--save // OK
+opti // OK
+bonus
+char to char // OK
+sprite // OK
+find where you write in a malloc freed or too far in a string // OK?
+fullscreen if more than max resolution
+minimise window // OK de base
+screenshot sans rm touch
+destroy texture images // OK
+if more than char in RBG

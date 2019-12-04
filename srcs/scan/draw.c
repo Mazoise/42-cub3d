@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 19:54:38 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/04 20:23:59 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	line_put(t_params *params, double inc, int i)
 	idx.j = -1;
 	power.x = pow(params->scan.wall.x - params->player.pos.x, 2);
 	power.y = pow(params->scan.wall.y - params->player.pos.y, 2);
-	dist = cos(inc) * sqrt(power.x + power.y);
+	dist = cos(inc) * rsqrt(power.x + power.y);
 	height = params->max.i / (dist * params->max.j) * params->calc.proj;
 	while (++idx.j < (params->max.j - height) / 2)
 		if (BONUS == 0)

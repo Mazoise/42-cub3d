@@ -6,12 +6,25 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 21:15:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/03 11:48:37 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/04 21:37:50 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
+
+double		rsqrt(double number)
+{
+	const double	x2 = number * 0.5;
+	const double	threehalfs = 1.5;
+	t_squ			conv;
+
+	conv.i = number;
+	conv.f = number;
+	conv.i = 0x5f3759df - (conv.i >> 1);
+	conv.f *= (threehalfs - (x2 * conv.f * conv.f));
+	return (1 / conv.f);
+}
 
 void		which_add(t_pos *add, double angle, int idx)
 {
@@ -63,8 +76,8 @@ void		which_start(t_pos *scan, t_pos pos, double angle, int idx)
 
 int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid)
 {
-	if (sqrt(pow(cam.x - scan->vrt.x, 2) + pow(cam.y - scan->vrt.y, 2))
-		>= sqrt(pow(cam.x - scan->hrz.x, 2) + pow(cam.y - scan->hrz.y, 2)))
+	if (rsqrt(pow(cam.x - scan->vrt.x, 2) + pow(cam.y - scan->vrt.y, 2))
+		>= rsqrt(pow(cam.x - scan->hrz.x, 2) + pow(cam.y - scan->hrz.y, 2)))
 	{
 		scan->wall.x = scan->hrz.x;
 		scan->wall.y = scan->hrz.y;

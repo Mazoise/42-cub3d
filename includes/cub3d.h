@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 19:54:23 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/04 20:43:20 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "mlx.h"
 # include "libft.h"
 # include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
 # include <math.h>
 # define CAM_L 0
 # define CAM_R 1
@@ -30,6 +32,12 @@
 // # ifndef BONUS
 // #  define BONUS 0
 // # endif
+
+typedef union u_squ
+{
+		float f;
+		uint32_t i;
+}			 t_squ;
 
 typedef struct		s_pos
 {
@@ -167,5 +175,5 @@ void		which_add(t_pos *add, double angle, int idx);
 int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
 void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
 void		cf_put(t_params *params, t_idx *idx, double height);
-
+double		rsqrt(double number);
 #endif
