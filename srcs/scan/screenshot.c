@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:37:30 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 21:58:01 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 16:26:34 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,20 @@ static void	fill_info(int fd, t_params *params, int	size)
 
 void		screen_it(t_params *params)
 {
-	int fd;
-	int i;
-	int	size;
+	int		fd;
+	int		i;
+	int		size;
+	char	*str;
  
 	i = 0;
-	if((fd = open("screenshot.bmp", O_WRONLY)) < 0)
+	str = ft_sprintf("Screenshot(%d).bmp", i);
+	while((fd = open(str, O_CREAT | O_EXCL | O_WRONLY, S_IRWXU)) < 0)
 	{
-		ft_printf("Error\nScreenshot failed\n");
-		mlx_destroy_image(params->ptr, params->fullscreen);
-		ft_free_strs(params->grid);
-		exit(0);
+		free(str);
+		str = ft_sprintf("Screenshot(%d).bmp", i);
+		i++;
 	}
+	free(str);
 	size = params->max.i * params->max.j; 
 	fill_info(fd, params, size);
 	copy_screen(fd, params, params->img.img);
@@ -89,7 +91,7 @@ void		screenshot_bmp(t_params *params)
 	max = params->max;
 	if (!(params->fullscreen = mlx_new_image(params->ptr, max.i, max.j)))
 	{
-		ft_printf("Error\nInitialisation of mlx img failed\n");
+		ft_dprintf(2, "Error\nInitialisation of mlx img failed\n");
 		free_all(params);
 		exit(0);
 	}

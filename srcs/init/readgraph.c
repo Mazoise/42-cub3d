@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/03 12:02:14 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int			get_texture(char *path, t_texture *txtr, void *ptr)
 	tmp = &txtr->txtr;
 	if (!(txtr->img = mlx_xpm_file_to_image(ptr, path, &txtr->w, &txtr->h)))
 	{
-		ft_printf("Error\nWrong texture path\n");
+		ft_dprintf(2, "Error\nWrong texture path\n");
 		return (0);
 	}
 	tmp->img = mlx_get_data_addr(txtr->img, &tmp->bpp, &tmp->len, &tmp->endian);
@@ -123,7 +123,7 @@ int					conv_resolution(char *str, t_params *params)
 		i++;
 	if (str[i])
 	{
-		ft_printf("Error\nWrong Resolution format\n");
+		ft_dprintf(2, "Error\nWrong Resolution format\n");
 		return (0);
 	}
 	return (1);

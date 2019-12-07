@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 14:56:10 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 11:07:48 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 12:29:43 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-static char		*ft_noflag(const char chr, va_list *ap, char *cz)
+char		*ft_noflag(const char chr, va_list *ap, char *cz)
 {
 	char *str;
 
@@ -37,7 +37,7 @@ static char		*ft_noflag(const char chr, va_list *ap, char *cz)
 		return (0);
 }
 
-static char		*ft_flag(const char *str, va_list *ap, int *i, char *cz)
+char		*ft_flag(const char *str, va_list *ap, int *i, char *cz)
 {
 	int		j;
 	char	*to_conv;
@@ -61,7 +61,7 @@ static char		*ft_flag(const char *str, va_list *ap, int *i, char *cz)
 	return (ft_conversion(to_conv, &conv, str[*i - 1]));
 }
 
-static char		*ft_arg(const char *str, va_list *ap, int *i, char *cz)
+char		*ft_arg(const char *str, va_list *ap, int *i, char *cz)
 {
 	*i = *i + 1;
 	if (ft_isconv(str[*i]) == 1)
@@ -74,7 +74,7 @@ static char		*ft_arg(const char *str, va_list *ap, int *i, char *cz)
 	return (0);
 }
 
-static int		ft_str(const char *str, t_list **lst, va_list *ap)
+int		ft_str(const char *str, t_list **lst, va_list *ap)
 {
 	int		i;
 	int		j;
@@ -116,5 +116,5 @@ int				ft_printf(const char *str, ...)
 		return (-1);
 	}
 	va_end(ap);
-	return (ft_print_lst(lst));
+	return (ft_print_lst(1, lst));
 }

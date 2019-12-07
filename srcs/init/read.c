@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:42:05 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/03 12:01:29 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ static int			conv_params(char *str, t_params *params)
 		ret = conv_texture(&str[i + 1], params, str[i]);
 	else if (str[i])
 	{
-		ft_printf("Error\nWrong information syntax\n");
+		ft_dprintf(2, "Error\nWrong information syntax\n");
 		return (0);
 	}
 	if (ret == -1 && ret++)
-		ft_printf("Error\nWrong color syntax (R,G,B)");
+		ft_dprintf(2, "Error\nWrong color syntax (R,G,B)");
 	return (ret);
 }
 
@@ -72,7 +72,7 @@ static int			convert_read(int fd, t_params *params)
 	}
 	if (ret == -1)
 	{
-		ft_printf("Error\nAllocation fail\n");
+		ft_dprintf(2, "Error\nAllocation fail\n");
 		ft_free_strs(params->grid);
 		return (0);
 	}
@@ -88,14 +88,14 @@ int					read_map(char *mapcub, t_params *params)
 	check_format(mapcub);
 	if ((fd = open(mapcub, O_RDONLY)) < 0)
 	{
-		ft_printf("Error\nDid not manage to open map file\n");
+		ft_dprintf(2, "Error\nDid not manage to open map file\n");
 		exit (0);
 	}
 	if (!(convert_read(fd, params)))
 		return (0);
 	if (!params->grid)
 	{
-		ft_printf("Error\nNo map grid\n");
+		ft_dprintf(2, "Error\nNo map grid\n");
 		return (0);
 	}
 	return (1);

@@ -6,55 +6,36 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/03 12:17:27 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 16:52:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		init_struct(t_params *params)
-{
-	params->grid = 0;
-	params->max.i = -1;
-	params->max.j = -1;
-	params->graph.NO.img = 0;
-	params->graph.SO.img = 0;
-	params->graph.WE.img = 0;
-	params->graph.EA.img = 0;
-	params->graph.S.img = 0;
-	params->bonus.C.img = 0;
-	params->bonus.F.img = 0;
-	params->graph.F.true = 0;
-	params->graph.C.true = 0;
-	ft_memset(params->event, 0, EVENTS);
-}
-
 int			check_all_params(t_params *params)
 {
-	if (params->max.i < 0 || params->max.j < 0 || !params->graph.NO.img
-		|| !params->graph.SO.img || !params->graph.WE.img || !params->graph.EA.img
-		|| !params->graph.S.img || (BONUS == 0 && !params->graph.F.true) || (BONUS == 0 && !params->graph.C.true)
-		|| (BONUS == 1 && !params->bonus.F.img) || (BONUS == 1 && !params->bonus.C.img))
-	{
-		if (params->max.i < 0 || params->max.j < 0)
-			ft_printf("Error\nMissing resolution format\n");
-		if (!params->graph.NO.img)
-			ft_printf("Error\nMissing north texture path\n");
-		if (!params->graph.SO.img)
-			ft_printf("Error\nMissing south texture path\n");
-		if (!params->graph.WE.img)
-			ft_printf("Error\nMissing west texture path\n");
-		if (!params->graph.EA.img)
-			ft_printf("Error\nMissing east texture path\n");
-		if (!params->graph.S.img)
-			ft_printf("Error\nMissing sprite texture path\n");
-		if ((BONUS == 0 && !params->graph.F.true) || (BONUS == 1 && !params->bonus.F.img))
-			ft_printf("Error\nMissing floor color format\n");
-		if ((BONUS == 0 && !params->graph.C.true) || (BONUS == 1 && !params->bonus.C.img))
-			ft_printf("Error\nMissing ceiling color format\n");
-		return (0);
-	}
-	return (1);
+	int ret;
+	
+	ret = 0;
+	if ((params->max.i < 0 || params->max.j < 0))
+		ret = ft_dprintf(2, "Error\nMissing resolution format\n");
+	if (!params->graph.NO.img)
+		ret = ft_dprintf(2, "Error\nMissing north texture path\n");
+	if (!params->graph.SO.img)
+		ret = ft_dprintf(2, "Error\nMissing south texture path\n");
+	if (!params->graph.WE.img)
+		ret = ft_dprintf(2, "Error\nMissing west texture path\n");
+	if (!params->graph.EA.img)
+		ret = ft_dprintf(2, "Error\nMissing east texture path\n");
+	if (!params->graph.S.img)
+		ret = ft_dprintf(2, "Error\nMissing sprite texture path\n");
+	if (((BONUS == 0 && !params->graph.F.true)
+		|| (BONUS == 1 && !params->bonus.F.img)))
+		ret = ft_dprintf(2, "Error\nMissing floor color format\n");
+	if (((BONUS == 0 && !params->graph.C.true)
+		|| (BONUS == 1 && !params->bonus.C.img)))
+		ret = ft_dprintf(2, "Error\nMissing ceiling color format\n");
+	return (ret);
 }
 
 void		check_format(char *str)
@@ -64,12 +45,12 @@ void		check_format(char *str)
 	i = ft_strlen(str);
 	if (!ft_strncmp(str, "-save", 6))
 	{
-		ft_printf("Error\nMissing map reference before save request\n");
+		ft_dprintf(2, "Error\nMissing map reference before save request\n");
 		exit (0);
 	}
 	else if (i < 5 || ft_strncmp(&str[i - 4], ".cub", 5))
 	{
-		ft_printf("Error\nMap file should end in \".cub\"\n");
+		ft_dprintf(2, "Error\nMap file should end in \".cub\"\n");
 		exit (0);
 	}
 }
@@ -90,6 +71,10 @@ int			is_compas(char c)
 
 void		pre_calc(t_params *params)
 {
+	if (params->max.i > FULLSCREEN_W)
+		params->max.i = FULLSCREEN_W;
+	if (params->max.j > FULLSCREEN_H)
+		params->max.j = FULLSCREEN_H;
 	params->calc.proj = (params->max.j / 2) / tan(M_PI / 6);
 	params->calc.step = 0.1;
 	params->calc.turn = 0.05;

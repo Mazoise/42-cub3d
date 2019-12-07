@@ -10,7 +10,7 @@ VAR_BONUS	= 	./libft/includes/
 
 SRCS_INIT	=	$(addprefix $(PREFIX_INIT), read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c)
 
-SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), bonus.c scan_utils.c sprite.c cub3d.c quarter_scan.c draw.c utils.c window.c keys.c screenshot.c scan.c)
+SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), bonus.c scan_utils.c sprite.c cub3d.c draw.c utils.c window.c keys.c screenshot.c scan.c)
 
 ALL_SRCS	=	$(SRCS_INIT) $(SRCS_SCAN)
 
@@ -32,14 +32,12 @@ NAME		= 	cub3d.out
 
 $(NAME) :		./includes/cub3d.h $(OBJS) makelib
 				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
-				rm -rf screenshot.bmp && touch screenshot.bmp
 
 makelib :
 				$(MAKE_LIBFT)
 
 bonus :			./includes/cub3d.h $(OBJS) makelib
 				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
-				rm -rf screenshot.bmp && touch screenshot.bmp
 
 all :
 				$(NAME)

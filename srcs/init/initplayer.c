@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 16:44:50 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static int		first_line(char *str)
 		last++;
 	if (last < 3)
 	{
-		ft_printf("Error\nInvalid map dimensions\n");
+		ft_dprintf(2, "Error\nInvalid map dimensions\n");
 		return (0);
 	}
 	else if (str[last])
 	{
-		ft_printf("Error\nMap not closed on the north side\n");
+		ft_dprintf(2, "Error\nMap not closed on the north side\n");
 		return (0);
 	}
 	return (last);
@@ -38,7 +38,7 @@ static int		closed_line(char *line, int *pos, int last)
 
 	if (line[0] != '1')
 	{
-		ft_printf("Error\nMap not closed on the west side\n");
+		ft_dprintf(2, "Error\nMap not closed on the west side\n");
 		return (0);
 	}
 	j = -1;
@@ -47,12 +47,12 @@ static int		closed_line(char *line, int *pos, int last)
 			(*pos)++;
 	if (j != last)
 	{
-		ft_printf("Error\nMap not rectangular\n");
+		ft_dprintf(2, "Error\nMap not rectangular\n");
 		return (0);
 	}
 	if (line[j - 1] != '1')
 	{
-		ft_printf("Error\nMap not closed on the east side\n");
+		ft_dprintf(2, "Error\nMap not closed on the east side\n");
 		return (0);
 	}
 	return (1);
@@ -75,7 +75,7 @@ static int		closed_grid(char **grid, int *pos)
 	{
 		if (grid[i - 1][j] != '1')
 		{
-			ft_printf("Error\nMap not closed on the south side\n");
+			ft_dprintf(2, "Error\nMap not closed on the south side\n");
 			return (0);
 		}
 	}
@@ -115,7 +115,7 @@ int				init_player(t_player *player, char **grid)
 		return (0);
 	if (pos != 1)
 	{
-		ft_printf("Error\nNo multi player mode available on this game\n");
+		ft_dprintf(2, "Error\nNo multi player mode available on this game\n");
 		return (0);
 	}
 	while (grid[i])

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:44:35 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 19:56:28 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 12:11:40 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	cf_put(t_params *params, t_idx *idx, double height)
 
 	while (idx->j < params->max.j)
 	{
-		tmp = params->max.j / (2.0 * idx->j - params->max.j);
-		tmp = (tmp * height / params->max.j);
+		tmp = height / (2.0 * idx->j - params->max.j);
 		tmp4 = tmp * params->scan.wall.y + (1 - tmp) * params->player.pos.y;
 		tmp = tmp * params->scan.wall.x + (1 - tmp) * params->player.pos.x;
 		tmp3 = (floor((tmp4 - floor(tmp4)) * params->bonus.C.h) + (tmp - floor(tmp))) * params->bonus.C.w;

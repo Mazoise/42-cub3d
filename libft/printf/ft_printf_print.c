@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:25:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/17 11:07:35 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 12:22:23 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_delcontent(void *cont)
 	free(temp_cont);
 }
 
-int		ft_print_lst(t_list *lst)
+int		ft_print_lst(int fd, t_list *lst)
 {
 	t_list	*start;
 	t_cont	*cont;
@@ -35,15 +35,15 @@ int		ft_print_lst(t_list *lst)
 		cont = lst->content;
 		len += ft_len_c(cont->str, 0);
 		if (cont->czero == 2 || cont->czero == 4)
-			ft_putchar_fd(0, 1);
+			ft_putchar_fd(0, fd);
 		if (cont->czero > 0 && ft_len_c(cont->str, 0) > 1)
-			ft_putstr_fd(&cont->str[1], 1);
+			ft_putstr_fd(&cont->str[1], fd);
 		if (cont->czero == 1 || cont->czero == 2)
 			len += 1;
 		if (cont->czero == 1 || cont->czero == 3)
-			ft_putchar_fd(0, 1);
+			ft_putchar_fd(0, fd);
 		if (cont->czero == 0)
-			ft_putstr_fd(cont->str, 1);
+			ft_putstr_fd(cont->str, fd);
 		lst = lst->next;
 	}
 	ft_lstclear(&start, &ft_delcontent);

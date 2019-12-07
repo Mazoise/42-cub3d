@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:27:33 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 20:26:44 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int			window_mlx(t_params *params, char *name)
 	max = params->max;
 	if (!(params->wdw = mlx_new_window(params->ptr, max.i, max.j, name)))
 	{
-		ft_printf("Error\nInitialisation of mlx window failed\n");
+		ft_dprintf(2, "Error\nInitialisation of mlx window failed\n");
 		return (0);
 	}
 	if (!(params->fullscreen = mlx_new_image(params->ptr, max.i, max.j)))
 	{
-		ft_printf("Error\nInitialisation of mlx img failed\n");
+		ft_dprintf(2, "Error\nInitialisation of mlx img failed\n");
 		return (0);
 	}
 	fs = params->fullscreen;

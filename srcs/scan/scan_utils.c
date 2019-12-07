@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 21:15:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 21:37:50 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 13:25:15 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		which_start(t_pos *scan, t_pos pos, double angle, int idx)
 {
 	if (idx == 1)
 	{
-		scan->x = floor(pos.x) - 0.00001;
+		scan->x = floor(pos.x) - 0.0000001;
 		scan->y = pos.y - (pos.x - floor(pos.x)) / tan(M_PI_2 - angle);
 	}
 	else if (idx == 2)
@@ -69,7 +69,7 @@ void		which_start(t_pos *scan, t_pos pos, double angle, int idx)
 	}
 	else
 	{
-		scan->y = floor(pos.y) - 0.00001;
+		scan->y = floor(pos.y) - 0.0000001;
 		scan->x = pos.x + (floor(pos.y) - pos.y) * tan(M_PI_2 - angle);
 	}
 }

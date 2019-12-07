@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 12:04:39 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 20:23:59 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 13:54:08 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ void	add_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 	i = 0;
 	opp_txtr = txtr.bpp >> 3;
 	opp_img = img->bpp >> 3;
-	transp = 0;
-	// ft_printf("\n%d,%d,%d,%d\n", (unsigned char)txtr.img[dst], (unsigned char)txtr.img[dst + 1], (unsigned char)txtr.img[dst + 2], (unsigned char)txtr.img[dst + 3]);
-	// if (opp_txtr == opp_img && opp_txtr == 4)
-	// {
-		transp = (unsigned char)txtr.img[src * opp_txtr + 3] / (double)255;
-	// }
+	transp = (unsigned char)txtr.img[src * opp_txtr + 3] / (double)255;
 	while (i < opp_txtr - 1 && i < opp_img - 1)
 	{
-		img->img[dst + i] = (unsigned char)img->img[dst + i] * transp + (unsigned char)txtr.img[src * opp_txtr + i] * (1 - transp);
+		img->img[dst + i] = (unsigned char)img->img[dst + i] * transp
+			+ (unsigned char)txtr.img[src * opp_txtr + i] * (1 - transp);
 		i++;
 	}
 }
@@ -65,8 +61,10 @@ void	sprite_put(t_params *params, double height, double pct, t_idx *idx)
 
 void		close_sprite(t_scan *scan, int *nb)
 {
-	if (rsqrt(pow(scan->wall.x - scan->vrt.x, 2) + pow(scan->wall.y - scan->vrt.y, 2))
-		>= rsqrt(pow(scan->wall.x - scan->hrz.x, 2) + pow(scan->wall.y - scan->hrz.y, 2)))
+	if (rsqrt(pow(scan->wall.x - scan->vrt.x, 2)
+		+ pow(scan->wall.y - scan->vrt.y, 2))
+		>= rsqrt(pow(scan->wall.x - scan->hrz.x, 2)
+		+ pow(scan->wall.y - scan->hrz.y, 2)))
 	{
 		scan->wall.x = scan->hrz.x;
 		scan->wall.y = scan->hrz.y;
@@ -93,7 +91,8 @@ static void		print_sprite(t_params *params, double angle, int i)
 	cam.x = floor(params->scan.wall.x) + 0.5;
 	cam.y = floor(params->scan.wall.y) + 0.5;
 	params->scan.face = &params->graph.S;
-	dist  = rsqrt(pow(cam.x - params->player.pos.x, 2) + pow(cam.y - params->player.pos.y, 2));
+	dist  = rsqrt(pow(cam.x - params->player.pos.x, 2)
+		+ pow(cam.y - params->player.pos.y, 2));
 	height = params->max.i / (dist * params->max.j) * params->calc.proj;
 	if (params->max.j - height > 0)
 		idx.j = (params->max.j - height) / 2;

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/04 20:43:20 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 16:49:52 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# define FULLSCREEN_H 1400
+# define FULLSCREEN_W 2560
 # define CAM_L 0
 # define CAM_R 1
 # define FORW 2
@@ -144,10 +146,6 @@ int			conv_texture(char *str, t_params *params, char c);
 int			conv_color(char *str, t_params *params, char c);
 int			conv_resolution(char *str, t_params *params);
 int			conv_grid(char *str, t_params *params);
-void		scan_ne(t_params *params, double angle, t_pos *wall);
-void		scan_sw(t_params *params, double angle, t_pos *wall);
-void		scan_se(t_params *params, double angle, t_pos *wall);
-void		scan_nw(t_params *params, double angle, t_pos *wall);
 void		line_put(t_params *params, double inc, int i);
 void		img_to_intne(t_mlx_img tmp, t_texture *txtr);
 void		img_to_intsw(t_mlx_img tmp, t_texture *txtr);
@@ -176,4 +174,5 @@ int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
 void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
 void		cf_put(t_params *params, t_idx *idx, double height);
 double		rsqrt(double number);
+
 #endif
