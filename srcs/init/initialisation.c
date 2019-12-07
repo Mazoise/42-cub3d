@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:41:19 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 17:35:10 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ void		init_struct(t_params *params)
 	ft_memset(params->event, 0, EVENTS);
 }
 
+void		check_format(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str);
+	if (!ft_strncmp(str, "-save", 6))
+	{
+		ft_dprintf(2, "Error\nMissing map reference before save request\n");
+		exit (0);
+	}
+	else if (i < 5 || ft_strncmp(&str[i - 4], ".cub", 5))
+	{
+		ft_dprintf(2, "Error\nMap file should end in \".cub\"\n");
+		exit (0);
+	}
+}
+
 void		check_args(int argc, char **argv, t_params *params)
 {
 	if (argc < 2)
@@ -43,7 +60,7 @@ void		check_args(int argc, char **argv, t_params *params)
 	}
 	else if (argc == 3)
 	{
-		if (!ft_strncmp(argv[2], "-save", 6))
+		if (!ft_strncmp(argv[2], "-save", 6) || !ft_strncmp(argv[2], "--save", 7))
 			params->screenshot = 1;
 		else
 		{

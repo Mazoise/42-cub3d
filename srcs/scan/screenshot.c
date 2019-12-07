@@ -6,12 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:37:30 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 16:26:34 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 20:07:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <fcntl.h>
+#include <sys/errno.h>
 #define	INFO 54
 
 static void	copy_screen(int fd, t_params *params, char *str)
@@ -66,13 +67,19 @@ void		screen_it(t_params *params)
  
 	i = 0;
 	str = ft_sprintf("Screenshot(%d).bmp", i);
-	while((fd = open(str, O_CREAT | O_EXCL | O_WRONLY, S_IRWXU)) < 0)
+	while((fd = open(str, O_CREAT | O_EXCL | O_WRONLY, S_IRWXU)) < 0 && errno == 17)
 	{
 		free(str);
 		str = ft_sprintf("Screenshot(%d).bmp", i);
 		i++;
 	}
 	free(str);
+	if (fd == -1 && errno != 17)
+	{
+		ft_dprintf(2, "Error\nOpen error : %s (map)\n", strerror(errno));
+		free_all(params);
+		exit(0);
+	}
 	size = params->max.i * params->max.j; 
 	fill_info(fd, params, size);
 	copy_screen(fd, params, params->img.img);
@@ -91,12 +98,12 @@ void		screenshot_bmp(t_params *params)
 	max = params->max;
 	if (!(params->fullscreen = mlx_new_image(params->ptr, max.i, max.j)))
 	{
-		ft_dprintf(2, "Error\nInitialisation of mlx img failed\n");
+		ft_dprintf(2, "Error\nMlx error : %s (image)\n", strerror(errno));
 		free_all(params);
 		exit(0);
 	}
 	fs = params->fullscreen;
 	img->img = mlx_get_data_addr(fs, &img->bpp, &img->len, &img->endian);
-	draw_three_d(params);
+	full_scan(params);
 	screen_it(params);
 }

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 16:49:52 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 21:15:20 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# include <sys/errno.h>
 # define FULLSCREEN_H 1400
 # define FULLSCREEN_W 2560
 # define CAM_L 0
@@ -31,9 +32,6 @@
 # define OBJ 7
 # define EVENTS 8
 # define BONUS 1
-// # ifndef BONUS
-// #  define BONUS 0
-// # endif
 
 typedef union u_squ
 {
@@ -160,7 +158,7 @@ int			exit_wdw(t_params *params);
 int			window_mlx(t_params *params, char *name);
 void		loop_mlx(t_params *params);
 int			draw_in_wdw(t_params *params);
-void		draw_three_d(t_params *params);
+void		full_scan(t_params *params);
 int			draw_mini_map(t_params *params);
 void		screenshot_bmp(t_params *params);
 void		check_args(int argc, char **argv, t_params *params);
@@ -174,5 +172,9 @@ int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
 void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
 void		cf_put(t_params *params, t_idx *idx, double height);
 double		rsqrt(double number);
+void		player_error(int pos);
+void		txtr_error(char c);
+int			create_image(t_params *params, void *img, t_mlx_img *im, t_idx idx);
+int			draw_mini_map(t_params *params);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 16:03:12 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 20:05:41 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,10 @@ static void		dir_scan(t_params *params, double angle)
 		scan_face(params, angle, 1, 4);
 }
 
-void			draw_three_d(t_params *params)
+void			full_scan(t_params *params)
 {
 	double		angle;
 	double		inc;
-	// t_pos		dist;
 	int			i;
 
 	inc = (M_PI / 3) / params->max.i;
@@ -68,7 +67,7 @@ void			draw_three_d(t_params *params)
 
 int				draw_in_wdw(t_params *params)
 {
-	draw_three_d(params);
+	full_scan(params);
 	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
 	key_events(params);
 	return (1);

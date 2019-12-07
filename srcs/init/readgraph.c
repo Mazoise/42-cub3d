@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:44:13 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int			get_texture(char *path, t_texture *txtr, void *ptr)
 	tmp = &txtr->txtr;
 	if (!(txtr->img = mlx_xpm_file_to_image(ptr, path, &txtr->w, &txtr->h)))
 	{
-		ft_dprintf(2, "Error\nWrong texture path\n");
+		ft_dprintf(2, "Error\nMlx error : %s ", strerror(errno));
 		return (0);
 	}
 	tmp->img = mlx_get_data_addr(txtr->img, &tmp->bpp, &tmp->len, &tmp->endian);
@@ -47,19 +47,10 @@ int					conv_texture(char *str, t_params *params, char c)
 	else
 		ret = get_texture(path, &params->graph.S, params->ptr);
 	free(path);
+	if (ret == 0)
+		txtr_error(c);
 	return (ret);
 }
-
-// static void			ft_rgb_to_int(t_params *params, t_RGB color, char c)
-// {
-// 	int		nb;
-
-// 	nb = (int)color.Blue + 256 * (int)color.Green + 65536 * (int)color.Red;
-// 	if (c == 'F')
-// 		params->graph.F = mlx_get_color_value(params->ptr, nb);
-// 	else
-// 		params->graph.C = mlx_get_color_value(params->ptr, nb);
-// }
 
 static t_rgb		*floor_ceil(t_params *params, char c)
 {

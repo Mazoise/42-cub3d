@@ -6,47 +6,47 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 21:15:38 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-int		draw_mini_map(t_params *params)
-{
-	int			height;
-	int			width;
-	int			i;
-	int			j;
+// int		draw_mini_map(t_params *params)
+// {
+// 	int			height;
+// 	int			width;
+// 	int			i;
+// 	int			j;
 
-	height = 0;
-	width = 0;
-	i = 0;
-	j = 0;
-	while (params->grid[i])
-	{
-		height = 0;
-		j = 0;
-		while (params->grid[i][j])
-		{
-			if (params->grid[i][j] == '1')
-				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.NO.img, height, width);
-			else if (params->grid[i][j] == '0')
-				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.SO.img, height, width);
-			else if (params->grid[i][j] == '2')
-				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.EA.img, height, width);
-			else
-				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.WE.img, height, width);
-			j++;
-			height += params->graph.EA.h;
-		}
-		width += params->graph.EA.w;
-		i++;
-	}
-	mlx_put_image_to_window(params->ptr, params->wdw, params->graph.S.img, params->player.pos.y * params->graph.EA.h - 4, params->player.pos.x * params->graph.EA.h - 4);
-	return (1);
-}
+// 	height = 0;
+// 	width = 0;
+// 	i = 0;
+// 	j = 0;
+// 	while (params->grid[i])
+// 	{
+// 		height = 0;
+// 		j = 0;
+// 		while (params->grid[i][j])
+// 		{
+// 			if (params->grid[i][j] == '1')
+// 				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.NO.img, height, width);
+// 			else if (params->grid[i][j] == '0')
+// 				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.SO.img, height, width);
+// 			else if (params->grid[i][j] == '2')
+// 				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.EA.img, height, width);
+// 			else
+// 				mlx_put_image_to_window(params->ptr, params->wdw, params->graph.WE.img, height, width);
+// 			j++;
+// 			height += params->graph.EA.h;
+// 		}
+// 		width += params->graph.EA.w;
+// 		i++;
+// 	}
+// 	mlx_put_image_to_window(params->ptr, params->wdw, params->graph.S.img, params->player.pos.y * params->graph.EA.h - 4, params->player.pos.x * params->graph.EA.h - 4);
+// 	return (1);
+// }
 
 // int		mini_map(t_params *params)
 // {
@@ -91,7 +91,7 @@ int		main(int argc, char **argv)
 	check_args(argc, argv, &params);
 	if (!(params.ptr = mlx_init()))
 	{
-		ft_dprintf(2, "Error\nInitialisation of mlx failed\n");
+		ft_dprintf(2, "Error\nMlx error : %s (initialisation)\n", strerror(errno));
 		return (0);
 	}
 	if (!(initialisation(argv[1], &params)))

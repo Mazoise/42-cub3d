@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 15:55:09 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 18:54:17 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int				init_player(t_player *player, char **grid)
 		return (0);
 	if (pos != 1)
 	{
-		ft_dprintf(2, "Error\nNo multi player mode available on this game\n");
+		player_error(pos);
 		return (0);
 	}
 	while (grid[i])

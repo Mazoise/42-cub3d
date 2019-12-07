@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:59:17 by mchardin          #+#    #+#             */
-/*   Updated: 2019/11/30 20:00:57 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 20:37:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void		free_all(t_params *params)
 		mlx_destroy_image(params->ptr, params->graph.S.img);
 	if (params->fullscreen)
 		mlx_destroy_image(params->ptr, params->fullscreen);
+	if (params->minimap)
+		mlx_destroy_image(params->ptr, params->minimap);
 	ft_free_strs(params->grid);
 }
