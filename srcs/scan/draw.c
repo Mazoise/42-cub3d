@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 12:08:23 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/08 19:37:00 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ void	line_put(t_params *params, double inc, int i, double angle)
 	power.x = pow(params->scan.wall.x - params->player.pos.x, 2);
 	power.y = pow(params->scan.wall.y - params->player.pos.y, 2);
 	dist = cos(inc) * rsqrt(power.x + power.y);
+	// dist = (dist < 0.001 ? 0.001 : dist);
 	height = params->max.i / (dist * params->max.j) * params->calc.proj;
+	// printf("Height : %f, dist : %f", height, dist);
 	while (++idx.j < (params->max.j - height) / 2)
 		if (BONUS == 0)
 			rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);

@@ -3,14 +3,14 @@ NO ./textures/wood.xpm
 SO ./textures/stone.xpm
 WE ./textures/metal.xpm
 EA ./textures/brick.xpm
-S  ./textures/barney.xpm
-F ./textures/Ro-Tile.xpm
+S  ./textures/Ro-Leaves2.xpm
+F ./textures/grass.xpm
 C ./textures/skysupermarket.xpm
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 2 0 0 2 0 0 1 0 0 0 1
-1 0 0 1 0 0 0 0 0 0 0 0 0 E 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
+1 0 0 1 0 0 0 0 0 0 0 0 0 S 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 1 1 1 0 1 1 1 1 0 0 0 1
 1 1 1 1 0 1 1 1 1 1 1 1 1 1 0 1 1 1 0 0 0 0 0 0 1 0 0 0 1

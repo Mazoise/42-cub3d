@@ -6,13 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 12:04:39 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 13:54:08 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/08 19:13:46 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	add_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
+void		add_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 {
 	int		i;
 	int		opp_img;
@@ -31,7 +31,7 @@ void	add_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 	}
 }
 
-void	sprite_put(t_params *params, double height, double pct, t_idx *idx)
+void		sprite_put(t_params *params, double height, double pct, t_idx *idx)
 {
 	int			k;
 	int			end;

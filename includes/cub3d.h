@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 12:10:35 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/08 22:15:38 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,15 @@ typedef struct		s_rgb
 	int				true;
 }					t_rgb;
 
+typedef struct		s_colors
+{
+	t_rgb			zero;
+	t_rgb			one;
+	t_rgb			two;
+	t_rgb			out;
+	t_rgb			player;
+}					t_colors;
+
 typedef struct		s_texture
 {
 	int				h;
@@ -112,6 +121,8 @@ typedef struct		s_bonus
 {
 	t_texture		F;
 	t_texture		C;
+	t_colors		colors;
+	t_idx			idx;
 }					t_bonus;
 typedef struct		s_params
 {
