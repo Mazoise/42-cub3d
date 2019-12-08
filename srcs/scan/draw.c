@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 13:22:49 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/08 12:08:23 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ double		pct_calc(t_params *params)
 	return (pct);
 }
 
-void	line_put(t_params *params, double inc, int i)
+void	line_put(t_params *params, double inc, int i, double angle)
 {
 	double	dist;
 	double	height;
@@ -106,5 +106,5 @@ void	line_put(t_params *params, double inc, int i)
 		while (idx.j < params->max.j)
 			rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
 	else
-		cf_put(params, &idx, height);
+		cf_put(params, &idx, height, angle);
 }

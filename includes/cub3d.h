@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 21:15:20 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/08 12:10:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int			conv_texture(char *str, t_params *params, char c);
 int			conv_color(char *str, t_params *params, char c);
 int			conv_resolution(char *str, t_params *params);
 int			conv_grid(char *str, t_params *params);
-void		line_put(t_params *params, double inc, int i);
+void		line_put(t_params *params, double inc, int i, double angle);
 void		img_to_intne(t_mlx_img tmp, t_texture *txtr);
 void		img_to_intsw(t_mlx_img tmp, t_texture *txtr);
 void		rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j);
@@ -170,7 +170,7 @@ void		which_start(t_pos *scan, t_pos pos, double angle, int idx);
 void		which_add(t_pos *add, double angle, int idx);
 int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid);
 void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
-void		cf_put(t_params *params, t_idx *idx, double height);
+void		cf_put(t_params *params, t_idx *idx, double height, double angle);
 double		rsqrt(double number);
 void		player_error(int pos);
 void		txtr_error(char c);

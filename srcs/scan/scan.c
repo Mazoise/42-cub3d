@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 20:05:41 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/08 12:08:39 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			full_scan(t_params *params)
 	while (i < params->max.i)
 	{
 		dir_scan(params, angle);
-		line_put(params, fabs(params->player.compas - angle), i);
+		line_put(params, fabs(params->player.compas - angle), i, angle);
 		sprite(params, angle, i);
 		angle -= inc;
 		i++;

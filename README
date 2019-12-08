@@ -1,12 +1,13 @@
-retour erreur
+retour erreur // OK
 --save // OK
 opti // OK
 bonus
 char to char // OK
 sprite // OK
 find where you write in a malloc freed or too far in a string // OK?
-fullscreen if more than max resolution
+fullscreen if more than max resolution // OK
 minimise window // OK de base
-screenshot sans rm touch
+screenshot sans rm touch // OK
 destroy texture images // OK
-if more than char in RBG
+if more than char in RBG // OSEF
+change speed with screen size

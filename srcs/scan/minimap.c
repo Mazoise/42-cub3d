@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:22:05 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 21:25:18 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 22:00:09 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,20 @@ void	int_to_img(t_mlx_img *img, unsigned int color, int i, int j)
 // 	return (1);
 // }
 
-void	pxl_map(t_params *params, t_idx idx, t_idx size)
+void	pxl_map(t_params *params, t_idx idx, t_pos size)
 {
-	int		i;
-	int		j;
+	t_pos	pos;
+	t_idx	len;
 
-	i = idx.i - params->max.i / 10;
-	j = idx.j - params->max.j / 10;
-	if (params->grid[(int)(j / size.j)][(int)(i / size.i)] == '1')
+	len.j = ft_strlen(params->grid[0]);
+	len.i = ft_strslen(params->grid);
+	pos.x = idx.i - params->max.i / 10.0;
+	pos.y = idx.j - params->max.j / 10.0;
+	if (params->grid[(int)(len.i * pos.y / size.y)][(int)(len.j * pos.x / size.x)] == '1')
 		int_to_img(&params->mini_m, 0xFFFFFF, idx.i, idx.j);
-	else if (params->grid[(int)(j / size.j)][(int)(i / size.i)] == '0')
-		int_to_img(&params->mini_m, 0xCCFFFFFF, idx.i, idx.j);
-	else if (params->grid[(int)(j / size.j)][(int)(i / size.i)] == '2')
+	else if (params->grid[(int)(len.i * pos.y / size.y)][(int)(len.j * pos.x / size.x)] == '0')
+		int_to_img(&params->mini_m, 0xFFFFFFBB, idx.i, idx.j);
+	else if (params->grid[(int)(len.i * pos.y / size.y)][(int)(len.j * pos.x / size.x)] == '2')
 		int_to_img(&params->mini_m, 0x0000FF, idx.i, idx.j);
 	else
 		int_to_img(&params->mini_m, 0xFFFFFF, idx.i, idx.j);
@@ -81,12 +83,12 @@ void	pxl_map(t_params *params, t_idx idx, t_idx size)
 
 int		draw_mini_map(t_params *params)
 {
-	t_idx		size;
+	t_pos		size;
 	t_idx		idx;
 
 	idx.i = params->max.i / 10;
-	size.j = params->max.j - params->max.j / 5;
-	size.i = params->max.i - params->max.i / 5;
+	size.y = params->max.j - params->max.j / 5.0;
+	size.x = params->max.i - params->max.i / 5.0;
 	while (idx.i < params->max.i - params->max.i / 10)
 	{
 		idx.j = params->max.j / 10;

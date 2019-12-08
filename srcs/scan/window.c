@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:27:33 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 21:37:35 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/07 21:44:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,19 @@ int			exit_wdw(t_params *params)
 
 int			window_mlx(t_params *params, char *name)
 {
-	t_mlx_img	*img;
-	t_idx		max;
-	void		*fs;
-
-	img = &params->img;
-	max = params->max;
-	if (!(params->wdw = mlx_new_window(params->ptr, max.i, max.j, name)))
+	if (!(params->wdw = mlx_new_window(params->ptr, params->max.i, params->max.j, name)))
 	{
 		ft_dprintf(2, "Error\nMlx error : %s (window)\n", strerror(errno));
 		return (0);
 	}
-	if (!(params->fullscreen = mlx_new_image(params->ptr, max.i, max.j)))
+	if (!(params->fullscreen = mlx_new_image(params->ptr, params->max.i, params->max.j))
+		|| !(params->minimap = mlx_new_image(params->ptr, params->max.i, params->max.j)))
 	{
 		ft_dprintf(2, "Error\nMlx error : %s (image)\n", strerror(errno));
 		return (0);
 	}
-	fs = params->fullscreen;
-	img->img = mlx_get_data_addr(fs, &img->bpp, &img->len, &img->endian);
+	params->img.img = mlx_get_data_addr(params->fullscreen, &params->img.bpp, &params->img.len, &params->img.endian);
+	params->mini_m.img = mlx_get_data_addr(params->minimap, &params->mini_m.bpp, &params->mini_m.len, &params->mini_m.endian);
 	return (1);
 }
 

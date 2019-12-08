@@ -1,11 +1,11 @@
-R  1920 1080
+R  11920 11080
 NO ./textures/wood.xpm
 SO ./textures/stone.xpm
 WE ./textures/metal.xpm
 EA ./textures/brick.xpm
-S  ./textures/Ro-Leaves2.xpm
-F ./textures/grass.xpm
-C ./textures/wood.xpm
+S  ./textures/barney.xpm
+F ./textures/Ro-Tile.xpm
+C ./textures/skysupermarket.xpm
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
