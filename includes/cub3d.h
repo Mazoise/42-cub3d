@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 22:15:38 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:12:05 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/errno.h>
 # define FULLSCREEN_H 1400
 # define FULLSCREEN_W 2560
+# define INFO 54
 # define CAM_L 0
 # define CAM_R 1
 # define FORW 2
@@ -31,7 +32,6 @@
 # define MAP 6
 # define OBJ 7
 # define EVENTS 8
-# define BONUS 1
 
 typedef union u_squ
 {
@@ -152,7 +152,6 @@ void		check_format(char *str);
 int			is_compas(char c);
 int			is_grid(char c);
 int			conv_texture(char *str, t_params *params, char c);
-int			conv_color(char *str, t_params *params, char c);
 int			conv_resolution(char *str, t_params *params);
 int			conv_grid(char *str, t_params *params);
 void		line_put(t_params *params, double inc, int i, double angle);
@@ -187,5 +186,10 @@ void		player_error(int pos);
 void		txtr_error(char c);
 int			create_image(t_params *params, void *img, t_mlx_img *im, t_idx idx);
 int			draw_mini_map(t_params *params);
+void		put_cut_nb_fd(int nb, int fd, int len);
+int			conv_params(char *str, t_params *params);
+void		walk_here(t_pos dir, t_pos hit, t_pos *pos, t_params *params);
+double		pct_calc(t_params *params);
+void		dir_vect(t_pos *dir, t_pos *hit, double compas);
 
 #endif

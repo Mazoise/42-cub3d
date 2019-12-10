@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 19:44:13 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 10:40:48 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,49 +50,6 @@ int					conv_texture(char *str, t_params *params, char c)
 	if (ret == 0)
 		txtr_error(c);
 	return (ret);
-}
-
-static t_rgb		*floor_ceil(t_params *params, char c)
-{
-	if (c == 'F')
-	{
-		params->graph.F.true = 1;
-		return (&params->graph.F);
-	}
-	else
-	{
-		params->graph.C.true = 1;
-		return (&params->graph.C);
-	}
-}
-
-int					conv_color(char *str, t_params *params, char c)
-{
-	t_rgb	*color;
-	int		i;
-
-	i = 0;
-	color = floor_ceil(params, c);
-	while (str[i] == ' ')
-		i++;
-	color->red = (unsigned char)ft_atoi(&str[i]);
-	while (ft_isdigit(str[i]))
-		i++;
-	if (str[i] == ',')
-		i++;
-	color->green = (unsigned char)ft_atoi(&str[i]);
-	while (ft_isdigit(str[i]))
-		i++;
-	if (str[i] == ',')
-		i++;
-	color->blue = (unsigned char)ft_atoi(&str[i]);
-	while (ft_isdigit(str[i]))
-		i++;
-	while (str[i] == ' ')
-		i++;
-	if (str[i])
-		return (-1);
-	return (1);
 }
 
 int					conv_resolution(char *str, t_params *params)

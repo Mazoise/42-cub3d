@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 20:32:05 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 09:17:39 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,6 @@ int			is_compas(char c)
 	return (0);
 }
 
-void		pre_color(t_colors *colors)
-{
-	colors->one.blue = 255;
-	colors->one.red = 255;
-	colors->one.green = 255;
-	colors->two.blue = 150;
-	colors->two.red = 54;
-	colors->two.green = 54;
-	colors->zero.blue = 54;
-	colors->zero.red = 54;
-	colors->zero.green = 54;
-	colors->out.blue = 0;
-	colors->out.red = 0;
-	colors->out.green = 0;
-	colors->player.blue = 130;
-	colors->player.red = 150;
-	colors->player.green = 54;
-}
-
 void		pre_calc(t_params *params)
 {
 	if (params->max.i > FULLSCREEN_W)
@@ -52,7 +33,21 @@ void		pre_calc(t_params *params)
 	if (params->max.j > FULLSCREEN_H)
 		params->max.j = FULLSCREEN_H;
 	params->calc.proj = (params->max.j / 2) / tan(M_PI / 6);
-	params->calc.step = 0.1;
-	params->calc.turn = 0.05;
-	pre_color(&params->bonus.colors);
+}
+
+void		init_struct(t_params *params)
+{
+	params->grid = 0;
+	params->max.i = -1;
+	params->max.j = -1;
+	params->graph.NO.img = 0;
+	params->graph.SO.img = 0;
+	params->graph.WE.img = 0;
+	params->graph.EA.img = 0;
+	params->graph.S.img = 0;
+	params->bonus.C.img = 0;
+	params->bonus.F.img = 0;
+	params->graph.F.true = 0;
+	params->graph.C.true = 0;
+	ft_memset(params->event, 0, EVENTS);
 }

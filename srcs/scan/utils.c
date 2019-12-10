@@ -6,13 +6,13 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:59:17 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 20:37:58 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 10:02:55 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	correct_compas(double *compas)
+void		correct_compas(double *compas)
 {
 	if (*compas > 2 * M_PI)
 		*compas = *compas - 2 * M_PI;
@@ -20,7 +20,7 @@ void	correct_compas(double *compas)
 		*compas = *compas + 2 * M_PI;
 }
 
-int		is_grid_pos(double x, double y, char **grid, char c)
+int			is_grid_pos(double x, double y, char **grid, char c)
 {
 	t_pos	max;
 
@@ -31,6 +31,18 @@ int		is_grid_pos(double x, double y, char **grid, char c)
 		&& grid[(int)x][(int)y] == c)
 		return (1);
 	return (0);
+}
+
+void		put_cut_nb_fd(int nb, int fd, int len)
+{
+	int		k;
+
+	k = 0;
+	while (k < len)
+	{
+		ft_putchar_fd(nb / (int)pow(256, k), fd);
+		k++;
+	}
 }
 
 void		free_all(t_params *params)
@@ -45,6 +57,10 @@ void		free_all(t_params *params)
 		mlx_destroy_image(params->ptr, params->graph.WE.img);
 	if (params->graph.S.img)
 		mlx_destroy_image(params->ptr, params->graph.S.img);
+	if (params->bonus.C.img)
+		mlx_destroy_image(params->ptr, params->bonus.C.img);
+	if (params->bonus.F.img)
+		mlx_destroy_image(params->ptr, params->bonus.F.img);
 	if (params->fullscreen)
 		mlx_destroy_image(params->ptr, params->fullscreen);
 	if (params->minimap)

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 21:15:21 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 13:25:15 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 10:03:11 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ int			close_cam(t_scan *scan, t_pos cam, int *nb, char **grid)
 		scan->vrt.y += scan->add_vert.y;
 	}
 	(*nb)++;
-	return(1);
+	return (1);
 }

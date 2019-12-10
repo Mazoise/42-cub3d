@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 12:04:39 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 19:13:46 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 10:11:34 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		sprite_put(t_params *params, double height, double pct, t_idx *idx)
 		tmp = floor(k * params->scan.face->h / height) + pct;
 		tmp = tmp * params->scan.face->w;
 		tmp2 = (params->img.len * idx->j + idx->i * (params->img.bpp >> 3));
-		add_pix(&params->img, params->scan.face->txtr, tmp2 ,tmp);
+		add_pix(&params->img, params->scan.face->txtr, tmp2, tmp);
 		idx->j++;
 		k++;
 	}
@@ -81,41 +81,44 @@ void		close_sprite(t_scan *scan, int *nb)
 	(*nb)--;
 }
 
-static void		print_sprite(t_params *params, double angle, int i)
+void		print_sprite(t_params *params, double angle, int i)
 {
-	t_pos 	cam;
-	double	dist;
-	int		height;
-	t_idx	idx;
+	t_pos		cam;
+	double		dist;
+	double		dir;
+	int			height;
+	t_idx		idx;
+
 	idx.i = i;
 	cam.x = floor(params->scan.wall.x) + 0.5;
 	cam.y = floor(params->scan.wall.y) + 0.5;
 	params->scan.face = &params->graph.S;
-	dist  = rsqrt(pow(cam.x - params->player.pos.x, 2)
+	dist = rsqrt(pow(cam.x - params->player.pos.x, 2)
 		+ pow(cam.y - params->player.pos.y, 2));
 	height = params->max.i / (dist * params->max.j) * params->calc.proj;
 	if (params->max.j - height > 0)
 		idx.j = (params->max.j - height) / 2;
 	else
 		idx.j = 0;
-	double ang = asin(((
-		(params->player.pos.x - cam.x) * sin(angle))
-		+ (cam.y - params->player.pos.y) * cos(angle)) / dist);
-	double dir = .5 + dist * tan(ang);
+	dir = tan(asin((((params->player.pos.x - cam.x) * sin(angle))
+		+ (cam.y - params->player.pos.y) * cos(angle)) / dist)) * dist + 0.5;
 	if (dir >= 0 && dir <= 1)
 		sprite_put(params, height, dir, &idx);
 }
 
 void		sprite(t_params *params, double angle, int i)
 {
-	params->scan.vrt.x -= params->scan.add_vert.x;
-	params->scan.vrt.y -= params->scan.add_vert.y;
-	params->scan.hrz.x -= params->scan.add_horz.x;
-	params->scan.hrz.y -= params->scan.add_horz.y;
-	while (params->scan.nb > 0)
+	t_scan		*scan;
+
+	scan = &params->scan;
+	scan->vrt.x -= scan->add_vert.x;
+	scan->vrt.y -= scan->add_vert.y;
+	scan->hrz.x -= scan->add_horz.x;
+	scan->hrz.y -= scan->add_horz.y;
+	while (scan->nb > 0)
 	{
-		close_sprite(&params->scan, &params->scan.nb);
-		if (is_grid_pos(params->scan.wall.x, params->scan.wall.y, params->grid, '2'))
+		close_sprite(&params->scan, &scan->nb);
+		if (is_grid_pos(scan->wall.x, scan->wall.y, params->grid, '2'))
 			print_sprite(params, angle, i);
 	}
 }

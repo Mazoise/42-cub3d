@@ -6,14 +6,14 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 19:37:00 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 10:44:24 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-void	put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
+void		put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 {
 	int		i;
 	int		opp_img;
@@ -29,7 +29,7 @@ void	put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 	}
 }
 
-void	rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j)
+void		rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j)
 {
 	int		tmp;
 
@@ -39,7 +39,7 @@ void	rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j)
 	img->img[tmp + 2] = color.red;
 }
 
-void	texture_put(t_params *params, double height, double pct, t_idx *idx)
+void		texture_put(t_params *params, double height, double pct, t_idx *idx)
 {
 	int			k;
 	int			end;
@@ -62,7 +62,7 @@ void	texture_put(t_params *params, double height, double pct, t_idx *idx)
 		tmp = tmp * params->scan.face->w;
 		tmp2 = (params->img.len * idx->j + idx->i * (params->img.bpp >> 3));
 		if (idx->j >= 0 && idx->j < params->max.j)
-			put_pix(&params->img, params->scan.face->txtr, tmp2 ,tmp);
+			put_pix(&params->img, params->scan.face->txtr, tmp2, tmp);
 		idx->j++;
 		k++;
 	}
@@ -71,7 +71,7 @@ void	texture_put(t_params *params, double height, double pct, t_idx *idx)
 double		pct_calc(t_params *params)
 {
 	double pct;
-	
+
 	if (params->scan.face == &params->graph.SO)
 		pct = ceil(params->scan.wall.y) - params->scan.wall.y;
 	else if (params->scan.face == &params->graph.NO)
@@ -81,32 +81,4 @@ double		pct_calc(t_params *params)
 	else
 		pct = ceil(params->scan.wall.x) - params->scan.wall.x;
 	return (pct);
-}
-
-void	line_put(t_params *params, double inc, int i, double angle)
-{
-	double	dist;
-	double	height;
-	t_pos	power;
-	t_idx	idx;
-	double	pct;
-
-	idx.i = i;
-	idx.j = -1;
-	power.x = pow(params->scan.wall.x - params->player.pos.x, 2);
-	power.y = pow(params->scan.wall.y - params->player.pos.y, 2);
-	dist = cos(inc) * rsqrt(power.x + power.y);
-	// dist = (dist < 0.001 ? 0.001 : dist);
-	height = params->max.i / (dist * params->max.j) * params->calc.proj;
-	// printf("Height : %f, dist : %f", height, dist);
-	while (++idx.j < (params->max.j - height) / 2)
-		if (BONUS == 0)
-			rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);
-	pct = pct_calc(params);
-	texture_put(params, height, pct, &idx);
-	if (BONUS == 0)
-		while (idx.j < params->max.j)
-			rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
-	else
-		cf_put(params, &idx, height, angle);
 }

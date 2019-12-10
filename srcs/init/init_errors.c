@@ -6,11 +6,55 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:12:35 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 19:55:12 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:16:02 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void		check_format(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str);
+	if (!ft_strncmp(str, "-save", 6))
+	{
+		ft_dprintf(2, "Error\nMissing map reference before save request\n");
+		exit(0);
+	}
+	else if (i < 5 || ft_strncmp(&str[i - 4], ".cub", 5))
+	{
+		ft_dprintf(2, "Error\nMap file should end in \".cub\"\n");
+		exit(0);
+	}
+}
+
+void		check_args(int argc, char **argv, t_params *params)
+{
+	if (argc < 2)
+	{
+		ft_dprintf(2, "Error\nNo map specified\n");
+		exit(0);
+	}
+	else if (argc > 3)
+	{
+		ft_dprintf(2, "Error\nToo many arguments\n");
+		exit(0);
+	}
+	else if (argc == 3)
+	{
+		if (!ft_strncmp(argv[2], "-save", 6)
+			|| !ft_strncmp(argv[2], "--save", 7))
+			params->screenshot = 1;
+		else
+		{
+			ft_dprintf(2, "Error\nTo take a screenshot add \"-save\"\n");
+			exit(0);
+		}
+	}
+	else
+		params->screenshot = 0;
+}
 
 void		txtr_error(char c)
 {
@@ -36,30 +80,4 @@ void		player_error(int pos)
 		ft_dprintf(2, "Error\nNo multi player mode available on this game\n");
 	else if (pos < 1)
 		ft_dprintf(2, "Error\nMissing starting point in map\n");
-}
-
-int			check_all_params(t_params *params)
-{
-	int ret;
-
-	ret = 0;
-	if ((params->max.i < 0 || params->max.j < 0))
-		ret = ft_dprintf(2, "Error\nMissing resolution format\n");
-	if (!params->graph.NO.img)
-		ret = ft_dprintf(2, "Error\nMissing north texture path\n");
-	if (!params->graph.SO.img)
-		ret = ft_dprintf(2, "Error\nMissing south texture path\n");
-	if (!params->graph.WE.img)
-		ret = ft_dprintf(2, "Error\nMissing west texture path\n");
-	if (!params->graph.EA.img)
-		ret = ft_dprintf(2, "Error\nMissing east texture path\n");
-	if (!params->graph.S.img)
-		ret = ft_dprintf(2, "Error\nMissing sprite texture path\n");
-	if (((BONUS == 0 && !params->graph.F.true)
-		|| (BONUS == 1 && !params->bonus.F.img)))
-		ret = ft_dprintf(2, "Error\nMissing floor color format\n");
-	if (((BONUS == 0 && !params->graph.C.true)
-		|| (BONUS == 1 && !params->bonus.C.img)))
-		ret = ft_dprintf(2, "Error\nMissing ceiling color format\n");
-	return (ret);
 }

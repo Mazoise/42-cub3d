@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 18:54:17 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 09:08:44 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ static int		closed_grid(char **grid, int *pos)
 
 static int		player_start(char *c, t_player *player, int i, int j)
 {
-	if (*c == 'N' || *c == 'S'
-				|| *c == 'E' || *c == 'W')
+	if (is_compas(*c))
 	{
 		player->pos.x = (double)i + 0.5;
 		player->pos.y = (double)j + 0.5;

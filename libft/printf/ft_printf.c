@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 14:56:10 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 12:29:43 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 09:46:58 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char		*ft_arg(const char *str, va_list *ap, int *i, char *cz)
 	return (0);
 }
 
-int		ft_str(const char *str, t_list **lst, va_list *ap)
+int			ft_str(const char *str, t_list **lst, va_list *ap)
 {
 	int		i;
 	int		j;
@@ -103,7 +103,7 @@ int		ft_str(const char *str, t_list **lst, va_list *ap)
 	return (1);
 }
 
-int				ft_printf(const char *str, ...)
+int			ft_printf(const char *str, ...)
 {
 	t_list	*lst;
 	va_list	ap;

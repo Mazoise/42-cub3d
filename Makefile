@@ -2,19 +2,29 @@ PREFIX_INIT	=	./srcs/init/
 
 PREFIX_SCAN =	./srcs/scan/
 
+PREFIX_B	=	./srcs/bonus/
+
+PREFIX_NO_B	=	./srcs/no_bonus/
+
 INCLUDES	=	./includes/
 
 INCLUDES_L	=	./libft/includes/
 
-VAR_BONUS	= 	./libft/includes/
-
 SRCS_INIT	=	$(addprefix $(PREFIX_INIT), read.c readgraph.c readgrid.c initialisation.c init_utils.c initplayer.c init_errors.c)
 
-SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), minimap.c bonus.c scan_utils.c sprite.c cub3d.c draw.c utils.c window.c keys.c screenshot.c scan.c)
+SRCS_SCAN	=	$(addprefix $(PREFIX_SCAN), scan_utils.c sprite.c draw.c utils.c window.c keys.c screenshot.c scan.c)
 
-ALL_SRCS	=	$(SRCS_INIT) $(SRCS_SCAN)
+SRCS_BONUS	=	$(addprefix $(PREFIX_B), minimap.c bonus.c bonus_draw.c bonus_utils.c)
 
-OBJS		=	${ALL_SRCS:.c=.o}
+SRCS_NO_B	=	$(addprefix $(PREFIX_NO_B), cub3d.c init.c no_bonus.c)
+
+NB_SRCS		=	$(SRCS_INIT) $(SRCS_SCAN) $(SRCS_NO_B)
+
+B_SRCS		=	$(SRCS_INIT) $(SRCS_SCAN) $(SRCS_BONUS)
+
+OBJS		=	${NB_SRCS:.c=.o}
+
+OBJS_B		=	${B_SRCS:.c=.o}
 
 CC			=	gcc
 
@@ -36,14 +46,14 @@ $(NAME) :		./includes/cub3d.h $(OBJS) makelib
 makelib :
 				$(MAKE_LIBFT)
 
-bonus :			./includes/cub3d.h $(OBJS) makelib
-				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
+bonus :			./includes/cub3d.h $(OBJS_B) makelib
+				$(CC) $(OBJS_B) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
 
 all :
 				$(NAME)
 
 clean :
-				$(RM) $(OBJS)
+				$(RM) $(OBJS) $(OBJS_B)
 				$(MAKE_LIBFT) clean
 
 fclean :		clean

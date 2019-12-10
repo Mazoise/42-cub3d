@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 12:08:39 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:13:24 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void		scan_face(t_params *params, double angle, int hrz, int vrt)
 	which_start(&params->scan.hrz, params->player.pos, angle, hrz);
 	which_add(&params->scan.add_vert, angle, vrt);
 	which_start(&params->scan.vrt, params->player.pos, angle, vrt);
-	close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid);
-	while ((close_cam(&params->scan, params->player.pos, &params->scan.nb, params->grid)))
+	close_cam(&params->scan, params->player.pos,
+		&params->scan.nb, params->grid);
+	while ((close_cam(&params->scan, params->player.pos,
+		&params->scan.nb, params->grid)))
 		;
 	if (params->scan.wall.y == params->scan.vrt.y && vrt == 4)
 		params->scan.face = &params->graph.WE;

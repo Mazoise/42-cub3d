@@ -6,39 +6,19 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 20:07:51 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:02:12 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		dir_vect(t_pos *dir, t_pos *hit, double compas, double step)
+void		dir_vect(t_pos *dir, t_pos *hit, double compas)
 {
 	correct_compas(&compas);
-	dir->y += step * sin(compas);
-	dir->x += step * cos(compas);
+	dir->y += 0.1 * sin(compas);
+	dir->x += 0.1 * cos(compas);
 	hit->y += 0.2 * sin(compas);
 	hit->x += 0.2 * cos(compas);
-}
-
-void		walk_here(t_pos dir, t_pos hit, t_pos *pos, t_params *params)
-{
-	if (params->event[OBJ] == 1)
-	{
-		if (is_grid_pos(hit.x, pos->y, params->grid, '0')
-			|| is_grid_pos(hit.x, pos->y, params->grid, '2'))
-		pos->x = dir.x;
-		if (is_grid_pos(pos->x, hit.y, params->grid, '0')
-			|| is_grid_pos(pos->x, hit.y, params->grid, '2'))
-		pos->y = dir.y;
-	}
-	else
-	{
-		if (is_grid_pos(hit.x, pos->y, params->grid, '0'))
-			pos->x = dir.x;
-		if (is_grid_pos(pos->x, hit.y, params->grid, '0'))
-			pos->y = dir.y;
-	}
 }
 
 void		key_events(t_params *params)
@@ -51,21 +31,19 @@ void		key_events(t_params *params)
 	hit.x = params->player.pos.x;
 	hit.y = params->player.pos.y;
 	if (params->event[CAM_L] == 1)
-		params->player.compas += params->calc.turn;
+		params->player.compas += 0.06;
 	if (params->event[CAM_R] == 1)
-		params->player.compas -= params->calc.turn;
+		params->player.compas -= 0.06;
 	correct_compas(&params->player.compas);
 	if (params->event[FORW] == 1)
-		dir_vect(&dir, &hit, params->player.compas, params->calc.step);
+		dir_vect(&dir, &hit, params->player.compas);
 	if (params->event[BCKW] == 1)
-		dir_vect(&dir, &hit, params->player.compas + M_PI, params->calc.step);
+		dir_vect(&dir, &hit, params->player.compas + M_PI);
 	if (params->event[LEFT] == 1)
-		dir_vect(&dir, &hit, params->player.compas + M_PI_2, params->calc.step);
+		dir_vect(&dir, &hit, params->player.compas + M_PI_2);
 	if (params->event[RGHT] == 1)
-		dir_vect(&dir, &hit, params->player.compas + M_PI +  M_PI_2, params->calc.step);
+		dir_vect(&dir, &hit, params->player.compas + M_PI + M_PI_2);
 	walk_here(dir, hit, &params->player.pos, params);
-	if (params->event[MAP] == 1)
-		draw_mini_map(params);
 }
 
 int			press_key(int keycode, t_params *params)
@@ -91,7 +69,7 @@ int			press_key(int keycode, t_params *params)
 	return (1);
 }
 
-int		release_key(int keycode, t_params *params)
+int			release_key(int keycode, t_params *params)
 {
 	if (keycode == 53)
 		exit_wdw(params);
