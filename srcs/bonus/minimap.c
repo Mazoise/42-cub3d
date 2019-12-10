@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:22:05 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/08 22:23:28 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:50:25 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		draw_mini_map(t_params *params)
 		idx.j += box;
 	}
 	pxl_map(params, params->bonus.idx, box, 'p');
+	clear_void(&params->mini_m, params->max);
 	mlx_put_image_to_window(params->ptr, params->wdw, params->minimap, 0, 0);
 	return (1);
 }

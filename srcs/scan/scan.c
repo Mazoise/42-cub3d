@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:13:24 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:34:03 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,4 @@ void			full_scan(t_params *params)
 		i++;
 		correct_compas(&angle);
 	}
-}
-
-int				draw_in_wdw(t_params *params)
-{
-	full_scan(params);
-	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
-	key_events(params);
-	return (1);
 }

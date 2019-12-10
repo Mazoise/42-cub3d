@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:12:05 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:50:48 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,7 @@ int			conv_params(char *str, t_params *params);
 void		walk_here(t_pos dir, t_pos hit, t_pos *pos, t_params *params);
 double		pct_calc(t_params *params);
 void		dir_vect(t_pos *dir, t_pos *hit, double compas);
+void		pre_color(t_colors *colors);
+void		clear_void(t_mlx_img *map, t_idx max);
 
 #endif

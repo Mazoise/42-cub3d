@@ -6,12 +6,20 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:18:29 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 11:34:12 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
+
+int				draw_in_wdw(t_params *params)
+{
+	full_scan(params);
+	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
+	key_events(params);
+	return (1);
+}
 
 void		loop_mlx(t_params *params)
 {

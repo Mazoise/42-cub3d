@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 08:59:32 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:39:32 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 12:02:19 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ int			conv_params(char *str, t_params *params)
 	if (ret == -1 && ret++)
 		ft_dprintf(2, "Error\nWrong color syntax (R,G,B)");
 	return (ret);
+}
+
+void		clear_void(t_mlx_img *map, t_idx max)
+{
+	int		i;
+	int		opp;
+
+	i = 0;
+	opp = map->bpp / 8;
+	while(i < max.i * max.j)
+	{
+		if (map->img[i * opp + 1] == 0
+			&& map->img[i * opp + 2] == 0
+			&& map->img[i * opp + 0] == 0)
+			map->img[i * opp + 3] = (unsigned char)255;
+		i++;
+	}
 }
 
 int			check_all_params(t_params *params)
