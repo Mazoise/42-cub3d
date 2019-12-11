@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 10:34:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:12:34 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/11 11:18:30 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,32 @@ void		line_put(t_params *params, double inc, int i, double angle)
 	texture_put(params, height, pct, &idx);
 	while (idx.j < params->max.j)
 		rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
+}
+
+void		sprite_put(t_params *params, double height, double pct, t_idx *idx)
+{
+	int			k;
+	int			end;
+	double		tmp;
+	double		tmp2;
+
+	if (height > params->max.j)
+	{
+		k = (height - params->max.j) / 2;
+		end = params->max.j + (height - params->max.j) / 2;
+	}
+	else
+	{
+		k = 0;
+		end = height;
+	}
+	while (k < end)
+	{
+		tmp = floor(k * params->scan.face->h / height) + pct;
+		tmp = tmp * params->scan.face->w;
+		tmp2 = (params->img.len * idx->j + idx->i * (params->img.bpp >> 3));
+		add_pix(&params->img, params->scan.face->txtr, tmp2, tmp);
+		idx->j++;
+		k++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:50:48 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/11 14:39:07 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@
 # define LEFT 4
 # define RGHT 5
 # define MAP 6
-# define OBJ 7
-# define EVENTS 8
+# define UP 7
+# define DWN 8
+# define OBJ 9
+# define EVENTS 10
 
 typedef union u_squ
 {
@@ -123,6 +125,8 @@ typedef struct		s_bonus
 	t_texture		C;
 	t_colors		colors;
 	t_idx			idx;
+	int				camh;
+	double			anim;
 }					t_bonus;
 typedef struct		s_params
 {
@@ -155,12 +159,9 @@ int			conv_texture(char *str, t_params *params, char c);
 int			conv_resolution(char *str, t_params *params);
 int			conv_grid(char *str, t_params *params);
 void		line_put(t_params *params, double inc, int i, double angle);
-void		img_to_intne(t_mlx_img tmp, t_texture *txtr);
-void		img_to_intsw(t_mlx_img tmp, t_texture *txtr);
 void		rgb_to_img(t_mlx_img *img, t_rgb color, int i, int j);
 int			is_grid_pos(double x, double y, char **grid, char c);
 void		correct_compas(double *compas);
-int			init_mlx(t_params *params, char *name);
 void		key_events(t_params *params);
 int			press_key(int keycode, t_params *params);
 int			release_key(int keycode, t_params *params);
@@ -184,7 +185,6 @@ void		cf_put(t_params *params, t_idx *idx, double height, double angle);
 double		rsqrt(double number);
 void		player_error(int pos);
 void		txtr_error(char c);
-int			create_image(t_params *params, void *img, t_mlx_img *im, t_idx idx);
 int			draw_mini_map(t_params *params);
 void		put_cut_nb_fd(int nb, int fd, int len);
 int			conv_params(char *str, t_params *params);
@@ -193,5 +193,7 @@ double		pct_calc(t_params *params);
 void		dir_vect(t_pos *dir, t_pos *hit, double compas);
 void		pre_color(t_colors *colors);
 void		clear_void(t_mlx_img *map, t_idx max);
-
+void		sprite_put(t_params *params, double height, double pct, t_idx *idx);
+void		add_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
+void		shadow_put(t_params *params, double height, t_idx *idx);
 #endif

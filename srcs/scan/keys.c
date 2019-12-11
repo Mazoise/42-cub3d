@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:02:12 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/10 12:48:16 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int			press_key(int keycode, t_params *params)
 		params->event[LEFT] = 1;
 	else if (keycode == 2)
 		params->event[RGHT] = 1;
+	else if (keycode == 126)
+		params->event[UP] = 1;
+	else if (keycode == 125)
+		params->event[DWN] = 1;
 	else if (keycode == 8 && params->event[OBJ] == 1)
 		params->event[OBJ] = 0;
 	else if (keycode == 8 && params->event[OBJ] == 0)
@@ -87,5 +91,9 @@ int			release_key(int keycode, t_params *params)
 		params->event[LEFT] = 0;
 	else if (keycode == 2)
 		params->event[RGHT] = 0;
+	else if (keycode == 126)
+		params->event[UP] = 0;
+	else if (keycode == 125)
+		params->event[DWN] = 0;
 	return (1);
 }

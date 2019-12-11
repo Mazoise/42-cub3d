@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:44:35 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:44:23 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:09:37 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,17 @@ void		loop_mlx(t_params *params)
 int				draw_in_wdw(t_params *params)
 {
 	full_scan(params);
+	params->bonus.anim += 0.25;
+	if (params->bonus.anim == 9)
+		params->bonus.anim = 0;
 	mlx_put_image_to_window(params->ptr, params->wdw, params->fullscreen, 0, 0);
 	key_events(params);
 	if (params->event[MAP] == 1)
 		draw_mini_map(params);
+	if (params->event[UP] == 1)
+		params->bonus.camh -= 5;
+	if (params->event[DWN] == 1)
+		params->bonus.camh += 5;
 	return (1);
 }
 

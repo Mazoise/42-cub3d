@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 12:04:39 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:11:34 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/11 14:35:31 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,6 @@ void		add_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src)
 		img->img[dst + i] = (unsigned char)img->img[dst + i] * transp
 			+ (unsigned char)txtr.img[src * opp_txtr + i] * (1 - transp);
 		i++;
-	}
-}
-
-void		sprite_put(t_params *params, double height, double pct, t_idx *idx)
-{
-	int			k;
-	int			end;
-	double		tmp;
-	double		tmp2;
-
-	if (height > params->max.j)
-	{
-		k = (height - params->max.j) / 2;
-		end = params->max.j + (height - params->max.j) / 2;
-	}
-	else
-	{
-		k = 0;
-		end = height;
-	}
-	while (k < end)
-	{
-		tmp = floor(k * params->scan.face->h / height) + pct;
-		tmp = tmp * params->scan.face->w;
-		tmp2 = (params->img.len * idx->j + idx->i * (params->img.bpp >> 3));
-		add_pix(&params->img, params->scan.face->txtr, tmp2, tmp);
-		idx->j++;
-		k++;
 	}
 }
 
