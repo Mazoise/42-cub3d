@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:12:35 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:16:02 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:34:20 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,9 @@ void		check_args(int argc, char **argv, t_params *params)
 		ft_dprintf(2, "Error\nNo map specified\n");
 		exit(0);
 	}
-	else if (argc > 3)
-	{
-		ft_dprintf(2, "Error\nToo many arguments\n");
-		exit(0);
-	}
-	else if (argc == 3)
-	{
-		if (!ft_strncmp(argv[2], "-save", 6)
-			|| !ft_strncmp(argv[2], "--save", 7))
-			params->screenshot = 1;
-		else
-		{
-			ft_dprintf(2, "Error\nTo take a screenshot add \"-save\"\n");
-			exit(0);
-		}
-	}
+	else if (argc > 2 && (!ft_strncmp(argv[2], "-save", 6)
+		|| !ft_strncmp(argv[2], "--save", 7)))
+		params->screenshot = 1;
 	else
 		params->screenshot = 0;
 }

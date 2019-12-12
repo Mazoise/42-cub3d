@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 11:08:47 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:50:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ static int			get_texture(char *path, t_texture *txtr, void *ptr)
 	t_mlx_img	*tmp;
 
 	tmp = &txtr->txtr;
+	if (txtr->img)
+	{
+		ft_dprintf(2, "Error\nMultiple definition ");
+		return (0);
+	}
 	if (!(txtr->img = mlx_xpm_file_to_image(ptr, path, &txtr->w, &txtr->h)))
 	{
 		ft_dprintf(2, "Error\nMlx error : %s ", strerror(errno));
@@ -57,6 +62,11 @@ int					conv_resolution(char *str, t_params *params)
 	int		i;
 
 	i = 0;
+	if (params->max.i != -1 || params->max.j != -1)
+	{
+		ft_dprintf(2, "Error\nMultiple definition (resolution)\n");
+		return (0);
+	}
 	params->max.i = ft_atoi(&str[i]);
 	while (str[i] == ' ')
 		i++;

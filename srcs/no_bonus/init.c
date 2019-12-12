@@ -6,11 +6,31 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 10:41:00 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 11:10:10 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:54:15 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int				error_conv(char c)
+{
+	if (c == 'F')
+	{
+		ft_dprintf(2, "Error\nMultiple definition (floor)\n");
+		return (0);
+	}
+	else if (c == 'C')
+	{
+		ft_dprintf(2, "Error\nMultiple definition (ceiling)\n");
+		return (0);
+	}
+	else if (c)
+	{
+		ft_dprintf(2, "Error\nWrong information syntax\n");
+		return (0);
+	}
+	return (1);
+}
 
 static t_rgb	*floor_ceil(t_params *params, char c)
 {
@@ -70,13 +90,11 @@ int				conv_params(char *str, t_params *params)
 		ret = conv_texture(&str[i + 1], params, 's');
 	else if (is_compas(str[i]))
 		ret = conv_texture(&str[i + 2], params, str[i]);
-	else if (str[i] == 'F' || str[i] == 'C')
+	else if ((str[i] == 'F' && !params->graph.f.true)
+		|| (str[i] == 'C' && !params->graph.c.true))
 		ret = conv_color(&str[i + 1], params, str[i]);
-	else if (str[i])
-	{
-		ft_dprintf(2, "Error\nWrong information syntax\n");
-		return (0);
-	}
+	else
+		ret = error_conv(str[i]);
 	if (ret == -1 && ret++)
 		ft_dprintf(2, "Error\nWrong color syntax (R,G,B)");
 	return (ret);

@@ -38,7 +38,7 @@ MLX_SYS		=	-lmlx -framework OpenGL -framework AppKit
 
 LIBFT		=	-L./libft/ -lft
 
-NAME		= 	cub3d.out
+NAME		= 	Cub3D
 
 $(NAME) :		all
 
