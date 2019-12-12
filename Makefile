@@ -40,8 +40,7 @@ LIBFT		=	-L./libft/ -lft
 
 NAME		= 	cub3d.out
 
-$(NAME) :		./includes/cub3d.h $(OBJS) makelib
-				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
+$(NAME) :		all
 
 makelib :
 				$(MAKE_LIBFT)
@@ -49,8 +48,8 @@ makelib :
 bonus :			./includes/cub3d.h $(OBJS_B) makelib
 				$(CC) $(OBJS_B) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
 
-all :
-				$(NAME)
+all :			./includes/cub3d.h $(OBJS) makelib
+				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
 
 clean :
 				$(RM) $(OBJS) $(OBJS_B)
