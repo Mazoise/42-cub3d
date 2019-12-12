@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:40:48 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:08:47 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int					conv_texture(char *str, t_params *params, char c)
 
 	path = ft_strdup_no_sp(str);
 	if (c == 'N')
-		ret = get_texture(path, &params->graph.NO, params->ptr);
+		ret = get_texture(path, &params->graph.no, params->ptr);
 	else if (c == 'S')
-		ret = get_texture(path, &params->graph.SO, params->ptr);
+		ret = get_texture(path, &params->graph.so, params->ptr);
 	else if (c == 'E')
-		ret = get_texture(path, &params->graph.EA, params->ptr);
+		ret = get_texture(path, &params->graph.ea, params->ptr);
 	else if (c == 'W')
-		ret = get_texture(path, &params->graph.WE, params->ptr);
+		ret = get_texture(path, &params->graph.we, params->ptr);
 	else if (c == 'F')
-		ret = get_texture(path, &params->bonus.F, params->ptr);
+		ret = get_texture(path, &params->bonus.f, params->ptr);
 	else if (c == 'C')
-		ret = get_texture(path, &params->bonus.C, params->ptr);
+		ret = get_texture(path, &params->bonus.c, params->ptr);
 	else
-		ret = get_texture(path, &params->graph.S, params->ptr);
+		ret = get_texture(path, &params->graph.s, params->ptr);
 	free(path);
 	if (ret == 0)
 		txtr_error(c);

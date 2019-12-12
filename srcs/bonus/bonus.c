@@ -6,11 +6,31 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:44:35 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/11 16:09:37 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 10:55:56 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void		line_put(t_params *params, double inc, int i, double angle)
+{
+	double	dist;
+	double	height;
+	t_pos	power;
+	t_idx	idx;
+	double	pct;
+
+	idx.i = i;
+	power.x = pow(params->scan.wall.x - params->player.pos.x, 2);
+	power.y = pow(params->scan.wall.y - params->player.pos.y, 2);
+	dist = cos(inc) * rsqrt(power.x + power.y);
+	height = params->max.i / (dist * params->max.j) * params->calc.proj;
+	idx.j = params->max.j > height ? (params->max.j - height) / 2 : 0;
+	pct = pct_calc(params);
+	texture_put(params, height, pct, &idx);
+	shadow_put(params, height, &idx);
+	cf_put(params, &idx, height, angle);
+}
 
 void		loop_mlx(t_params *params)
 {
@@ -22,7 +42,7 @@ void		loop_mlx(t_params *params)
 	mlx_loop(params->ptr);
 }
 
-int				draw_in_wdw(t_params *params)
+int			draw_in_wdw(t_params *params)
 {
 	full_scan(params);
 	params->bonus.anim += 0.25;
@@ -39,22 +59,24 @@ int				draw_in_wdw(t_params *params)
 	return (1);
 }
 
-int		init_minimap(t_params *params)
+int			init_minimap(t_params *params)
 {
 	t_mlx_img	*mm;
 
 	mm = &params->mini_m;
 	pre_color(&params->bonus.colors);
-	if (!(params->minimap = mlx_new_image(params->ptr, params->max.i, params->max.j)))
+	if (!(params->minimap = mlx_new_image(params->ptr,
+		params->max.i, params->max.j)))
 	{
 		ft_dprintf(2, "Error\nMlx error : %s (minimap)\n", strerror(errno));
 		return (0);
 	}
-	mm->img = mlx_get_data_addr(params->minimap, &mm->bpp, &mm->len, &mm->endian);
+	mm->img = mlx_get_data_addr(params->minimap, &mm->bpp,
+		&mm->len, &mm->endian);
 	return (1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_params	params;
 

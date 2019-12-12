@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 21:22:18 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:34:03 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 10:27:31 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void		scan_face(t_params *params, double angle, int hrz, int vrt)
 		&params->scan.nb, params->grid)))
 		;
 	if (params->scan.wall.y == params->scan.vrt.y && vrt == 4)
-		params->scan.face = &params->graph.WE;
+		params->scan.face = &params->graph.we;
 	else if (params->scan.wall.y == params->scan.vrt.y && vrt == 3)
-		params->scan.face = &params->graph.EA;
+		params->scan.face = &params->graph.ea;
 	else if (hrz == 1)
-		params->scan.face = &params->graph.NO;
+		params->scan.face = &params->graph.no;
 	else
-		params->scan.face = &params->graph.SO;
+		params->scan.face = &params->graph.so;
 }
 
 static void		dir_scan(t_params *params, double angle)

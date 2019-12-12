@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:21:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:44:24 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 10:27:30 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ double		pct_calc(t_params *params)
 {
 	double pct;
 
-	if (params->scan.face == &params->graph.SO)
+	if (params->scan.face == &params->graph.so)
 		pct = ceil(params->scan.wall.y) - params->scan.wall.y;
-	else if (params->scan.face == &params->graph.NO)
+	else if (params->scan.face == &params->graph.no)
 		pct = params->scan.wall.y - floor(params->scan.wall.y);
-	else if (params->scan.face == &params->graph.EA)
+	else if (params->scan.face == &params->graph.ea)
 		pct = params->scan.wall.x - floor(params->scan.wall.x);
 	else
 		pct = ceil(params->scan.wall.x) - params->scan.wall.x;

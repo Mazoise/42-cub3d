@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:59:17 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:02:55 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:09:47 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ void		put_cut_nb_fd(int nb, int fd, int len)
 
 void		free_all(t_params *params)
 {
-	if (params->graph.EA.img)
-		mlx_destroy_image(params->ptr, params->graph.EA.img);
-	if (params->graph.SO.img)
-		mlx_destroy_image(params->ptr, params->graph.SO.img);
-	if (params->graph.NO.img)
-		mlx_destroy_image(params->ptr, params->graph.NO.img);
-	if (params->graph.WE.img)
-		mlx_destroy_image(params->ptr, params->graph.WE.img);
-	if (params->graph.S.img)
-		mlx_destroy_image(params->ptr, params->graph.S.img);
-	if (params->bonus.C.img)
-		mlx_destroy_image(params->ptr, params->bonus.C.img);
-	if (params->bonus.F.img)
-		mlx_destroy_image(params->ptr, params->bonus.F.img);
+	if (params->graph.ea.img)
+		mlx_destroy_image(params->ptr, params->graph.ea.img);
+	if (params->graph.so.img)
+		mlx_destroy_image(params->ptr, params->graph.so.img);
+	if (params->graph.no.img)
+		mlx_destroy_image(params->ptr, params->graph.no.img);
+	if (params->graph.we.img)
+		mlx_destroy_image(params->ptr, params->graph.we.img);
+	if (params->graph.s.img)
+		mlx_destroy_image(params->ptr, params->graph.s.img);
+	if (params->bonus.c.img)
+		mlx_destroy_image(params->ptr, params->bonus.c.img);
+	if (params->bonus.f.img)
+		mlx_destroy_image(params->ptr, params->bonus.f.img);
 	if (params->fullscreen)
 		mlx_destroy_image(params->ptr, params->fullscreen);
 	if (params->minimap)

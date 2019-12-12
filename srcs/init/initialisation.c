@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:41:19 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 09:02:11 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 09:56:22 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@ int			initialisation(char *mapcub, t_params *params)
 		return (0);
 	if (!(init_player(&params->player, params->grid)))
 		return (0);
-	pre_calc(params);
 	return (1);
 }

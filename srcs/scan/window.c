@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:27:33 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:19:16 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 10:41:23 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			window_mlx(t_params *params, char *name)
 		ft_dprintf(2, "Error\nMlx error : %s (image)\n", strerror(errno));
 		return (0);
 	}
-	img->img =
-		mlx_get_data_addr(params->fullscreen, &img->bpp, &img->len, &img->endian);
+	img->img = mlx_get_data_addr(params->fullscreen,
+		&img->bpp, &img->len, &img->endian);
 	return (1);
 }

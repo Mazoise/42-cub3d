@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 14:45:55 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 11:34:12 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 10:41:49 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				draw_in_wdw(t_params *params)
 	return (1);
 }
 
-void		loop_mlx(t_params *params)
+void			loop_mlx(t_params *params)
 {
 	mlx_hook(params->wdw, 17, 0, exit_wdw, params);
 	mlx_do_key_autorepeatoff(params->ptr);
@@ -31,7 +31,7 @@ void		loop_mlx(t_params *params)
 	mlx_loop(params->ptr);
 }
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_params	params;
 

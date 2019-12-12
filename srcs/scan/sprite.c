@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 12:04:39 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/11 14:35:31 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:09:18 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		print_sprite(t_params *params, double angle, int i)
 	idx.i = i;
 	cam.x = floor(params->scan.wall.x) + 0.5;
 	cam.y = floor(params->scan.wall.y) + 0.5;
-	params->scan.face = &params->graph.S;
+	params->scan.face = &params->graph.s;
 	dist = rsqrt(pow(cam.x - params->player.pos.x, 2)
 		+ pow(cam.y - params->player.pos.y, 2));
 	height = params->max.i / (dist * params->max.j) * params->calc.proj;

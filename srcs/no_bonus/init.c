@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 10:41:00 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 10:42:21 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:10:10 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static t_rgb	*floor_ceil(t_params *params, char c)
 {
 	if (c == 'F')
 	{
-		params->graph.F.true = 1;
-		return (&params->graph.F);
+		params->graph.f.true = 1;
+		return (&params->graph.f);
 	}
 	else
 	{
-		params->graph.C.true = 1;
-		return (&params->graph.C);
+		params->graph.c.true = 1;
+		return (&params->graph.c);
 	}
 }
 
@@ -55,7 +55,7 @@ static int		conv_color(char *str, t_params *params, char c)
 	return (1);
 }
 
-int			conv_params(char *str, t_params *params)
+int				conv_params(char *str, t_params *params)
 {
 	int		i;
 	int		ret;

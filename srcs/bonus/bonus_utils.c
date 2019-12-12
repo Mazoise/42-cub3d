@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 08:59:32 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 12:02:19 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:11:49 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		clear_void(t_mlx_img *map, t_idx max)
 
 	i = 0;
 	opp = map->bpp / 8;
-	while(i < max.i * max.j)
+	while (i < max.i * max.j)
 	{
 		if (map->img[i * opp + 1] == 0
 			&& map->img[i * opp + 2] == 0
@@ -63,19 +63,19 @@ int			check_all_params(t_params *params)
 	ret = 0;
 	if ((params->max.i < 0 || params->max.j < 0))
 		ret = ft_dprintf(2, "Error\nMissing resolution format\n");
-	if (!params->graph.NO.img)
+	if (!params->graph.no.img)
 		ret = ft_dprintf(2, "Error\nMissing north texture path\n");
-	if (!params->graph.SO.img)
+	if (!params->graph.so.img)
 		ret = ft_dprintf(2, "Error\nMissing south texture path\n");
-	if (!params->graph.WE.img)
+	if (!params->graph.we.img)
 		ret = ft_dprintf(2, "Error\nMissing west texture path\n");
-	if (!params->graph.EA.img)
+	if (!params->graph.ea.img)
 		ret = ft_dprintf(2, "Error\nMissing east texture path\n");
-	if (!params->graph.S.img)
+	if (!params->graph.s.img)
 		ret = ft_dprintf(2, "Error\nMissing sprite texture path\n");
-	if (!params->bonus.F.img)
+	if (!params->bonus.f.img)
 		ret = ft_dprintf(2, "Error\nMissing floor texture path\n");
-	if (!params->bonus.C.img)
+	if (!params->bonus.c.img)
 		ret = ft_dprintf(2, "Error\nMissing ceiling texture path\n");
 	return (ret);
 }
@@ -91,9 +91,6 @@ void		pre_color(t_colors *colors)
 	colors->zero.blue = 54;
 	colors->zero.red = 54;
 	colors->zero.green = 54;
-	colors->out.blue = 0;
-	colors->out.red = 0;
-	colors->out.green = 0;
 	colors->player.blue = 130;
 	colors->player.red = 150;
 	colors->player.green = 54;

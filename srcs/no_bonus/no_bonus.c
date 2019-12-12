@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 10:34:54 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/11 11:18:30 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 11:10:52 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ int			check_all_params(t_params *params)
 	ret = 0;
 	if ((params->max.i < 0 || params->max.j < 0))
 		ret = ft_dprintf(2, "Error\nMissing resolution format\n");
-	if (!params->graph.NO.img)
+	if (!params->graph.no.img)
 		ret = ft_dprintf(2, "Error\nMissing north texture path\n");
-	if (!params->graph.SO.img)
+	if (!params->graph.so.img)
 		ret = ft_dprintf(2, "Error\nMissing south texture path\n");
-	if (!params->graph.WE.img)
+	if (!params->graph.we.img)
 		ret = ft_dprintf(2, "Error\nMissing west texture path\n");
-	if (!params->graph.EA.img)
+	if (!params->graph.ea.img)
 		ret = ft_dprintf(2, "Error\nMissing east texture path\n");
-	if (!params->graph.S.img)
+	if (!params->graph.s.img)
 		ret = ft_dprintf(2, "Error\nMissing sprite texture path\n");
-	if (!params->graph.F.true)
+	if (!params->graph.f.true)
 		ret = ft_dprintf(2, "Error\nMissing floor color format\n");
-	if (!params->graph.C.true)
+	if (!params->graph.c.true)
 		ret = ft_dprintf(2, "Error\nMissing ceiling color format\n");
 	return (ret);
 }
@@ -60,11 +60,11 @@ void		line_put(t_params *params, double inc, int i, double angle)
 	dist = cos(inc) * rsqrt(power.x + power.y);
 	height = params->max.i / (dist * params->max.j) * params->calc.proj;
 	while (++idx.j < (params->max.j - height) / 2)
-		rgb_to_img(&params->img, params->graph.C, idx.i, idx.j);
+		rgb_to_img(&params->img, params->graph.c, idx.i, idx.j);
 	pct = pct_calc(params);
 	texture_put(params, height, pct, &idx);
 	while (idx.j < params->max.j)
-		rgb_to_img(&params->img, params->graph.F, idx.i, idx.j++);
+		rgb_to_img(&params->img, params->graph.f, idx.i, idx.j++);
 }
 
 void		sprite_put(t_params *params, double height, double pct, t_idx *idx)

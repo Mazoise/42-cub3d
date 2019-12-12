@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:20:44 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/07 19:46:11 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/12 09:52:39 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int			first_fill_grid(char *str, t_params *params)
 
 int					conv_grid(char *str, t_params *params)
 {
-	if (check_all_params(params) > 0)
+	if (check_all_params(params) > 0 || !(pre_calc(params)))
 		return (0);
 	if (!params->grid)
 	{
