@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 17:16:41 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 09:08:44 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/14 11:04:35 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,25 @@ static int		first_line(char *str)
 static int		closed_line(char *line, int *pos, int last)
 {
 	int j;
+	int ret;
 
-	if (line[0] != '1')
-	{
-		ft_dprintf(2, "Error\nMap not closed on the west side\n");
-		return (0);
-	}
+	ret = 0;
 	j = -1;
-	while (is_grid(line[++j]) || is_compas(line[j]))
-		if (is_compas(line[j]))
-			(*pos)++;
-	if (j != last)
+	if (line[0] != '1')
+		ret = ft_dprintf(2, "Error\nMap not closed on the west side\n");
+	else
 	{
-		ft_dprintf(2, "Error\nMap not rectangular\n");
-		return (0);
+		while (is_grid(line[++j]) || is_compas(line[j]))
+			if (is_compas(line[j]))
+				(*pos)++;
+		if (line[j])
+			ret = ft_dprintf(2, "Error\nWrong character in map\n");
+		else if (j != last)
+			ret = ft_dprintf(2, "Error\nMap not rectangular\n");
+		else if (line[j - 1] != '1')
+			ret = ft_dprintf(2, "Error\nMap not closed on the east side\n");
 	}
-	if (line[j - 1] != '1')
-	{
-		ft_dprintf(2, "Error\nMap not closed on the east side\n");
-		return (0);
-	}
-	return (1);
+	return (ret);
 }
 
 static int		closed_grid(char **grid, int *pos)
@@ -68,7 +66,7 @@ static int		closed_grid(char **grid, int *pos)
 	if (!(last = first_line(grid[0])))
 		return (0);
 	while (grid[++i])
-		if (!(closed_line(grid[i], pos, last)))
+		if (closed_line(grid[i], pos, last))
 			return (0);
 	j = -1;
 	while (grid[i - 1][++j])

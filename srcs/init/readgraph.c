@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 12:11:22 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 14:50:35 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/14 10:18:23 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int					conv_resolution(char *str, t_params *params)
 
 	i = 0;
 	if (params->max.i != -1 || params->max.j != -1)
-	{
-		ft_dprintf(2, "Error\nMultiple definition (resolution)\n");
-		return (0);
-	}
+		return (-2);
 	params->max.i = ft_atoi(&str[i]);
 	while (str[i] == ' ')
 		i++;
@@ -81,7 +78,7 @@ int					conv_resolution(char *str, t_params *params)
 		i++;
 	if (str[i])
 	{
-		ft_dprintf(2, "Error\nWrong Resolution format\n");
+		ft_dprintf(2, "Error\nWrong resolution syntax\n");
 		return (0);
 	}
 	return (1);

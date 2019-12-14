@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:37:14 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 10:40:26 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/14 11:17:56 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int			is_compas(char c)
 
 int			pre_calc(t_params *params)
 {
-	if (params->max.i < 1 || params->max.j < 1)
+	if (params->max.i < 10 || params->max.j < 10)
 	{
-		ft_dprintf(2, "Error\nResolution must be at least 1 x 1\n");
+		ft_dprintf(2, "Error\nResolution must be at least 10 x 10\n");
 		return (0);
 	}
 	if (params->max.i > FULLSCREEN_W)

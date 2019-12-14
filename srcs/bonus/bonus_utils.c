@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 08:59:32 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 11:11:49 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/14 10:51:03 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int			conv_params(char *str, t_params *params)
 	else if (str[i] == 'F' || str[i] == 'C')
 		ret = conv_texture(&str[i + 1], params, str[i]);
 	else if (str[i])
+		ret = error_conv(str[i]);
+	if (ret == -2)
 	{
-		ft_dprintf(2, "Error\nWrong information syntax\n");
+		ft_dprintf(2, "Error\nMultiple definition (resolution)\n");
 		return (0);
 	}
-	if (ret == -1 && ret++)
-		ft_dprintf(2, "Error\nWrong color syntax (R,G,B)");
 	return (ret);
 }
 

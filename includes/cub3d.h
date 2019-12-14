@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 10:58:42 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/14 10:40:56 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void				put_pix(t_mlx_img *img, t_mlx_img txtr, int dst, int src);
 double				rsqrt(double number);
 void				player_error(int pos);
 void				txtr_error(char c);
+int					error_conv(char c);
 int					draw_mini_map(t_params *params);
 void				put_cut_nb_fd(int nb, int fd, int len);
 int					conv_params(char *str, t_params *params);

@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:12:35 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/12 14:34:20 by mchardin         ###   ########.fr       */
+/*   Updated: 2019/12/14 10:42:31 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,15 @@ void		player_error(int pos)
 		ft_dprintf(2, "Error\nNo multi player mode available on this game\n");
 	else if (pos < 1)
 		ft_dprintf(2, "Error\nMissing starting point in map\n");
+}
+
+int			error_conv(char c)
+{
+	if (c == 'F')
+		ft_dprintf(2, "Error\nMultiple definition (floor)\n");
+	else if (c == 'C')
+		ft_dprintf(2, "Error\nMultiple definition (ceiling)\n");
+	else if (c)
+		ft_dprintf(2, "Error\nWrong information syntax\n");
+	return (0);
 }
