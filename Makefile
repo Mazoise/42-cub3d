@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/09/14 19:30:25 by mchardin          #+#    #+#              #
+#    Updated: 2021/09/14 20:23:13 by mchardin         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 PREFIX_INIT	=	./srcs/init/
 
 PREFIX_SCAN =	./srcs/scan/
@@ -5,6 +17,8 @@ PREFIX_SCAN =	./srcs/scan/
 PREFIX_B	=	./srcs/bonus/
 
 PREFIX_NO_B	=	./srcs/no_bonus/
+
+PREFIX_MLX	=	./srcs/mlx/
 
 INCLUDES	=	./includes/
 
@@ -26,15 +40,17 @@ OBJS		=	${NB_SRCS:.c=.o}
 
 OBJS_B		=	${B_SRCS:.c=.o}
 
-CC			=	gcc
+CC			=	clang-9
 
-CFLAGS		=	-g -Ofast -Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L)
+CFLAGS		=	-g -Ofast -Wall -Werror -Wextra -I $(INCLUDES) -I $(INCLUDES_L) -I$(PREFIX_MLX) 
 
 RM 			=	rm -f
 
 MAKE_LIBFT	=	$(MAKE) -C./libft/
 
-MLX_SYS		=	-lmlx -framework OpenGL -framework AppKit
+MAKE_MLX	=	$(MAKE) -C$(PREFIX_MLX)
+
+MLX_SYS		=	-lmlx -lm -lXext -lX11 -L$(PREFIX_MLX) -L/usr/lib/
 
 LIBFT		=	-L./libft/ -lft
 
@@ -45,19 +61,24 @@ $(NAME) :		all
 makelib :
 				$(MAKE_LIBFT)
 
-bonus :			./includes/cub3d.h $(OBJS_B) makelib
+makemlx :
+				$(MAKE_MLX)
+
+bonus :			./includes/cub3d.h $(OBJS_B) makelib makemlx
 				$(CC) $(OBJS_B) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
 
-all :			./includes/cub3d.h $(OBJS) makelib
+all :			./includes/cub3d.h $(OBJS) makelib makemlx
 				$(CC) $(OBJS) $(MLX_SYS) $(LIBFT) -lm -o $(NAME)
 
 clean :
 				$(RM) $(OBJS) $(OBJS_B)
 				$(MAKE_LIBFT) clean
+				$(MAKE_MLX) clean
 
 fclean :		clean
 				$(RM) $(NAME)
 				$(MAKE_LIBFT) fclean
+				$(MAKE_MLX) clean
 
 re :			fclean all
 

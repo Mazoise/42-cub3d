@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 11:01:01 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/14 10:40:56 by mchardin         ###   ########.fr       */
+/*   Updated: 2021/09/14 20:00:48 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@
 # define DWN 8
 # define OBJ 9
 # define EVENTS 10
+
+# define ESC_KEY 65307
+# define UP_KEY 65362
+# define DOWN_KEY 65364
+# define RIGHT_KEY 65363
+# define LEFT_KEY 65361
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define TAB_KEY 65289
+# define C_KEY 99
+# define Q_KEY 113
+# define P_KEY 112
+# define M_KEY 109
+# define SPACE 32
+# define F_KEY 102
+# define E_KEY 101
 
 typedef union		u_squ
 {

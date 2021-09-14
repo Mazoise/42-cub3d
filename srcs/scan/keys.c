@@ -6,7 +6,7 @@
 /*   By: mchardin <mchardin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:49:07 by mchardin          #+#    #+#             */
-/*   Updated: 2019/12/10 12:48:16 by mchardin         ###   ########.fr       */
+/*   Updated: 2021/09/14 20:00:41 by mchardin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,52 +48,52 @@ void		key_events(t_params *params)
 
 int			press_key(int keycode, t_params *params)
 {
-	if (keycode == 14 || keycode == 124)
-		params->event[CAM_R] = 1;
-	else if (keycode == 12 || keycode == 123)
+	if (keycode == LEFT_KEY || keycode == Q_KEY)
 		params->event[CAM_L] = 1;
-	else if (keycode == 48)
+	else if (keycode == RIGHT_KEY || keycode == E_KEY)
+		params->event[CAM_R] = 1;
+	else if (keycode == TAB_KEY)
 		params->event[MAP] = 1;
-	else if (keycode == 13)
+	else if (keycode == W_KEY)
 		params->event[FORW] = 1;
-	else if (keycode == 1)
+	else if (keycode == S_KEY)
 		params->event[BCKW] = 1;
-	else if (keycode == 0)
+	else if (keycode == A_KEY)
 		params->event[LEFT] = 1;
-	else if (keycode == 2)
+	else if (keycode == D_KEY)
 		params->event[RGHT] = 1;
-	else if (keycode == 126)
+	else if (keycode == UP_KEY)
 		params->event[UP] = 1;
-	else if (keycode == 125)
+	else if (keycode == DOWN_KEY)
 		params->event[DWN] = 1;
-	else if (keycode == 8 && params->event[OBJ] == 1)
+	else if (keycode == F_KEY && params->event[OBJ] == 1)
 		params->event[OBJ] = 0;
-	else if (keycode == 8 && params->event[OBJ] == 0)
+	else if (keycode == F_KEY && params->event[OBJ] == 0)
 		params->event[OBJ] = 1;
 	return (1);
 }
 
 int			release_key(int keycode, t_params *params)
 {
-	if (keycode == 53)
+	if (keycode == ESC_KEY)
 		exit_wdw(params);
-	else if (keycode == 14 || keycode == 124)
-		params->event[CAM_R] = 0;
-	else if (keycode == 12 || keycode == 123)
+	if (keycode == LEFT_KEY || keycode == Q_KEY)
 		params->event[CAM_L] = 0;
-	else if (keycode == 48)
+	else if (keycode == RIGHT_KEY || keycode == E_KEY)
+		params->event[CAM_R] = 0;
+	else if (keycode == TAB_KEY)
 		params->event[MAP] = 0;
-	else if (keycode == 13)
+	else if (keycode == W_KEY)
 		params->event[FORW] = 0;
-	else if (keycode == 1)
+	else if (keycode == S_KEY)
 		params->event[BCKW] = 0;
-	else if (keycode == 0)
+	else if (keycode == A_KEY)
 		params->event[LEFT] = 0;
-	else if (keycode == 2)
+	else if (keycode == D_KEY)
 		params->event[RGHT] = 0;
-	else if (keycode == 126)
+	else if (keycode == UP_KEY)
 		params->event[UP] = 0;
-	else if (keycode == 125)
+	else if (keycode == DOWN_KEY)
 		params->event[DWN] = 0;
 	return (1);
 }
